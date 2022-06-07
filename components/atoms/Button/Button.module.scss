@@ -1,0 +1,57 @@
+.button {
+  @apply inline-flex items-center justify-center rounded-full cursor-pointer mr-2;
+
+  & svg {
+    @apply mr-3;
+  }
+
+  /* SIZES */
+  &.lg {
+    @apply px-16 py-4;
+  }
+
+  &.md {
+    @apply px-8 py-2;
+  }
+
+  &.sm {
+    @apply px-4 py-1.5;
+  }
+
+  /* TYPES */
+  &.primary {
+    @apply text-white bg-purple hover:bg-purple-dark;
+  }
+
+  &.secondary {
+    @apply text-purple bg-purple-light hover:text-white hover:bg-purple;
+  }
+
+  &.tertiary {
+    @apply text-purple bg-white hover:bg-purple-light;
+  }
+
+  &.light {
+    @apply font-normal;
+  }
+
+  &.medium {
+    @apply font-medium;
+  }
+
+  &.semi {
+    @apply font-semibold;
+  }
+
+  &.bold {
+    @apply font-bold;
+  }
+
+  &.disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}
+
+.icon {
+  @apply mr-3;
+}

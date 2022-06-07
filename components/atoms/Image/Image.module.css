@@ -1,0 +1,11 @@
+.image {
+  @apply flex;
+}
+
+.cover {
+  @apply object-cover;
+}
+
+.contain {
+  @apply object-contain;
+}
