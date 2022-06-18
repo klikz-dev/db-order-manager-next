@@ -1,0 +1,55 @@
+.root {
+  @apply flex flex-col items-start h-full border-r border-gray-300;
+}
+
+.toggle {
+  @apply p-4 xl:hidden absolute z-20;
+}
+
+.wrap {
+  @apply bg-white h-full transform -translate-x-full xl:translate-x-0 ease-in-out transition duration-200 pb-6 xl:py-6;
+}
+
+.collapse {
+  @apply translate-x-0 flex flex-col justify-start pt-12 shadow;
+}
+
+.menuWrap {
+  @apply px-4 w-80;
+}
+
+.menu {
+  @apply w-full flex justify-between items-center py-4;
+}
+
+.menuText {
+  @apply flex items-center text-gray-600 font-semibold;
+}
+
+.menuIcon {
+  @apply mr-3;
+}
+
+.rotate {
+  @apply rotate-180;
+}
+
+.iconExpand {
+  @apply transform duration-100;
+}
+
+.subMenuWrap {
+  @apply w-full pl-9;
+}
+
+.subMenu {
+  @apply block text-gray-600 hover:text-black py-2;
+}
+
+.menuActive {
+  @apply text-black font-semibold;
+}
+
+.hide {
+  @apply hidden;
+}
