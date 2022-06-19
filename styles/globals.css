@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './_font.css';
+
 html {
   scroll-behavior: smooth;
+}
+
+h1 {
+  @apply text-4xl font-bold;
+}
+
+h2 {
+  @apply text-3xl uppercase;
+}
+
+h3 {
+  @apply text-xl uppercase;
+}
+
+h4 {
+  @apply text-lg uppercase;
+}
+
+h5 {
+  @apply text-base uppercase;
+}
+
+h5 {
+  @apply text-sm uppercase;
+}
+
+th,
+td {
+  @apply border;
 }
