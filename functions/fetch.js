@@ -1,7 +1,7 @@
-export async function getOrders(year, month, day) {
+export async function getData(params) {
   const res = await fetch('/api/orders/', {
     method: 'POST',
-    body: JSON.stringify({ year: year, month: month, day: day }),
+    body: JSON.stringify({ params: params }),
     headers: { 'Content-Type': 'application/json' },
   })
   const orders = await res.json()

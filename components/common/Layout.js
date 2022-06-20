@@ -4,7 +4,6 @@ import Divider from '../atoms/Divider'
 import Loading from '../atoms/Loading'
 import Footer from '../organisms/Footer'
 import Header from '../organisms/Header'
-import SideNav from '../organisms/SideNav'
 
 export default function Layout({ children }) {
   const router = useRouter()
@@ -15,22 +14,15 @@ export default function Layout({ children }) {
       signOut()
     } else {
       return (
-        <>
+        <div style={{ minWidth: '1440px' }}>
           <Header />
-          <main id='page-content'>
-            <div className='flex'>
-              <div id='sideNav' className='w-0 xl:w-auto'>
-                <SideNav />
-              </div>
-              <div id='dashboard' className='min-h-full w-full py-16'>
-                {children}
-              </div>
-            </div>
-          </main>
+
+          <main id='page-content'>{children}</main>
 
           <Divider width={12} />
+
           <Footer />
-        </>
+        </div>
       )
     }
   } else if (status === 'unauthenticated') {

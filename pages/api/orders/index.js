@@ -1,10 +1,9 @@
 export default async function handler(req, res) {
-  console.log(req.body)
-  const { year, month, day } = req.body
+  const { params } = req.body
 
   const data = await fetch(
-    year && month && day
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/?limit=1000&year=${year}&month=${month}&day=${day}`
+    params
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/?${params}`
       : undefined,
     {
       method: 'GET',

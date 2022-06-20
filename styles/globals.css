@@ -13,26 +13,38 @@ h1 {
 }
 
 h2 {
-  @apply text-3xl uppercase;
+  @apply text-3xl font-bold;
 }
 
 h3 {
-  @apply text-xl uppercase;
+  @apply text-xl font-bold;
 }
 
 h4 {
-  @apply text-lg uppercase;
+  @apply text-lg font-bold;
 }
 
 h5 {
-  @apply text-base uppercase;
+  @apply text-base font-bold;
 }
 
-h5 {
-  @apply text-sm uppercase;
+h6 {
+  @apply text-sm font-bold;
 }
 
-th,
-td {
-  @apply border;
+p,
+span {
+  @apply text-base;
+}
+
+a {
+  @apply text-blue-600 hover:text-blue-700 hover:underline;
+}
+
+.rdrDefinedRangesWrapper {
+  width: 150px !important;
+}
+
+.rdrInputRanges {
+  display: none;
 }

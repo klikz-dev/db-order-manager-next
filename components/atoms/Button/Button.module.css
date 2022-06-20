@@ -21,7 +21,7 @@
 }
 
 .secondary {
-  @apply text-sky-800 bg-sky-50 hover:bg-sky-200;
+  @apply text-sky-800 border border-sky-800 bg-sky-50 hover:bg-sky-200;
 }
 
 .tertiary {
