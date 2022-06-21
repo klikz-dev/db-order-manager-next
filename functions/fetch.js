@@ -1,10 +1,12 @@
-export async function getData(params) {
-  const res = await fetch('/api/orders/', {
-    method: 'POST',
-    body: JSON.stringify({ params: params }),
-    headers: { 'Content-Type': 'application/json' },
-  })
-  const orders = await res.json()
+import useSWR from 'swr'
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-  return orders
+export function getData(url) {
+  const { data, error } = useSWR(url ?? undefined, fetcher)
+
+  return {
+    data: data,
+    loading: !error && !data,
+    error: error,
+  }
 }

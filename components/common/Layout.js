@@ -14,7 +14,7 @@ export default function Layout({ children }) {
       signOut()
     } else {
       return (
-        <div style={{ minWidth: '1440px' }}>
+        <div style={{ minWidth: '1375px' }}>
           <Header />
 
           <main id='page-content'>{children}</main>

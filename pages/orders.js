@@ -8,19 +8,19 @@ import Filter from '@/components/organisms/Filter'
 import { addDays } from 'date-fns'
 import { getData } from '@/functions/fetch'
 
-export default function Page() {
-  const [orders, setOrders] = useState([])
+export default function Orders() {
+  const [ordersURL, setOrdersURL] = useState(
+    `${
+      process.env.NEXT_PUBLIC_BACKEND_URL
+    }/api/orders?limit=9999&from=${dateFormat(
+      addDays(new Date(), -13),
+      'yy-m-d'
+    )}&to=${dateFormat(new Date(), 'yy-m-d')}`
+  )
 
-  useEffect(() => {
-    async function fetchData() {
-      const fr = dateFormat(addDays(new Date(), -13), 'yy-m-d')
-      const to = dateFormat(new Date(), 'yy-m-d')
+  const { data: orders, loading } = getData(ordersURL)
 
-      const ordersData = await getData(`limit=9999&from=${fr}&to=${to}`)
-      setOrders(ordersData?.results || [])
-    }
-    fetchData()
-  }, [])
+  console.log(orders)
 
   /**
    * Filters
@@ -34,11 +34,9 @@ export default function Page() {
 
   const [filteredOrders, setFilteredOrders] = useState([])
 
-  console.log(orders)
-
   useEffect(() => {
     setFilteredOrders(
-      orders?.filter((o) => {
+      orders?.results?.filter((o) => {
         if (status !== 'All' && status !== o.status) {
           return false
         }
@@ -69,6 +67,8 @@ export default function Page() {
     )
   }, [orders, status, order, sample, ordersample, complete, incomplete])
 
+  console.log(filteredOrders)
+
   /**
    * Search Functions
    */
@@ -85,41 +85,36 @@ export default function Page() {
   const [reference, setReference] = useState('')
 
   async function dateSearch() {
-    setOrders([])
-
     const fr = dateFormat(dateRange.selection.startDate, 'yy-m-d')
     const to = dateFormat(dateRange.selection.endDate, 'yy-m-d')
 
-    const ordersData = await getData(`limit=9999&from=${fr}&to=${to}`)
-    setOrders(ordersData?.results || [])
+    setOrdersURL(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=9999&from=${fr}&to=${to}`
+    )
   }
 
   async function poSearch() {
-    setOrders([])
-
-    const ordersData = await getData(`limit=9999&po=${orderNumber}`)
-    setOrders(ordersData?.results || [])
+    setOrdersURL(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=9999&po=${orderNumber}`
+    )
   }
 
   async function customerSearch() {
-    setOrders([])
-
-    const ordersData = await getData(`limit=9999&customer=${customer}`)
-    setOrders(ordersData?.results || [])
+    setOrdersURL(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=9999&customer=${customer}`
+    )
   }
 
   async function manufacturerSearch() {
-    setOrders([])
-
-    const ordersData = await getData(`limit=9999&manufacturer=${manufacturer}`)
-    setOrders(ordersData?.results || [])
+    setOrdersURL(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=9999&manufacturer=${manufacturer}`
+    )
   }
 
   async function refSearch() {
-    setOrders([])
-
-    const ordersData = await getData(`limit=9999&ref=${reference}`)
-    setOrders(ordersData?.results || [])
+    setOrdersURL(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=9999&ref=${reference}`
+    )
   }
 
   return (
@@ -158,67 +153,77 @@ export default function Page() {
 
       <div className='min-h-full w-full px-8 py-8'>
         <div className={styles.root}>
-          {filteredOrders?.length > 0 ? (
-            <table className='w-full table-auto border-collapse border'>
-              <thead className='sticky top-0 shadow bg-blue-100'>
-                <tr>
-                  <th>PO #</th>
-                  <th>Status</th>
-                  <th>Date</th>
-                  <th>Type</th>
-                  <th>Customer</th>
-                  <th>Order Total</th>
-                  <th>Manufacturer</th>
-                  <th>SpShip</th>
-                  <th>Ref #</th>
-                  <th>Note</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {filteredOrders.map((order) => (
-                  <tr key={order.shopifyOrderId}>
-                    <td>{order.orderNumber}</td>
-                    <td
-                      className={classNames(
-                        order.status === 'New'
-                          ? 'bg-blue-600 text-white'
-                          : order.status === 'Processed'
-                          ? 'bg-purple-600 text-white'
-                          : order.status === 'Stock OK'
-                          ? 'bg-gray-200'
-                          : order.status.includes('Cancel')
-                          ? 'bg-yellow-800 text-white'
-                          : order.status.includes('Refund')
-                          ? 'bg-red-500 text-white'
-                          : order.status.includes('Approval')
-                          ? 'bg-lime-700 text-white'
-                          : 'bg-white'
-                      )}
-                    >
-                      <p>{order.status}</p>
-                    </td>
-                    <td>{dateFormat(order.orderDate, 'mm/dd/yy')}</td>
-                    <td>{order.orderType}</td>
-                    <td>
-                      <p>
-                        {order.billingFirstName} {order.billingLastName}
-                      </p>
-                      <a href={`mailto:${order.email}`} className='text-xs'>
-                        {order.email}
-                      </a>
-                    </td>
-                    <td>${order.orderTotal?.toFixed(2)}</td>
-                    <td>{order.manufacturerList}</td>
-                    <td>{order.specialShipping}</td>
-                    <td>{order.referenceNumber}</td>
-                    <td>{order.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {loading ? (
+            <Loading></Loading>
           ) : (
-            <Loading />
+            <>
+              {filteredOrders?.length > 0 ? (
+                <table className='w-full table-auto border-collapse border'>
+                  <thead className='sticky top-0 shadow bg-blue-100'>
+                    <tr>
+                      <th>PO #</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Customer</th>
+                      <th>Order Total</th>
+                      <th>Manufacturer</th>
+                      <th>SpShip</th>
+                      <th>Ref #</th>
+                      <th>Note</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {filteredOrders.map((order) => (
+                      <tr key={order.shopifyOrderId}>
+                        <td>{order.orderNumber}</td>
+                        <td
+                          className={classNames(
+                            order.status === 'New'
+                              ? 'bg-blue-600 text-white'
+                              : order.status === 'Processed'
+                              ? 'bg-purple-600 text-white'
+                              : order.status === 'Stock OK'
+                              ? 'bg-gray-200'
+                              : order.status.includes('Cancel')
+                              ? 'bg-yellow-800 text-white'
+                              : order.status.includes('Refund')
+                              ? 'bg-red-500 text-white'
+                              : order.status.includes('Approval')
+                              ? 'bg-lime-700 text-white'
+                              : 'bg-white'
+                          )}
+                        >
+                          <p>{order.status}</p>
+                        </td>
+                        <td>{dateFormat(order.orderDate, 'mm/dd/yy')}</td>
+                        <td>{order.orderType}</td>
+                        <td>
+                          <p>
+                            {order.billingFirstName} {order.billingLastName}
+                          </p>
+                          <a href={`mailto:${order.email}`} className='text-sm'>
+                            {order.email}
+                          </a>
+                        </td>
+                        <td>${order.orderTotal?.toFixed(2)}</td>
+                        <td>{order.manufacturerList}</td>
+                        <td>{order.specialShipping}</td>
+                        <td>{order.referenceNumber}</td>
+                        <td>{order.note}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div className='p-4'>
+                  <p className='text-red-800 font-medium text-center'>
+                    No orders found matching with your filter
+                  </p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
