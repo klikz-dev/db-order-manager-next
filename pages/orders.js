@@ -20,8 +20,6 @@ export default function Orders() {
 
   const { data: orders, loading } = getData(ordersURL)
 
-  console.log(orders)
-
   /**
    * Filters
    */
@@ -66,8 +64,6 @@ export default function Orders() {
       })
     )
   }, [orders, status, order, sample, ordersample, complete, incomplete])
-
-  console.log(filteredOrders)
 
   /**
    * Search Functions
@@ -177,7 +173,17 @@ export default function Orders() {
                   <tbody>
                     {filteredOrders.map((order) => (
                       <tr key={order.shopifyOrderId}>
-                        <td>{order.orderNumber}</td>
+                        <td>
+                          <a
+                            href={`/order/?id=${order.shopifyOrderId}`}
+                            target='_blank'
+                            rel='noreferrer'
+                            className='font-bold underline'
+                          >
+                            {order.orderNumber}
+                          </a>
+                        </td>
+
                         <td
                           className={classNames(
                             order.status === 'New'

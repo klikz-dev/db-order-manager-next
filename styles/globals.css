@@ -9,36 +9,35 @@ html {
 }
 
 h1 {
-  @apply text-4xl font-bold;
+  @apply text-4xl font-medium;
 }
 
 h2 {
-  @apply text-3xl font-bold;
+  @apply text-3xl font-medium;
 }
 
 h3 {
-  @apply text-xl font-bold;
+  @apply text-xl font-medium;
 }
 
 h4 {
-  @apply text-lg font-bold;
+  @apply text-lg font-medium;
 }
 
 h5 {
-  @apply text-base font-bold;
+  @apply text-base font-medium;
 }
 
 h6 {
-  @apply text-sm font-bold;
+  @apply text-sm font-medium;
 }
 
-p,
-span {
+p {
   @apply text-base;
 }
 
 a {
-  @apply text-blue-600 hover:text-blue-700 hover:underline;
+  @apply text-base text-blue-700 hover:text-blue-900 hover:underline;
 }
 
 .rdrDefinedRangesWrapper {
