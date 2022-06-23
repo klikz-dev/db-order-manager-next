@@ -51,7 +51,9 @@ export default function Order() {
               accessToken={session?.accessToken}
             />
 
-            {order && <Address order={order} />}
+            {order && (
+              <Address order={order} accessToken={session?.accessToken} />
+            )}
           </div>
         </div>
       ) : (
