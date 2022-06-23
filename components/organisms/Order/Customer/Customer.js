@@ -2,17 +2,15 @@ import { getData } from '@/functions/fetch'
 import { IdentificationIcon } from '@heroicons/react/solid'
 import { useEffect, useState } from 'react'
 
-export default function Customer({ customerId }) {
+export default function Customer({ customerId, accessToken }) {
   const { data: customer } = getData(
-    customerId
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/customers/${customerId}`
-      : undefined
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/customers/${customerId}`,
+    accessToken
   )
 
   const { data: addressData } = getData(
-    customerId
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/addresses/?customer=${customerId}`
-      : undefined
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/addresses/?customer=${customerId}`,
+    accessToken
   )
   const address = addressData?.results?.[0]
 

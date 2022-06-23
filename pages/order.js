@@ -6,23 +6,24 @@ import Address from '@/components/organisms/Order/Address'
 import { getData } from '@/functions/fetch'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 
 export default function Order() {
+  const { data: session } = useSession()
+
   const router = useRouter()
   const { id } = router?.query || {}
 
   const { data: order } = getData(
-    id ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${id}` : undefined
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${id}`,
+    session?.accessToken
   )
-  console.log(order)
 
   const { data: linesData } = getData(
-    id
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?order=${id}`
-      : undefined
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?order=${id}`,
+    session?.accessToken
   )
   const { results: lines } = linesData ?? {}
-  console.log(lines)
 
   const [manufacturers, setManufacturers] = useState('')
   const [reference, setReference] = useState('')
@@ -45,7 +46,10 @@ export default function Order() {
               setReference={setReference}
             />
 
-            <Customer customerId={order?.customerId} />
+            <Customer
+              customerId={order?.customerId}
+              accessToken={session?.accessToken}
+            />
 
             {order && <Address order={order} />}
           </div>

@@ -1,9 +1,9 @@
 import Button from '@/components/atoms/Button'
 import {
-  DocumentReportIcon,
   LocationMarkerIcon,
   PencilAltIcon,
   UploadIcon,
+  XIcon,
 } from '@heroicons/react/solid'
 import { useState } from 'react'
 
@@ -29,6 +29,10 @@ export default function Address({ order }) {
   const [shippingZip, setShippingZip] = useState(order.shippingZip)
   const [shippingCountry, setShippingCountry] = useState(order.shippingCountry)
   const [shippingMethod, setShippingMethod] = useState(order.shippingMethod)
+
+  function updateAddress() {
+    setEdit(false)
+  }
 
   return (
     <>
@@ -56,37 +60,31 @@ export default function Address({ order }) {
           </div>
 
           <div>
-            {edit ? (
-              <></>
-            ) : (
-              <>
-                <p className='font-semibold mb-1'>Shipping Address: </p>
-                <p>
-                  {shippingFirstName} {shippingLastName}
-                </p>
-                <p>
-                  {shippingAddress1} {shippingAddress2},
-                </p>
-                <p>
-                  {shippingCity}, {shippingState} {shippingZip},
-                </p>
-                <p>{shippingCountry}</p>
-                <p>{shippingCompany}</p>
-                <p>{shippingPhone}</p>
-                <p className='mt-2 text-red-700'>{shippingMethod}</p>
+            <p className='font-semibold mb-1'>Shipping Address: </p>
+            <p>
+              {shippingFirstName} {shippingLastName}
+            </p>
+            <p>
+              {shippingAddress1} {shippingAddress2},
+            </p>
+            <p>
+              {shippingCity}, {shippingState} {shippingZip},
+            </p>
+            <p>{shippingCountry}</p>
+            <p>{shippingCompany}</p>
+            <p>{shippingPhone}</p>
+            <p className='mt-2 text-red-700'>{shippingMethod}</p>
 
-                <Button
-                  type='secondary'
-                  className='mt-5'
-                  onClick={() => setEdit(true)}
-                >
-                  <div className='flex items-center'>
-                    <PencilAltIcon width={16} height={16} />
-                    <span className='leading-4 ml-1'>Edit</span>
-                  </div>
-                </Button>
-              </>
-            )}
+            <Button
+              type='secondary'
+              className='mt-5'
+              onClick={() => setEdit(true)}
+            >
+              <div className='flex items-center'>
+                <PencilAltIcon width={16} height={16} />
+                <span className='leading-4 ml-1'>Edit</span>
+              </div>
+            </Button>
           </div>
         </div>
       </div>
@@ -226,6 +224,17 @@ export default function Address({ order }) {
               <div className='flex items-center'>
                 <UploadIcon width={16} height={16} />
                 <span className='leading-4 ml-1'>Save</span>
+              </div>
+            </Button>
+
+            <Button
+              type='tertiary'
+              className='block mt-5 ml-2'
+              onClick={updateAddress}
+            >
+              <div className='flex items-center'>
+                <XIcon width={16} height={16} />
+                <span className='leading-4 ml-1'>Dismiss</span>
               </div>
             </Button>
           </div>

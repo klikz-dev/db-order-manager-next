@@ -7,8 +7,11 @@ import classNames from 'classnames'
 import Filter from '@/components/organisms/Filter'
 import { addDays } from 'date-fns'
 import { getData } from '@/functions/fetch'
+import { useSession } from 'next-auth/react'
 
 export default function Orders() {
+  const { data: session } = useSession()
+
   const [ordersURL, setOrdersURL] = useState(
     `${
       process.env.NEXT_PUBLIC_BACKEND_URL
@@ -18,7 +21,7 @@ export default function Orders() {
     )}&to=${dateFormat(new Date(), 'yy-m-d')}`
   )
 
-  const { data: orders, loading } = getData(ordersURL)
+  const { data: orders, loading } = getData(ordersURL, session?.accessToken)
 
   /**
    * Filters

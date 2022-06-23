@@ -1,6 +1,14 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
+function createUserObj(token, user) {
+  return {
+    accessToken: token,
+    accessTokenExpires: new Date().getTime() + 86400 * 1000,
+    ...user,
+  }
+}
+
 export default NextAuth({
   pages: {
     signIn: '/',
@@ -32,7 +40,23 @@ export default NextAuth({
         const token = tokenData.key
 
         if (token) {
-          return token
+          const userRes = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dj-rest-auth/user/`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${token}`,
+              },
+              redirect: 'follow',
+            }
+          )
+          const user = await userRes.json()
+
+          if (user) {
+            return createUserObj(token, user)
+          }
+          return null
         }
         return null
       },
@@ -46,7 +70,10 @@ export default NextAuth({
     secret: process.env.JWT_SECRET_KEY,
   },
   callbacks: {
-    async jwt({ token }) {
+    async jwt({ token, user }) {
+      if (user) {
+        token = user
+      }
       return token
     },
     async session({ session, token }) {
