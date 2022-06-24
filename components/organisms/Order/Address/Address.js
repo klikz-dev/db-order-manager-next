@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/solid'
 import { useState } from 'react'
 
-export default function Address({ order, accessToken }) {
+export default function Address({ order, updateOrder }) {
   const [edit, setEdit] = useState(false)
 
   const [shippingFirstName, setShippingFirstName] = useState(
@@ -31,31 +31,21 @@ export default function Address({ order, accessToken }) {
   const [shippingMethod, setShippingMethod] = useState(order.shippingMethod)
 
   const [updateError, setUpdateError] = useState('')
-  async function updateAddress() {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${order.shopifyOrderId}/`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${accessToken}`,
-        },
-        body: JSON.stringify({
-          shippingFirstName: shippingFirstName,
-          shippingLastName: shippingLastName,
-          shippingAddress1: shippingAddress1,
-          shippingAddress2: shippingAddress2,
-          shippingCity: shippingCity,
-          shippingCompany: shippingCompany,
-          shippingPhone: shippingPhone,
-          shippingState: shippingState,
-          shippingZip: shippingZip,
-          shippingCountry: shippingCountry,
-          shippingMethod: shippingMethod,
-        }),
-        redirect: 'follow',
-      }
-    )
+
+  async function handleSave() {
+    const res = await updateOrder({
+      shippingFirstName: shippingFirstName,
+      shippingLastName: shippingLastName,
+      shippingAddress1: shippingAddress1,
+      shippingAddress2: shippingAddress2,
+      shippingCity: shippingCity,
+      shippingCompany: shippingCompany,
+      shippingPhone: shippingPhone,
+      shippingState: shippingState,
+      shippingZip: shippingZip,
+      shippingCountry: shippingCountry,
+      shippingMethod: shippingMethod,
+    })
 
     if (res.status) {
       setEdit(false)
@@ -249,7 +239,7 @@ export default function Address({ order, accessToken }) {
             <Button
               type='secondary'
               className='block mt-5'
-              onClick={updateAddress}
+              onClick={handleSave}
             >
               <div className='flex items-center'>
                 <UploadIcon width={16} height={16} />

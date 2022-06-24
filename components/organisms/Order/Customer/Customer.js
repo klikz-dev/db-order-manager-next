@@ -1,24 +1,8 @@
-import { getData } from '@/functions/fetch'
 import { IdentificationIcon } from '@heroicons/react/solid'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-export default function Customer({ customerId, accessToken }) {
-  const { data: customer } = getData(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/customers/${customerId}`,
-    accessToken
-  )
-
-  const { data: addressData } = getData(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/addresses/?customer=${customerId}`,
-    accessToken
-  )
-  const address = addressData?.results?.[0]
-
-  const [note, setNote] = useState('')
-
-  useEffect(() => {
-    setNote(customer?.note ?? '')
-  }, [customer])
+export default function Customer({ customer, address }) {
+  const [note, setNote] = useState(customer.note)
 
   return (
     <div className='shadow-lg border rounded px-8 py-4'>

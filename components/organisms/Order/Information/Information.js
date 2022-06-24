@@ -1,17 +1,19 @@
 import { InformationCircleIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import dateFormat from 'dateformat'
+import { useState } from 'react'
 
 export default function Information({
   orderNumber,
   status,
   orderDate,
   updatedAt,
-  manufacturers,
-  setManufacturers,
-  reference,
-  setReference,
+  manufacturerList,
+  referenceNumber,
 }) {
+  const [manufacturers, setManufacturers] = useState(manufacturerList)
+  const [reference, setReference] = useState(referenceNumber)
+
   return (
     <div className='shadow-lg border rounded px-8 py-4'>
       <h3 className='mb-4 flex items-center'>
