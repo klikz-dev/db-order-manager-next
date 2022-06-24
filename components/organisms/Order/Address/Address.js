@@ -110,124 +110,136 @@ export default function Address({ order, updateOrder }) {
       </div>
 
       {edit && (
-        <div className='fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-zinc-700 bg-opacity-20'>
+        <div className='fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-zinc-700 bg-opacity-40'>
           <div className='bg-white shadow-lg p-6 rounded'>
-            <p className='font-semibold mb-4'>Shipping Address: </p>
+            <h4 className='font-semibold mb-6 text-blue-900'>
+              Shipping Address:
+            </h4>
 
             <div className='grid grid-cols-2 gap-3'>
               <div>
-                <label className='block text-sm font-bold'>First Name</label>
+                <label className='block text-sm font-bold mb-1'>
+                  First Name
+                </label>
                 <input
                   type='text'
                   value={shippingFirstName}
                   onChange={(e) => setShippingFirstName(e.target.value)}
-                  className='bg-blue-100 text-base py-1 mb-2'
+                  className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
 
               <div>
-                <label className='block text-sm font-bold'>Last Name</label>
+                <label className='block text-sm font-bold mb-1'>
+                  Last Name
+                </label>
                 <input
                   type='text'
                   value={shippingLastName}
                   onChange={(e) => setShippingLastName(e.target.value)}
-                  className='bg-blue-100 text-base py-1 mb-2'
+                  className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
             </div>
 
             <div className='grid grid-cols-2 gap-3'>
               <div>
-                <label className='block text-sm font-bold'>Address 1</label>
+                <label className='block text-sm font-bold mb-1'>
+                  Address 1
+                </label>
                 <input
                   type='text'
                   value={shippingAddress1}
                   onChange={(e) => setShippingAddress1(e.target.value)}
-                  className='bg-blue-100 text-base py-1 mb-2'
+                  className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
 
               <div>
-                <label className='block text-sm font-bold'>Address 2</label>
+                <label className='block text-sm font-bold mb-1'>
+                  Address 2
+                </label>
                 <input
                   type='text'
                   value={shippingAddress2}
                   onChange={(e) => setShippingAddress2(e.target.value)}
-                  className='bg-blue-100 text-base py-1 mb-2'
+                  className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
             </div>
 
             <div className='grid grid-cols-2 gap-3'>
               <div>
-                <label className='block text-sm font-bold'>City</label>
+                <label className='block text-sm font-bold mb-1'>City</label>
                 <input
                   type='text'
                   value={shippingCity}
                   onChange={(e) => setShippingCity(e.target.value)}
-                  className='bg-blue-100 text-base py-1 mb-2'
+                  className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
 
               <div>
-                <label className='block text-sm font-bold'>State</label>
+                <label className='block text-sm font-bold mb-1'>State</label>
                 <input
                   type='text'
                   value={shippingState}
                   onChange={(e) => setShippingState(e.target.value)}
-                  className='bg-blue-100 text-base py-1 mb-2'
+                  className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
             </div>
 
             <div className='grid grid-cols-2 gap-3'>
               <div>
-                <label className='block text-sm font-bold'>Zip</label>
+                <label className='block text-sm font-bold mb-1'>Zip</label>
                 <input
                   type='text'
                   value={shippingZip}
                   onChange={(e) => setShippingZip(e.target.value)}
-                  className='bg-blue-100 text-base py-1 mb-2'
+                  className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
 
               <div>
-                <label className='block text-sm font-bold'>Country</label>
+                <label className='block text-sm font-bold mb-1'>Country</label>
                 <input
                   type='text'
                   value={shippingCountry}
                   onChange={(e) => setShippingCountry(e.target.value)}
-                  className='bg-blue-100 text-base py-1 mb-2'
+                  className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
             </div>
 
             <div className='grid grid-cols-2 gap-3'>
               <div>
-                <label className='block text-sm font-bold'>
+                <label className='block text-sm font-bold mb-1'>
                   Shipping Company
                 </label>
                 <input
                   type='text'
                   value={shippingCompany}
                   onChange={(e) => setShippingCompany(e.target.value)}
-                  className='bg-blue-100 text-base py-1 mb-2'
+                  className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
 
               <div>
-                <label className='block text-sm font-bold'>Phone</label>
+                <label className='block text-sm font-bold mb-1'>Phone</label>
                 <input
                   type='text'
                   value={shippingPhone}
                   onChange={(e) => setShippingPhone(e.target.value)}
-                  className='bg-blue-100 text-base py-1 mb-2'
+                  className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
             </div>
 
             <div>
-              <label className='block text-sm font-bold'>Shipping Method</label>
+              <label className='block text-sm font-bold mb-1'>
+                Shipping Method
+              </label>
               <input
                 type='text'
                 value={shippingMethod}

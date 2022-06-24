@@ -7,6 +7,9 @@ import { getData } from '@/functions/fetch'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { putData } from '@/functions/put'
+import Transaction from '@/components/organisms/Order/Transaction'
+import Status from '@/components/organisms/Order/Status'
+import Note from '@/components/organisms/Order/Note'
 
 export default function Order() {
   const { data: session } = useSession()
@@ -65,13 +68,22 @@ export default function Order() {
       {order && lines ? (
         <div className='max-w-screen-2xl mx-auto px-4 py-8'>
           <div className='grid grid-cols-3 gap-5'>
-            {order && <Information {...order} />}
+            <Information {...order} updateOrder={updateOrder} />
 
-            {customer && address && (
-              <Customer customer={customer} address={address} />
-            )}
+            <Customer
+              customer={customer}
+              address={address}
+              orderNote={order.orderNote}
+              updateOrder={updateOrder}
+            />
 
-            {order && <Address order={order} updateAddress={updateOrder} />}
+            <Address order={order} updateOrder={updateOrder} />
+
+            <Transaction {...order} updateOrder={updateOrder} />
+
+            <Status order={order} updateOrder={updateOrder} />
+
+            <Note order={order} updateOrder={updateOrder} />
           </div>
         </div>
       ) : (
