@@ -10,6 +10,7 @@ import { putData } from '@/functions/put'
 import Transaction from '@/components/organisms/Order/Transaction'
 import Status from '@/components/organisms/Order/Status'
 import Note from '@/components/organisms/Order/Note'
+import Lines from '@/components/organisms/Order/Lines'
 
 export default function Order() {
   const { data: session } = useSession()
@@ -24,14 +25,6 @@ export default function Order() {
     id ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${id}` : undefined,
     session?.accessToken
   )
-
-  const { data: linesData } = getData(
-    id
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?order=${id}`
-      : undefined,
-    session?.accessToken
-  )
-  const { results: lines } = linesData ?? {}
 
   const { data: customer } = getData(
     order
@@ -48,8 +41,16 @@ export default function Order() {
   )
   const address = addressData?.results?.[0]
 
+  const { data: linesData } = getData(
+    id
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?order=${id}`
+      : undefined,
+    session?.accessToken
+  )
+  const { results: lines } = linesData ?? {}
+
   /**
-   * Update Data
+   * Update Order
    */
   async function updateOrder(data) {
     const res = await putData(
@@ -84,6 +85,12 @@ export default function Order() {
             <Status order={order} updateOrder={updateOrder} />
 
             <Note order={order} updateOrder={updateOrder} />
+          </div>
+
+          <hr className='my-12' />
+
+          <div>
+            <Lines lines={lines} />
           </div>
         </div>
       ) : (
