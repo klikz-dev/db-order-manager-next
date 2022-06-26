@@ -90,7 +90,7 @@ export default function Order() {
           <hr className='my-12' />
 
           <div>
-            <Lines lines={lines} />
+            <Lines customer={customer} lines={lines} />
           </div>
         </div>
       ) : (

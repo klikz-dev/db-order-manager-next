@@ -1,12 +1,15 @@
 import Button from '@/components/atoms/Button'
 import Image from '@/components/atoms/Image'
+import sendEmail from '@/functions/email'
 import { getData } from '@/functions/fetch'
 import { putData } from '@/functions/put'
-import { UploadIcon } from '@heroicons/react/solid'
+import { MailIcon, UploadIcon } from '@heroicons/react/solid'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
+import dateFormat from 'dateformat'
 
 export default function Line({
+  customer,
   productId,
   variantId,
   orderedProductUnitPrice,
@@ -71,6 +74,39 @@ export default function Line({
     }
   }
 
+  const discontinuedEmail = (e) => {
+    e.preventDefault()
+
+    sendEmail(
+      `<Decoratorsbest Customer Success Center>`,
+      'dbomtest@gmail.com',
+      `Item ${product?.sku} has been discontinued`,
+      `
+      <p>Hello, ${customer?.firstName} ${customer?.lastName}!</p>
+      <p style='margin-top: 20px; margin-bottom: 20px;'>The product <strong>${variant?.name}</strong> you ordered has been discontinued.</p>
+      `
+    )
+  }
+
+  const backorderEmail = (e) => {
+    e.preventDefault()
+
+    sendEmail(
+      `<Decoratorsbest Customer Success Center>`,
+      'dbomtest@gmail.com',
+      `Item ${product?.sku} has been backordered`,
+      `
+      <p>Hello, ${customer?.firstName} ${customer?.lastName}!</p>
+      <p style='margin-top: 20px; margin-bottom: 20px;'>The backorder date for the product <strong>${
+        variant?.name
+      }</strong> you ordered has been updated to ${dateFormat(
+        BackOrderDate,
+        'mm/dd/yyyy'
+      )}.</p>
+      `
+    )
+  }
+
   return (
     <tr className='text-center border'>
       <td className='w-24 h-24 border'>
@@ -118,6 +154,36 @@ export default function Line({
         {updateError && (
           <p className='text-red-700 text-sm mt-1'>{updateError}</p>
         )}
+      </td>
+
+      <td>
+        <div className='block mb-1'>
+          <Button
+            type='primary'
+            size='md'
+            className=''
+            onClick={discontinuedEmail}
+          >
+            <div className='flex items-center'>
+              <MailIcon width={16} height={16} />
+              <span className='leading-4 ml-1'>Discontinued</span>
+            </div>
+          </Button>
+        </div>
+
+        <div className='block'>
+          <Button
+            type='primary'
+            size='md'
+            className=''
+            onClick={backorderEmail}
+          >
+            <div className='flex items-center'>
+              <MailIcon width={16} height={16} />
+              <span className='leading-4 ml-1'>Backorder</span>
+            </div>
+          </Button>
+        </div>
       </td>
     </tr>
   )
