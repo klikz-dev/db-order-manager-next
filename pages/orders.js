@@ -117,7 +117,7 @@ export default function Orders() {
   }
 
   return (
-    <Layout>
+    <Layout title='Order Manager'>
       <div className='w-full px-8 py-8'>
         <Filter
           status={status}

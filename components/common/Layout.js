@@ -5,7 +5,7 @@ import Loading from '../atoms/Loading'
 import Footer from '../organisms/Footer'
 import Header from '../organisms/Header'
 
-export default function Layout({ children }) {
+export default function Layout({ title, children }) {
   const router = useRouter()
   const { data: session, status } = useSession()
 
@@ -15,7 +15,7 @@ export default function Layout({ children }) {
     } else {
       return (
         <div style={{ minWidth: '1375px' }}>
-          <Header />
+          <Header title={title} />
 
           <main id='page-content'>{children}</main>
 

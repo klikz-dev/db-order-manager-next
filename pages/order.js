@@ -65,7 +65,7 @@ export default function Order() {
   }
 
   return (
-    <Layout>
+    <Layout title='Order Detail'>
       {order && lines ? (
         <div className='max-w-screen-2xl mx-auto px-4 py-8'>
           <div className='grid grid-cols-3 gap-5'>
