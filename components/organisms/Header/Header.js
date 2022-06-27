@@ -11,18 +11,24 @@ export default function Header({ title }) {
   return (
     <div className='px-4 py-2 shadow'>
       <div className='max-w-screen-2xl mx-auto flex flex-row justify-between items-center space-x-12'>
-        <Logo />
+        <a href='/'>
+          <Logo />
+        </a>
 
         <h1>{title}</h1>
 
         <div className='flex space-x-8 items-end mt-2'>
+          <a href='/order' className='font-bold text-lg'>
+            Manage Orders
+          </a>
+
           <a href='/process' className='font-bold text-lg'>
             Process Orders
           </a>
 
-          <a href='/process' className='font-bold text-lg'>
+          {/* <a href='/log' className='font-bold text-lg'>
             View Logs
-          </a>
+          </a> */}
         </div>
 
         <Popover className='relative'>

@@ -45,7 +45,7 @@ export default function Processor({ brand }) {
           `${line.orderedProductSKU}`,
           `
           <p>Hello, Thanks for processing the order!</p>
-          <p style='margin-top: 20px; margin-bottom: 20px;'>KM SAVOR/BASIL</p>
+          <p style='margin-top: 20px; margin-bottom: 20px;'>${line.orderedProductSKU}</p>
           `
         )
       })

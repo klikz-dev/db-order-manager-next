@@ -79,7 +79,7 @@ export default function Line({
 
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
-      'dbomtest@gmail.com',
+      'murrell@decoratorsbest.com',
       `Item ${product?.sku} has been discontinued`,
       `
       <p>Hello, ${order?.shippingFirstName} ${order.shippingLastName}!</p>
@@ -93,7 +93,7 @@ export default function Line({
 
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
-      'dbomtest@gmail.com',
+      'murrell@decoratorsbest.com',
       `Item ${product?.sku} has been backordered`,
       `
       <p>Hello, ${order.shippingFirstName} ${order.shippingLastName}!</p>
