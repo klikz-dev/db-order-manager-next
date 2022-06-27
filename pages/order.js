@@ -49,6 +49,8 @@ export default function Order() {
   )
   const { results: lines } = linesData ?? {}
 
+  console.log(lines)
+
   /**
    * Update Order
    */
