@@ -23,10 +23,6 @@ export default function Header({ title }) {
           <a href='/process' className='font-bold text-lg'>
             View Logs
           </a>
-
-          <a href='/process' className='font-bold text-lg'>
-            Email IT Team
-          </a>
         </div>
 
         <Popover className='relative'>

@@ -88,31 +88,31 @@ export default function Orders() {
     const to = dateFormat(dateRange.selection.endDate, 'yy-m-d')
 
     setOrdersURL(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=9999&from=${fr}&to=${to}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&from=${fr}&to=${to}`
     )
   }
 
   async function poSearch() {
     setOrdersURL(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=9999&po=${orderNumber}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&po=${orderNumber}`
     )
   }
 
   async function customerSearch() {
     setOrdersURL(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=9999&customer=${customer}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&customer=${customer}`
     )
   }
 
   async function manufacturerSearch() {
     setOrdersURL(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=9999&manufacturer=${manufacturer}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&manufacturer=${manufacturer}`
     )
   }
 
   async function refSearch() {
     setOrdersURL(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=9999&ref=${reference}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&ref=${reference}`
     )
   }
 
