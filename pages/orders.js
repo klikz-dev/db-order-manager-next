@@ -68,6 +68,22 @@ export default function Orders() {
     )
   }, [orders, status, order, sample, ordersample, complete, incomplete])
 
+  function resetFilters() {
+    setStatus('All')
+    setOrder(true)
+    setSample(true)
+    setOrdersample(true)
+    setComplete(true)
+    setIncomplete(true)
+  }
+
+  function resetSearch() {
+    setOrderNumber('')
+    setCustomer('')
+    setManufacturer('')
+    setReference('')
+  }
+
   /**
    * Search Functions
    */
@@ -84,6 +100,9 @@ export default function Orders() {
   const [reference, setReference] = useState('')
 
   async function dateSearch() {
+    resetFilters()
+    resetSearch()
+
     const fr = dateFormat(dateRange.selection.startDate, 'yy-m-d')
     const to = dateFormat(dateRange.selection.endDate, 'yy-m-d')
 
@@ -93,24 +112,32 @@ export default function Orders() {
   }
 
   async function poSearch() {
+    resetFilters()
+
     setOrdersURL(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&po=${orderNumber}`
     )
   }
 
   async function customerSearch() {
+    resetFilters()
+
     setOrdersURL(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&customer=${customer}`
     )
   }
 
   async function manufacturerSearch() {
+    resetFilters()
+
     setOrdersURL(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&manufacturer=${manufacturer}`
     )
   }
 
   async function refSearch() {
+    resetFilters()
+
     setOrdersURL(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&ref=${reference}`
     )
@@ -210,7 +237,7 @@ export default function Orders() {
                         <td>{order.orderType}</td>
                         <td>
                           <p>
-                            {order.billingFirstName} {order.billingLastName}
+                            {order.shippingFirstName} {order.shippingLastName}
                           </p>
                           <a href={`mailto:${order.email}`} className='text-sm'>
                             {order.email}

@@ -1,9 +1,9 @@
 import { getData } from '@/functions/fetch'
 import { useSession } from 'next-auth/react'
 import dateFormat from 'dateformat'
-import Line from './Line/Line'
+import Line from '../../Line'
 
-export default function Lines({ orderId, lines }) {
+export default function Lines({ orderId }) {
   const { data: session } = useSession()
 
   /**
@@ -15,6 +15,8 @@ export default function Lines({ orderId, lines }) {
       : undefined,
     session?.accessToken
   )
+
+  console.log(order)
 
   return (
     <div className='shadow-lg rounded mb-6'>
@@ -57,9 +59,15 @@ export default function Lines({ orderId, lines }) {
           </thead>
 
           <tbody>
-            {lines?.length > 0 &&
-              lines.map((line, index) => (
-                <Line key={index} order={order} {...line} />
+            {order?.line_items?.length > 0 &&
+              order.line_items.map((line_item, index) => (
+                <Line
+                  key={index}
+                  email={order.email}
+                  shippingFirstName={order.shippingFirstName}
+                  shippingLastName={order.shippingLastName}
+                  {...line_item}
+                />
               ))}
           </tbody>
         </table>

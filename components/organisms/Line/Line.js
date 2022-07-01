@@ -9,41 +9,27 @@ import { useEffect, useState } from 'react'
 import dateFormat from 'dateformat'
 
 export default function Line({
-  order,
-  productId,
-  variantId,
+  shippingFirstName,
+  shippingLastName,
+  variant,
   orderedProductUnitPrice,
   quantity,
 }) {
   const { data: session } = useSession()
 
-  const { data: productData } = getData(
-    productId
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/?id=${productId}`
-      : undefined,
-    session?.accessToken
-  )
-  const product = productData?.results?.[0]
-
-  const { data: variantData } = getData(
-    variantId
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/variants/?id=${variantId}`
-      : undefined,
-    session?.accessToken
-  )
-  const variant = variantData?.results?.[0]
+  const { product } = variant ?? {}
 
   const { data: imageData } = getData(
-    productId
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/images/?product=${productId}`
+    product?.productId
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/images/?product=${product?.productId}`
       : undefined,
     session?.accessToken
   )
   const image = imageData?.results?.[0]
 
-  const [BackOrderDate, setBackOrderDate] = useState('')
+  const [backOrderDate, setBackOrderDate] = useState('')
   useEffect(() => {
-    setBackOrderDate(variant?.BackOrderDate)
+    setBackOrderDate(variant?.backOrderDate)
   }, [variant])
 
   const [updateError, setUpdateError] = useState('')
@@ -52,7 +38,7 @@ export default function Line({
   async function updateVariant(data) {
     const res = await putData(
       variant
-        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/variants/${variant?.id}/`
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/variants/${variant?.variantId}/`
         : undefined,
       session?.accessToken,
       data
@@ -63,7 +49,7 @@ export default function Line({
 
   async function handleSave() {
     const res = await updateVariant({
-      BackOrderDate: BackOrderDate,
+      backOrderDate: backOrderDate,
       BODateStatus: 1,
     })
 
@@ -82,7 +68,7 @@ export default function Line({
       'murrell@decoratorsbest.com',
       `Item ${product?.sku} has been discontinued`,
       `
-      <p>Hello, ${order?.shippingFirstName} ${order.shippingLastName}!</p>
+      <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
       <p style='margin-top: 20px; margin-bottom: 20px;'>The product <strong>${variant?.name}</strong> you ordered has been discontinued.</p>
       `
     )
@@ -96,11 +82,11 @@ export default function Line({
       'murrell@decoratorsbest.com',
       `Item ${product?.sku} has been backordered`,
       `
-      <p>Hello, ${order.shippingFirstName} ${order.shippingLastName}!</p>
+      <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
       <p style='margin-top: 20px; margin-bottom: 20px;'>The backorder date for the product <strong>${
         variant?.name
       }</strong> you ordered has been updated to ${dateFormat(
-        BackOrderDate,
+        backOrderDate,
         'mm/dd/yyyy'
       )}.</p>
       `
@@ -108,7 +94,7 @@ export default function Line({
   }
 
   return (
-    <tr className='text-center border text-base'>
+    <tr className='text-center border'>
       <td className='w-24 h-24 border'>
         <Image src={image?.imageURL} fill={true} />
       </td>
@@ -129,7 +115,7 @@ export default function Line({
         <label className='block'>
           <input
             type='date'
-            value={BackOrderDate}
+            value={backOrderDate}
             onChange={(e) => setBackOrderDate(e.target.value)}
             className='py-1 rounded text-base'
           />

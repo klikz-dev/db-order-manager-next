@@ -26,30 +26,8 @@ export default function Order() {
     session?.accessToken
   )
 
-  const { data: customer } = getData(
-    order
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/customers/${order?.customerId}`
-      : undefined,
-    session?.accessToken
-  )
-
-  const { data: addressData } = getData(
-    order
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/addresses/?customer=${order?.customerId}`
-      : undefined,
-    session?.accessToken
-  )
-  const address = addressData?.results?.[0]
-
-  const { data: linesData } = getData(
-    id
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?order=${id}`
-      : undefined,
-    session?.accessToken
-  )
-  const { results: lines } = linesData ?? {}
-
-  console.log(lines)
+  const { customer } = order ?? {}
+  const { addresses } = customer ?? {}
 
   /**
    * Update Order
@@ -68,14 +46,14 @@ export default function Order() {
 
   return (
     <Layout title='Order Detail'>
-      {order && lines ? (
+      {order ? (
         <div className='max-w-screen-2xl mx-auto px-4 py-8'>
           <div className='grid grid-cols-3 gap-5'>
             <Information {...order} updateOrder={updateOrder} />
 
             <Customer
               customer={customer}
-              address={address}
+              address={addresses?.[addresses?.length - 1]}
               orderNote={order.orderNote}
               updateOrder={updateOrder}
             />
@@ -92,7 +70,7 @@ export default function Order() {
           <hr className='my-12' />
 
           <div>
-            <Lines customer={customer} lines={lines} />
+            <Lines {...order} />
           </div>
         </div>
       ) : (

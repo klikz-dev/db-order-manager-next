@@ -69,6 +69,7 @@ export default function index({
                 onChange={(e) => setStatus(e.target.value)}
               >
                 <option value='All'>All</option>
+                <option value='New'>New</option>
                 <option value='Reference# Needed'>Reference# Needed</option>
                 <option value='BackOrder Reference# Needed'>
                   BackOrder Reference# Needed

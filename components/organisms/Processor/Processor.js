@@ -9,26 +9,29 @@ import Lines from './Lines'
 export default function Processor({ brand }) {
   const { data: session } = useSession()
 
-  const { data: linesData } = getData(
+  const { data: ordersData } = getData(
     brand && session?.accessToken
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&limit=20`
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/?brand=${brand}`
       : undefined,
     session?.accessToken
   )
-  const lines = linesData?.results
+  const orders = ordersData?.results
 
-  const [orders, setOrders] = useState({})
-  useEffect(() => {
-    setOrders(
-      lines?.length > 0
-        ? lines?.reduce((sum, ele) => {
-            sum[ele.order] = sum[ele.order] || []
-            sum[ele.order].push(ele)
-            return sum
-          }, {})
-        : {}
-    )
-  }, [lines])
+  console.log(orders)
+  // const lines = linesData?.results
+
+  // const [orders, setOrders] = useState({})
+  // useEffect(() => {
+  //   setOrders(
+  //     lines?.length > 0
+  //       ? lines?.reduce((sum, ele) => {
+  //           sum[ele.order] = sum[ele.order] || []
+  //           sum[ele.order].push(ele)
+  //           return sum
+  //         }, {})
+  //       : {}
+  //   )
+  // }, [lines])
 
   const [processing, setProcessing] = useState(false)
 
@@ -37,20 +40,20 @@ export default function Processor({ brand }) {
 
     setProcessing(true)
 
-    lines?.length > 0 &&
-      lines.map((line) => {
-        sendEmail(
-          `<Decoratorsbest Customer Success Center>`,
-          'murrell@decoratorsbest.com',
-          `${line.orderedProductSKU}`,
-          `
-          <p>Hello, Thanks for processing the order!</p>
-          <p style='margin-top: 20px; margin-bottom: 20px;'>${line.orderedProductSKU}</p>
-          `
-        )
-      })
+    // lines?.length > 0 &&
+    //   lines.map((line) => {
+    //     sendEmail(
+    //       `<Decoratorsbest Customer Success Center>`,
+    //       'murrell@decoratorsbest.com',
+    //       `${line.orderedProductSKU}`,
+    //       `
+    //       <p>Hello, Thanks for processing the order!</p>
+    //       <p style='margin-top: 20px; margin-bottom: 20px;'>${line.orderedProductSKU}</p>
+    //       `
+    //     )
+    //   })
 
-    setOrders([])
+    // setOrders([])
 
     setProcessing(false)
   }
@@ -70,13 +73,11 @@ export default function Processor({ brand }) {
         {processing ? 'Processing...' : 'Process Orders'}
       </Button>
 
-      {lines ? (
+      {orders?.length > 0 ? (
         <div>
-          {orders &&
-            Object.keys(orders).map((order, index) => {
-              const lines = orders[order]
-              return <Lines key={index} orderId={order} lines={lines} />
-            })}
+          {orders.map((order, index) => (
+            <Lines key={index} orderId={order.shopifyOrderId} />
+          ))}
         </div>
       ) : (
         <Loading />
