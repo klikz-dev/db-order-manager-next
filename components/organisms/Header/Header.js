@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Button from '@/components/atoms/Button'
 import Transition from '@/components/atoms/Transition'
 import Logo from '@/components/molecules/Logo'
@@ -18,17 +19,13 @@ export default function Header({ title }) {
         <h1>{title}</h1>
 
         <div className='flex space-x-8 items-end mt-2'>
-          <a href='/order' className='font-bold text-lg'>
+          <a href='/orders' className='font-bold text-lg'>
             Manage Orders
           </a>
 
           <a href='/process' className='font-bold text-lg'>
             Process Orders
           </a>
-
-          {/* <a href='/log' className='font-bold text-lg'>
-            View Logs
-          </a> */}
         </div>
 
         <Popover className='relative'>
