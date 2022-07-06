@@ -93,6 +93,20 @@ export default function Line({
     )
   }
 
+  const outstockEmail = (e) => {
+    e.preventDefault()
+
+    sendEmail(
+      `<Decoratorsbest Customer Success Center>`,
+      'murrell@decoratorsbest.com',
+      `Item ${product?.sku} is out of stock`,
+      `
+      <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
+      <p style='margin-top: 20px; margin-bottom: 20px;'>The product <strong>${variant?.name}</strong> you ordered is out of stock</p>
+      `
+    )
+  }
+
   return (
     <tr className='text-center border'>
       <td className='w-24 h-24 border'>
@@ -142,11 +156,11 @@ export default function Line({
         )}
       </td>
 
-      <td>
-        <div className='block mb-1'>
+      <td className='p-1'>
+        <div className='block mb-0.5'>
           <Button
             type='primary'
-            size='md'
+            size='sm'
             className=''
             onClick={discontinuedEmail}
           >
@@ -157,16 +171,25 @@ export default function Line({
           </Button>
         </div>
 
-        <div className='block'>
+        <div className='block mb-0.5'>
           <Button
             type='primary'
-            size='md'
+            size='sm'
             className=''
             onClick={backorderEmail}
           >
             <div className='flex items-center'>
               <MailIcon width={16} height={16} />
               <span className='leading-4 ml-1'>Backorder</span>
+            </div>
+          </Button>
+        </div>
+
+        <div className='block'>
+          <Button type='primary' size='sm' className='' onClick={outstockEmail}>
+            <div className='flex items-center'>
+              <MailIcon width={16} height={16} />
+              <span className='leading-4 ml-1'>Out of stock</span>
             </div>
           </Button>
         </div>
