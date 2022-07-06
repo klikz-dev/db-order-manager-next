@@ -91,7 +91,7 @@ export default function Information({
       <label>
         <p className='font-semibold mb-1'>Reference Number:</p>
         <textarea
-          value={reference || ''}
+          value={reference?.replace(/,/g, '\n')?.trim() || ''}
           onChange={(e) => setReference(e.target.value)}
           className='w-full bg-blue-50 rounded text-base h-20'
         />
