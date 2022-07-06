@@ -11,7 +11,7 @@ export default function Processor({ brand }) {
 
   const { data: linesData } = getData(
     brand && session?.accessToken
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&limit=20`
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}`
       : undefined,
     session?.accessToken
   )
@@ -22,8 +22,8 @@ export default function Processor({ brand }) {
     setOrders(
       lines?.length > 0
         ? lines?.reduce((sum, ele) => {
-            sum[ele.order] = sum[ele.order] || []
-            sum[ele.order].push(ele)
+            sum[ele.order.orderNumber] = sum[ele.order.orderNumber] || []
+            sum[ele.order.orderNumber].push(ele)
             return sum
           }, {})
         : {}
@@ -73,10 +73,9 @@ export default function Processor({ brand }) {
       {lines ? (
         <div>
           {orders &&
-            Object.keys(orders).map((order, index) => {
-              const lines = orders[order]
-              return <Lines key={index} orderId={order} lines={lines} />
-            })}
+            Object.keys(orders).map((orderNumber, index) => (
+              <Lines key={index} line_items={orders[orderNumber]} />
+            ))}
         </div>
       ) : (
         <Loading />

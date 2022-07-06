@@ -1,30 +1,23 @@
-import { getData } from '@/functions/fetch'
-import { useSession } from 'next-auth/react'
 import dateFormat from 'dateformat'
 import Line from '../../Line'
 
-export default function Lines({ orderId }) {
-  const { data: session } = useSession()
-
-  /**
-   * Get Info
-   */
-  const { data: order } = getData(
-    orderId
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${orderId}`
-      : undefined,
-    session?.accessToken
-  )
-
-  console.log(order)
+export default function Lines({ line_items }) {
+  const order = line_items[0].order
 
   return (
-    <div className='shadow-lg rounded mb-6'>
-      <div className='p-4 grid grid-cols-3 gap-5 bg-blue-200'>
-        <p>PO #{order?.orderNumber}</p>
+    <div className='shadow-lg rounded mb-6 border border-gray-600'>
+      <div className='p-4 grid grid-cols-5 gap-6 bg-blue-100'>
+        <a
+          href={`/order/?id=${order?.shopifyOrderId}`}
+          target='_blank'
+          rel='noreferrer'
+          className='font-bold underline'
+        >
+          PO #{order?.orderNumber}
+        </a>
 
         <div>
-          <p>
+          <p className='font-bold'>
             {order?.shippingFirstName} {order?.shippingLastName}
           </p>
           <p>
@@ -35,9 +28,17 @@ export default function Lines({ orderId }) {
         </div>
 
         <div>
-          <p>{order?.email}</p>
+          <a href={`mailto:${order?.email}`}>{order?.email}</a>
 
           <p>{dateFormat(order?.orderDate)}</p>
+        </div>
+
+        <div>
+          <p>{order?.note}</p>
+        </div>
+
+        <div>
+          <p className='text-red-700'>{order?.specialShipping}</p>
         </div>
       </div>
 
@@ -59,8 +60,8 @@ export default function Lines({ orderId }) {
           </thead>
 
           <tbody>
-            {order?.line_items?.length > 0 &&
-              order.line_items.map((line_item, index) => (
+            {line_items?.length > 0 &&
+              line_items.map((line_item, index) => (
                 <Line
                   key={index}
                   email={order.email}
