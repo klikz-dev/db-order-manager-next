@@ -218,16 +218,22 @@ export default function Orders() {
                           className={classNames(
                             order.status === 'New'
                               ? 'bg-blue-600 text-white'
-                              : order.status === 'Processed'
+                              : order.status.includes('Processed')
                               ? 'bg-purple-600 text-white'
                               : order.status === 'Stock OK'
                               ? 'bg-gray-200'
-                              : order.status.includes('Cancel')
+                              : order.status.includes('Cancel') ||
+                                order.status.includes('Hold')
                               ? 'bg-yellow-800 text-white'
-                              : order.status.includes('Refund')
+                              : order.status.includes('Refund') ||
+                                order.status.includes('Return')
                               ? 'bg-red-500 text-white'
                               : order.status.includes('Approval')
                               ? 'bg-lime-700 text-white'
+                              : order.status.includes('Discontinued')
+                              ? 'bg-gray-500 text-white'
+                              : order.status.includes('EDI')
+                              ? 'bg-sky-600 text-white font-medium'
                               : 'bg-white'
                           )}
                         >
