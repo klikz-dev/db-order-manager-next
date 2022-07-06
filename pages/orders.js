@@ -252,7 +252,11 @@ export default function Orders() {
                         <td>${order.orderTotal?.toFixed(2)}</td>
                         <td>{order.manufacturerList}</td>
                         <td>{order.specialShipping}</td>
-                        <td>{order.referenceNumber}</td>
+                        <td>
+                          <p className='whitespace-pre-line'>
+                            {order.referenceNumber?.replace(/,/g, '\n')?.trim()}
+                          </p>
+                        </td>
                         <td>{order.note}</td>
                       </tr>
                     ))}
