@@ -1,6 +1,6 @@
 import Button from '@/components/atoms/Button'
 import Layout from '@/components/common/Layout'
-import Processor from '@/components/organisms/Processor'
+import OrderProcessor from '@/components/organisms/OrderProcessor'
 import { useState } from 'react'
 
 export default function Process() {
@@ -65,7 +65,7 @@ export default function Process() {
             </p>
           ) : (
             <>
-              <Processor brand={selectedBrand} />
+              <OrderProcessor brand={selectedBrand} />
             </>
           )}
         </div>

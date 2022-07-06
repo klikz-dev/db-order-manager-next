@@ -6,12 +6,12 @@ import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import Lines from './Lines'
 
-export default function Processor({ brand }) {
+export default function SampleProcessor({ brand }) {
   const { data: session } = useSession()
 
   const { data: linesData } = getData(
     brand && session?.accessToken
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}`
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=s`
       : undefined,
     session?.accessToken
   )
@@ -67,7 +67,7 @@ export default function Processor({ brand }) {
         disabled={processing}
         onClick={handleProcess}
       >
-        {processing ? 'Processing...' : 'Process Orders'}
+        {processing ? 'Processing...' : 'Process Samples'}
       </Button>
 
       {lines ? (

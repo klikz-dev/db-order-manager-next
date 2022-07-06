@@ -23,8 +23,12 @@ export default function Header({ title }) {
             Manage Orders
           </a>
 
-          <a href='/process' className='font-bold text-lg'>
+          <a href='/order-processor' className='font-bold text-lg'>
             Process Orders
+          </a>
+
+          <a href='/sample-processor' className='font-bold text-lg'>
+            Process Samples
           </a>
         </div>
 
