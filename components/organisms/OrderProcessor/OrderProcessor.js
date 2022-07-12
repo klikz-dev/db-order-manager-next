@@ -2,6 +2,7 @@ import Button from '@/components/atoms/Button'
 import Loading from '@/components/atoms/Loading'
 import sendEmail from '@/functions/email'
 import { getData } from '@/functions/fetch'
+import { putData } from '@/functions/put'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import Lines from './Lines'
@@ -53,6 +54,20 @@ export default function OrderProcessor({ brand }) {
     setOrders([])
 
     setProcessing(false)
+
+    const pos = Object.keys(orders).sort((a, b) => (a > b ? 1 : -1))
+
+    const lastPO = pos.length > 0 ? pos[pos.length - 1] : -1
+
+    if (lastPO > 0) {
+      putData(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pos/1/`,
+        session?.accessToken,
+        {
+          [`${brand}Order`]: lastPO,
+        }
+      )
+    }
   }
 
   return (
