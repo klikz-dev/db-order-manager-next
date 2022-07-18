@@ -6,13 +6,14 @@ import { putData } from '@/functions/put'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import Lines from './Lines'
+import dateFormat from 'dateformat'
 
 export default function OrderProcessor({ brand }) {
   const { data: session } = useSession()
 
   const { data: linesData } = getData(
     brand && session?.accessToken
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=o`
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=o&limit=999`
       : undefined,
     session?.accessToken
   )
@@ -29,45 +30,73 @@ export default function OrderProcessor({ brand }) {
           }, {})
         : {}
     )
+    return () => {
+      setSuccess(false)
+    }
   }, [lines])
 
   const [processing, setProcessing] = useState(false)
+  const [success, setSuccess] = useState(false)
 
-  function handleProcess(e) {
+  async function handleProcess(e) {
     e.preventDefault()
 
     setProcessing(true)
 
     lines?.length > 0 &&
-      lines.map((line) => {
-        sendEmail(
+      lines.map(async (line) => {
+        await sendEmail(
           `<Decoratorsbest Customer Success Center>`,
           'murrell@decoratorsbest.com',
-          `${line.orderedProductSKU}`,
+          `DecoratorsBest New Order PO #${line.order?.orderNumber}`,
           `
-          <p>Hello, Thanks for processing the order!</p>
-          <p style='margin-top: 20px; margin-bottom: 20px;'>KM SAVOR/BASIL</p>
+          <p><strong>Hello, Thanks for processing the order!</strong></p>
+
+          <div style='margin-top: 20px; margin-bottom: 20px;'>
+            <h3 style='margin-bottom: 8px;'>Order Information: </h3>
+            <p style='margin-bottom: 8px;'>PO: ${line.order?.orderNumber}</p>
+            <p style='margin-bottom: 8px;'>SKU: ${line.orderedProductSKU}</p>
+            <p style='margin-bottom: 8px;'>Quantity: ${line.quantity}</p>
+            <p style='margin-bottom: 32px;'>Ordered Date: ${dateFormat(
+              line.order?.orderDate
+            )}</p>
+
+            <h3 style='margin-bottom: 8px;'>Customer Information: </h3>
+            <p style='margin-bottom: 8px;'>Email: ${line.order?.email}</p>
+            <p style='margin-bottom: 8px;'>Name: ${
+              line.order?.shippingFirstName
+            } ${line.order?.shippingLastName}</p>
+            <p style='margin-bottom: 8px;'>Phone: ${
+              line.order?.shippingPhone
+            }</p>
+            <p style='margin-bottom: 8px;'>Address: ${
+              line.order?.shippingAddress1
+            } ${line.order?.shippingAddress2}, ${line.order?.shippingCity}, ${
+            line.order?.shippingState
+          } ${line.order?.shippingZip}, ${line.order?.shippingCountry}</p>
+          </div>
           `
         )
       })
-
-    setOrders([])
-
-    setProcessing(false)
 
     const pos = Object.keys(orders).sort((a, b) => (a > b ? 1 : -1))
 
     const lastPO = pos.length > 0 ? pos[pos.length - 1] : -1
 
     if (lastPO > 0) {
-      putData(
+      await putData(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pos/1/`,
         session?.accessToken,
         {
-          [`${brand}Order`]: lastPO,
+          field: `${brand.replace(/ /g, '')}Order`,
+          lastPO: lastPO,
         }
       )
     }
+
+    setOrders([])
+    setProcessing(false)
+    setSuccess(true)
   }
 
   return (
@@ -87,13 +116,29 @@ export default function OrderProcessor({ brand }) {
 
       {lines ? (
         <div>
-          {orders &&
-            Object.keys(orders).map((orderNumber, index) => (
-              <Lines key={index} line_items={orders[orderNumber]} />
-            ))}
+          {lines.length > 0 ? (
+            <>
+              {orders &&
+                Object.keys(orders).map((orderNumber, index) => (
+                  <Lines key={index} line_items={orders[orderNumber]} />
+                ))}
+            </>
+          ) : (
+            <>
+              {!success && (
+                <p className='mx-2 my-8 font-bold text-lg text-blue-700'>
+                  All set! No New orders here.
+                </p>
+              )}
+            </>
+          )}
         </div>
       ) : (
         <Loading />
+      )}
+
+      {success && (
+        <p className='mx-2 my-8 font-bold text-lg text-blue-700'>Complete!</p>
       )}
     </>
   )

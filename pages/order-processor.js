@@ -12,7 +12,7 @@ export default function Process() {
     'JF Fabrics',
     'Kasmir',
     'Madcap Cottage',
-    'Materialwork',
+    'Materialworks',
     'Maxwell',
     'Phillip Jeffries',
     'Pindler',
