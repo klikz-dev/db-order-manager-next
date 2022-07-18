@@ -47,7 +47,7 @@ export default function OrderProcessor({ brand }) {
       lines.map(async (line) => {
         await sendEmail(
           `<Decoratorsbest Customer Success Center>`,
-          'murrell@decoratorsbest.com',
+          'ashley@decoratorsbest.com',
           `DecoratorsBest New Order PO #${line.order?.orderNumber}`,
           `
           <p><strong>Hello, Thanks for processing the order!</strong></p>
