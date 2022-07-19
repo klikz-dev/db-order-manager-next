@@ -43,41 +43,87 @@ export default function OrderProcessor({ brand }) {
 
     setProcessing(true)
 
-    lines?.length > 0 &&
-      lines.map(async (line) => {
-        await sendEmail(
-          `<Decoratorsbest Customer Success Center>`,
-          'ashley@decoratorsbest.com',
-          `DecoratorsBest New Order PO #${line.order?.orderNumber}`,
-          `
-          <p><strong>Hello, Thanks for processing the order!</strong></p>
+    let startPO = 0
+    let endPO = 0
 
-          <div style='margin-top: 20px; margin-bottom: 20px;'>
-            <h3 style='margin-bottom: 8px;'>Order Information: </h3>
-            <p style='margin-bottom: 8px;'>PO: ${line.order?.orderNumber}</p>
-            <p style='margin-bottom: 8px;'>SKU: ${line.orderedProductSKU}</p>
-            <p style='margin-bottom: 8px;'>Quantity: ${line.quantity}</p>
-            <p style='margin-bottom: 32px;'>Ordered Date: ${dateFormat(
-              line.order?.orderDate
-            )}</p>
+    const emailContent = Object.keys(orders).map((orderNumber, index) => {
+      if (index === 0) startPO = orderNumber
+      endPO = orderNumber
 
-            <h3 style='margin-bottom: 8px;'>Customer Information: </h3>
-            <p style='margin-bottom: 8px;'>Email: ${line.order?.email}</p>
-            <p style='margin-bottom: 8px;'>Name: ${
-              line.order?.shippingFirstName
-            } ${line.order?.shippingLastName}</p>
-            <p style='margin-bottom: 8px;'>Phone: ${
-              line.order?.shippingPhone
-            }</p>
-            <p style='margin-bottom: 8px;'>Address: ${
-              line.order?.shippingAddress1
-            } ${line.order?.shippingAddress2}, ${line.order?.shippingCity}, ${
-            line.order?.shippingState
-          } ${line.order?.shippingZip}, ${line.order?.shippingCountry}</p>
-          </div>
-          `
-        )
-      })
+      const line_items = orders[orderNumber]
+      const order = line_items[0].order
+
+      const lineItemsContent = line_items.map(
+        (line_item) => `
+        <tr>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">${line_item.orderedProductSKU}</td>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">${line_item.quantity}</td>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">Order</td>
+        </tr>
+      `
+      )
+
+      return `
+        <div style="border: 1px solid #1e1e1e; padding: 12px; max-width: 800px;">
+          <p style="margin-bottom: 8px;">
+            <span style="margin-right: 12px;">PO: <strong>#${orderNumber}</strong></span>
+            <span style="margin-right: 12px;">Order Date: <strong>#${dateFormat(
+              order?.orderDate
+            )}</strong></span>
+          </p>
+
+          <p style="margin-bottom: 8px;">
+            <span style="margin-right: 12px;">Name: <strong>${
+              order?.shippingFirstName
+            } ${order?.shippingLastName}</strong></span>
+            <span style="margin-right: 12px;">Email: <strong>${
+              order?.email
+            }</strong></span>
+            <span style="margin-right: 12px;">Phone: <strong>${
+              order?.shippingPhone
+            }</strong></span>
+          </p>
+
+          <p style="margin-bottom: 8px;">
+            <span style="margin-right: 12px;">
+              Address: 
+              <strong>${order?.shippingAddress1} ${order?.shippingAddress2}, ${
+        order?.shippingCity
+      }, ${order?.shippingState} ${order?.shippingZip}, ${
+        order?.shippingCountry
+      }
+              </strong>
+            </span>
+          </p>
+
+          <h3 style="margin-bottom: 8px;">Line Items</h3>
+          <table style="border-collapse: collapse; width: 360px;">
+            <thead>
+              <tr>
+                <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>SKU</strong></th>
+                <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>Quantity</strong></th>
+                <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>Type</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              ${lineItemsContent}
+            </tbody>
+          </table>
+        </div>
+      `
+    })
+
+    const emailTitle =
+      startPO === endPO
+        ? `DecoratorsBest New Order PO #${startPO}`
+        : `DecoratorsBest New Orders PO #${startPO} - PO #${endPO}`
+
+    sendEmail(
+      `<Decoratorsbest Customer Success Center>`,
+      'murrell@decoratorsbest.com',
+      emailTitle,
+      `<p style="margin-bottom: 20px;">Hello! Thanks for processing the orders!</p>${emailContent.join()}`
+    )
 
     const pos = Object.keys(orders).sort((a, b) => (a > b ? 1 : -1))
 
@@ -108,7 +154,7 @@ export default function OrderProcessor({ brand }) {
       <Button
         type='primary'
         className='mb-6'
-        disabled={processing}
+        disabled={processing || !lines || lines?.length === 0 || success}
         onClick={handleProcess}
       >
         {processing ? 'Processing...' : 'Process Orders'}

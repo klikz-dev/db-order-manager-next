@@ -60,18 +60,24 @@ export default function Line({
     }
   }
 
+  const [discoSent, setDiscoSent] = useState(false)
+  const [backoSent, setBackoSent] = useState(false)
+  const [outstockSent, setOutstockSent] = useState(false)
+
   const discontinuedEmail = (e) => {
     e.preventDefault()
 
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
-      'ashley@decoratorsbest.com',
+      'murrell@decoratorsbest.com',
       `Item ${product?.sku} has been discontinued`,
       `
       <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
       <p style='margin-top: 20px; margin-bottom: 20px;'>The product <strong>${variant?.name}</strong> you ordered has been discontinued.</p>
       `
     )
+
+    setDiscoSent(true)
   }
 
   const backorderEmail = (e) => {
@@ -79,7 +85,7 @@ export default function Line({
 
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
-      'ashley@decoratorsbest.com',
+      'murrell@decoratorsbest.com',
       `Item ${product?.sku} has been backordered`,
       `
       <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
@@ -91,6 +97,8 @@ export default function Line({
       )}.</p>
       `
     )
+
+    setBackoSent(true)
   }
 
   const outstockEmail = (e) => {
@@ -98,13 +106,15 @@ export default function Line({
 
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
-      'ashley@decoratorsbest.com',
+      'murrell@decoratorsbest.com',
       `Item ${product?.sku} is out of stock`,
       `
       <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
       <p style='margin-top: 20px; margin-bottom: 20px;'>The product <strong>${variant?.name}</strong> you ordered is out of stock</p>
       `
     )
+
+    setOutstockSent(true)
   }
 
   return (
@@ -163,10 +173,13 @@ export default function Line({
             size='sm'
             className=''
             onClick={discontinuedEmail}
+            disabled={discoSent}
           >
             <div className='flex items-center'>
               <MailIcon width={16} height={16} />
-              <span className='leading-4 ml-1'>Discontinued</span>
+              <span className='leading-4 ml-1'>
+                {discoSent ? 'Sent' : 'Discontinued'}
+              </span>
             </div>
           </Button>
         </div>
@@ -177,19 +190,30 @@ export default function Line({
             size='sm'
             className=''
             onClick={backorderEmail}
+            disabled={backoSent || backOrderDate === '0000-00-00'}
           >
             <div className='flex items-center'>
               <MailIcon width={16} height={16} />
-              <span className='leading-4 ml-1'>Backorder</span>
+              <span className='leading-4 ml-1'>
+                {backoSent ? 'Sent' : 'Backorder'}
+              </span>
             </div>
           </Button>
         </div>
 
         <div className='block'>
-          <Button type='primary' size='sm' className='' onClick={outstockEmail}>
+          <Button
+            type='primary'
+            size='sm'
+            className=''
+            onClick={outstockEmail}
+            disabled={outstockSent}
+          >
             <div className='flex items-center'>
               <MailIcon width={16} height={16} />
-              <span className='leading-4 ml-1'>Out of stock</span>
+              <span className='leading-4 ml-1'>
+                {outstockSent ? 'Sent' : 'Out of stock'}
+              </span>
             </div>
           </Button>
         </div>
