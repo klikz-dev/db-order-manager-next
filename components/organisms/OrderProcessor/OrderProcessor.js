@@ -120,7 +120,7 @@ export default function OrderProcessor({ brand }) {
 
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
-      'murrell@decoratorsbest.com',
+      'ashley@decoratorsbest.com',
       emailTitle,
       `<p style="margin-bottom: 20px;">Hello! Thanks for processing the orders!</p>${emailContent.join()}`
     )
