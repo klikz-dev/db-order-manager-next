@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import Lines from './Lines'
 import dateFormat from 'dateformat'
+import { supplier } from '@/const/supplier'
 
 export default function OrderProcessor({ brand }) {
   const { data: session } = useSession()
@@ -115,14 +116,16 @@ export default function OrderProcessor({ brand }) {
 
     const emailTitle =
       startPO === endPO
-        ? `DecoratorsBest New Order PO #${startPO}`
-        : `DecoratorsBest New Orders PO #${startPO} - PO #${endPO}`
+        ? `[${supplier[brand].account}] (DecoratorsBest) New Order PO #${startPO}`
+        : `[${supplier[brand].account}] (DecoratorsBest) New Orders PO #${startPO} - PO #${endPO}`
 
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
-      'ashley@decoratorsbest.com',
+      supplier[brand].order,
       emailTitle,
-      `<p style="margin-bottom: 20px;">Hello! Thanks for processing the orders!</p>${emailContent.join()}`
+      `<p style="margin-bottom: 20px;">Hello! Thanks for processing the orders! Account ID: <strong>${
+        supplier[brand].account
+      }</strong></p>${emailContent.join()}`
     )
 
     const pos = Object.keys(orders).sort((a, b) => (a > b ? 1 : -1))

@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import dateFormat from 'dateformat'
 
 export default function Line({
+  // email,
   shippingFirstName,
   shippingLastName,
   variant,
@@ -69,6 +70,7 @@ export default function Line({
 
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
+      // email,
       'ashley@decoratorsbest.com',
       `Item ${product?.sku} has been discontinued`,
       `
@@ -85,6 +87,7 @@ export default function Line({
 
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
+      // email,
       'ashley@decoratorsbest.com',
       `Item ${product?.sku} has been backordered`,
       `
@@ -106,6 +109,7 @@ export default function Line({
 
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
+      // email,
       'ashley@decoratorsbest.com',
       `Item ${product?.sku} is out of stock`,
       `
