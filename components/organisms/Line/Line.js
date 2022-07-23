@@ -71,7 +71,7 @@ export default function Line({
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
       // email,
-      'ashley@decoratorsbest.com',
+      'murrell@decoratorsbest.com',
       `Item ${product?.sku} has been discontinued`,
       `
       <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
@@ -88,7 +88,7 @@ export default function Line({
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
       // email,
-      'ashley@decoratorsbest.com',
+      'murrell@decoratorsbest.com',
       `Item ${product?.sku} has been backordered`,
       `
       <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
@@ -110,7 +110,7 @@ export default function Line({
     sendEmail(
       `<Decoratorsbest Customer Success Center>`,
       // email,
-      'ashley@decoratorsbest.com',
+      'murrell@decoratorsbest.com',
       `Item ${product?.sku} is out of stock`,
       `
       <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>

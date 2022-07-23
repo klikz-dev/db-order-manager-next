@@ -98,7 +98,7 @@ export default function SampleProcessor({ brand }) {
           </p>
 
           <h3 style="margin-bottom: 8px;">Line Items</h3>
-          <table style="border-collapse: collapse; width: 360px;">
+          <table style="border-collapse: collapse; width: 360px; margin-bottom: 20px;">
             <thead>
               <tr>
                 <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>SKU</strong></th>
@@ -107,9 +107,15 @@ export default function SampleProcessor({ brand }) {
               </tr>
             </thead>
             <tbody>
-              ${lineItemsContent}
+              ${lineItemsContent.join()}
             </tbody>
           </table>
+          
+          <div style="margin-bottom: 20px;">
+            <a href="${
+              process.env.NEXT_PUBLIC_FRONTEND_URL
+            }/reference/?brand=${brand}&po=${orderNumber}">Input Reference Number</a>
+          </div>
         </div>
       `
     })
