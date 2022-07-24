@@ -2,7 +2,7 @@ export const supplier = {
   Covington: {
     order: 'awilson@covfab.com',
     sample: 'awilson@covfab.com',
-    account: 'decoratorsbest',
+    account: '118116',
   },
   'JF Fabrics': {
     order: 'customerservice@jffabrics.com',
@@ -12,7 +12,7 @@ export const supplier = {
   Kasmir: {
     order: 'service@kasmirfabrics.com',
     sample: 'service@kasmirfabrics.com',
-    account: 'decoratorsbest',
+    account: '226022',
   },
   'Madcap Cottage': {
     order: 'trade@madcapcottage.com',
@@ -32,12 +32,12 @@ export const supplier = {
   'Phillip Jeffries': {
     order: 'pjorders@phillipjeffries.com',
     sample: 'pjorders@phillipjeffries.com',
-    account: 'decoratorsbest',
+    account: '46986',
   },
   Pindler: {
     order: 'mainfaxes@pindlercorp.com',
     sample: 'mainfaxes@pindlercorp.com',
-    account: 'decoratorsbest',
+    account: '657869',
   },
   'Premier Prints': {
     order: 'sheryl@premierprintsinc.com',
@@ -52,21 +52,21 @@ export const supplier = {
   Scalamandre: {
     order: 'mbowling@scalamandre.com',
     sample: 'customerservice@scalamandre.com',
-    account: 'decoratorsbest',
+    account: '591267',
   },
   Seabrook: {
     order: 'orders@wallquest.com',
     sample: 'orders@wallquest.com',
-    account: 'decoratorsbest',
+    account: '591267',
   },
   Stout: {
     order: 'e-csr@estout.com',
     sample: 'e-csr@estout.com',
-    account: 'decoratorsbest',
+    account: '45724',
   },
   Zoffany: {
     order: 'bonnie.bradley@zoffany.com',
     sample: 'usasampling@zoffany.com',
-    account: 'decoratorsbest',
+    account: '45724',
   },
 }
