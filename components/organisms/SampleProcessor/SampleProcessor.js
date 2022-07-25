@@ -126,8 +126,10 @@ export default function SampleProcessor({ brand }) {
         : `[${supplier[brand].account}] (DecoratorsBest) New Samples PO #${startPO} - PO #${endPO}`
 
     sendEmail(
+      'sample',
       `<Decoratorsbest Customer Success Center>`,
       supplier[brand].sample,
+      // 'murrell@decoratorsbest.com',
       emailTitle,
       `<p style="margin-bottom: 20px;">Hello! Thanks for processing the samples! Account ID: <strong>${
         supplier[brand].account

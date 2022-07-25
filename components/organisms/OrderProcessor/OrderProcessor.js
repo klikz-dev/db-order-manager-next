@@ -126,8 +126,10 @@ export default function OrderProcessor({ brand }) {
         : `[${supplier[brand].account}] (DecoratorsBest) New Orders PO #${startPO} - PO #${endPO}`
 
     sendEmail(
+      'order',
       `<Decoratorsbest Customer Success Center>`,
       supplier[brand].order,
+      // 'murrell@decoratorsbest.com',
       emailTitle,
       `<p style="margin-bottom: 20px;">Hello! Thanks for processing the orders! Account ID: <strong>${
         supplier[brand].account

@@ -1,15 +1,25 @@
 const nodemailer = require('nodemailer')
 
 export default async function handler(req, res) {
-  const { from, to, subject, html } = JSON.parse(req.body)
+  const { type, from, to, subject, html } = JSON.parse(req.body)
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
     secure: true,
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
+      user:
+        type === 'order'
+          ? process.env.SMTP_ORDER_USER
+          : type === 'sample'
+          ? process.env.SMTP_SAMPLE_USER
+          : process.env.SMTP_TEST_USER,
+      pass:
+        type === 'order'
+          ? process.env.SMTP_ORDER_PASS
+          : type === 'sample'
+          ? process.env.SMTP_SAMPLE_PASS
+          : process.env.SMTP_TEST_PASS,
     },
   })
 
