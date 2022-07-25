@@ -11,6 +11,8 @@ export default function Line({
   orderNumber,
   email,
   variant,
+  orderedProductSKU,
+  orderedProductTitle,
   orderedProductUnitPrice,
   quantity,
 }) {
@@ -112,9 +114,20 @@ export default function Line({
         <Image src={image?.imageURL} fill={true} />
       </td>
 
-      <td className='border'>{product?.sku}</td>
+      <td className='border text-center'>
+        <a
+          href={`https://decoratorsbest.myshopify.com/admin/products/${
+            product?.productId ?? ''
+          }`}
+          target='_blank'
+          rel='noreferrer'
+          className='font-bold underline'
+        >
+          {orderedProductSKU}
+        </a>
+      </td>
 
-      <td className='border'>{variant?.name}</td>
+      <td className='border'>{orderedProductTitle}</td>
 
       <td className='border'>
         ${variant?.cost?.toFixed(2)} {variant?.pricing}
