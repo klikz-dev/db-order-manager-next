@@ -9,7 +9,7 @@ import sendKlaviyoEmail from '@/functions/klaviyo'
 
 export default function Line({
   orderNumber,
-  // email,
+  email,
   variant,
   orderedProductUnitPrice,
   quantity,
@@ -76,7 +76,7 @@ export default function Line({
           u: `https://decoratorsbest.com/products/${product?.handle}/?utm_source=discontinued&amp;utm_medium=email&amp;utm_campaign=Discontinued Email`,
         },
       },
-      'murrell@decoratorsbest.com'
+      email
     )
 
     setDiscoSent(true)
@@ -100,7 +100,7 @@ export default function Line({
           backdate: backOrderDate,
         },
       },
-      'murrell@decoratorsbest.com'
+      email
     )
 
     setBackoSent(true)
