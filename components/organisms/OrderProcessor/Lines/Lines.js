@@ -64,6 +64,7 @@ export default function Lines({ line_items }) {
               line_items.map((line_item, index) => (
                 <Line
                   key={index}
+                  orderNumber={order.orderNumber}
                   email={order.email}
                   shippingFirstName={order.shippingFirstName}
                   shippingLastName={order.shippingLastName}

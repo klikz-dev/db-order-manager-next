@@ -1,6 +1,7 @@
 import Line from '../../Line'
 
 export default function Lines({
+  orderNumber,
   email,
   shippingFirstName,
   shippingLastName,
@@ -26,6 +27,7 @@ export default function Lines({
           line_items.map((line_item, index) => (
             <Line
               key={index}
+              orderNumber={orderNumber}
               email={email}
               shippingFirstName={shippingFirstName}
               shippingLastName={shippingLastName}

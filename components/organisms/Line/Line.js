@@ -1,17 +1,15 @@
 import Button from '@/components/atoms/Button'
 import Image from '@/components/atoms/Image'
-import sendEmail from '@/functions/email'
 import { getData } from '@/functions/fetch'
 import { putData } from '@/functions/put'
 import { MailIcon, UploadIcon } from '@heroicons/react/solid'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import dateFormat from 'dateformat'
+import sendKlaviyoEmail from '@/functions/klaviyo'
 
 export default function Line({
+  orderNumber,
   // email,
-  shippingFirstName,
-  shippingLastName,
   variant,
   orderedProductUnitPrice,
   quantity,
@@ -63,20 +61,22 @@ export default function Line({
 
   const [discoSent, setDiscoSent] = useState(false)
   const [backoSent, setBackoSent] = useState(false)
-  const [outstockSent, setOutstockSent] = useState(false)
 
   const discontinuedEmail = (e) => {
     e.preventDefault()
 
-    sendEmail(
-      `<Decoratorsbest Customer Success Center>`,
-      // email,
-      'murrell@decoratorsbest.com',
-      `Item ${product?.sku} has been discontinued`,
-      `
-      <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
-      <p style='margin-top: 20px; margin-bottom: 20px;'>The product <strong>${variant?.name}</strong> you ordered has been discontinued.</p>
-      `
+    sendKlaviyoEmail(
+      process.env.NEXT_PUBLIC_KLAVIYO_DISCO_TMP,
+      `Important Information About Your Order PO #${orderNumber} ${product?.title}`,
+      {
+        dp: {
+          actual_oid: orderNumber,
+          t: product?.title,
+          img: image?.imageURL,
+          u: `https://decoratorsbest.com/products/${product?.handle}/?utm_source=discontinued&amp;utm_medium=email&amp;utm_campaign=Discontinued Email`,
+        },
+      },
+      'murrell@decoratorsbest.com'
     )
 
     setDiscoSent(true)
@@ -85,40 +85,25 @@ export default function Line({
   const backorderEmail = (e) => {
     e.preventDefault()
 
-    sendEmail(
-      `<Decoratorsbest Customer Success Center>`,
-      // email,
-      'murrell@decoratorsbest.com',
-      `Item ${product?.sku} has been backordered`,
-      `
-      <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
-      <p style='margin-top: 20px; margin-bottom: 20px;'>The backorder date for the product <strong>${
-        variant?.name
-      }</strong> you ordered has been updated to ${dateFormat(
-        backOrderDate,
-        'mm/dd/yyyy'
-      )}.</p>
-      `
+    sendKlaviyoEmail(
+      variant?.name?.includes('Sample - ')
+        ? process.env.NEXT_PUBLIC_KLAVIYO_BO_SAMPLE_TMP
+        : process.env.NEXT_PUBLIC_KLAVIYO_BO_ORDER_TMP,
+      `Important Information About Your Order PO #${orderNumber} ${product?.title}`,
+      {
+        dp: {
+          actual_oid: orderNumber,
+          t: product?.title,
+          orderedtitle: variant?.name,
+          img: image?.imageURL,
+          u: `https://decoratorsbest.com/products/${product?.handle}/?utm_source=backordered&amp;utm_medium=email&amp;utm_campaign=Backordered Email`,
+          backdate: backOrderDate,
+        },
+      },
+      'murrell@decoratorsbest.com'
     )
 
     setBackoSent(true)
-  }
-
-  const outstockEmail = (e) => {
-    e.preventDefault()
-
-    sendEmail(
-      `<Decoratorsbest Customer Success Center>`,
-      // email,
-      'murrell@decoratorsbest.com',
-      `Item ${product?.sku} is out of stock`,
-      `
-      <p>Hello, ${shippingFirstName} ${shippingLastName}!</p>
-      <p style='margin-top: 20px; margin-bottom: 20px;'>The product <strong>${variant?.name}</strong> you ordered is out of stock</p>
-      `
-    )
-
-    setOutstockSent(true)
   }
 
   return (
@@ -200,23 +185,6 @@ export default function Line({
               <MailIcon width={16} height={16} />
               <span className='leading-4 ml-1'>
                 {backoSent ? 'Sent' : 'Backorder'}
-              </span>
-            </div>
-          </Button>
-        </div>
-
-        <div className='block'>
-          <Button
-            type='primary'
-            size='sm'
-            className=''
-            onClick={outstockEmail}
-            disabled={outstockSent}
-          >
-            <div className='flex items-center'>
-              <MailIcon width={16} height={16} />
-              <span className='leading-4 ml-1'>
-                {outstockSent ? 'Sent' : 'Out of stock'}
               </span>
             </div>
           </Button>
