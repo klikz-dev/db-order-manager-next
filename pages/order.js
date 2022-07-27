@@ -19,7 +19,7 @@ export default function Order() {
   const { id } = router?.query || {}
 
   /**
-   * Get Info
+   * Get Order
    */
   const { data: order } = getData(
     id ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${id}` : undefined,
@@ -28,6 +28,18 @@ export default function Order() {
 
   const { customer } = order ?? {}
   const { addresses } = customer ?? {}
+
+  /**
+   * Get Tracking
+   */
+  const { data: trackingsData } = getData(
+    order?.orderNumber
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/trackings/?po=${order.orderNumber}`
+      : undefined,
+    session?.accessToken
+  )
+  const trackings =
+    trackingsData?.results?.length > 0 ? trackingsData.results : []
 
   /**
    * Update Order
@@ -51,20 +63,24 @@ export default function Order() {
           <div className='grid grid-cols-3 gap-5'>
             <Information {...order} updateOrder={updateOrder} />
 
+            <Status
+              order={order}
+              updateOrder={updateOrder}
+              trackings={trackings}
+            />
+
+            <Note order={order} updateOrder={updateOrder} />
+
+            <Address order={order} updateOrder={updateOrder} />
+
+            <Transaction {...order} updateOrder={updateOrder} />
+
             <Customer
               customer={customer}
               address={addresses?.[addresses?.length - 1]}
               orderNote={order.orderNote}
               updateOrder={updateOrder}
             />
-
-            <Address order={order} updateOrder={updateOrder} />
-
-            <Transaction {...order} updateOrder={updateOrder} />
-
-            <Status order={order} updateOrder={updateOrder} />
-
-            <Note order={order} updateOrder={updateOrder} />
           </div>
 
           <hr className='my-12' />

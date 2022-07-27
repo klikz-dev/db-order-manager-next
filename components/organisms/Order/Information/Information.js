@@ -1,29 +1,19 @@
 import Button from '@/components/atoms/Button'
-import {
-  InformationCircleIcon,
-  PencilAltIcon,
-  UploadIcon,
-  XCircleIcon,
-} from '@heroicons/react/solid'
-import classNames from 'classnames'
+import { InformationCircleIcon, UploadIcon } from '@heroicons/react/solid'
 import dateFormat from 'dateformat'
 import { useState } from 'react'
 
 export default function Information({
   orderNumber,
-  status: orderStatus,
   orderDate,
   updatedAt,
   manufacturerList,
   referenceNumber,
   updateOrder,
 }) {
-  const [edit, setEdit] = useState(false)
-
-  const [status, setStatus] = useState(orderStatus)
   const [manufacturers, setManufacturers] = useState(manufacturerList)
   const [reference, setReference] = useState(
-    referenceNumber.replace(/,/g, '\n')?.trim()
+    referenceNumber?.replace(/,/g, '\n')?.trim()
   )
 
   const [updateError, setUpdateError] = useState('')
@@ -31,7 +21,6 @@ export default function Information({
 
   async function handleSave() {
     const res = await updateOrder({
-      status: status,
       manufacturerList: manufacturers,
       referenceNumber: reference,
     })
@@ -55,86 +44,6 @@ export default function Information({
           <p>
             <span className='font-bold'>PO #:</span> {orderNumber}
           </p>
-
-          <div className='flex gap-3 items-center'>
-            {edit ? (
-              <>
-                <select
-                  className='w-56 py-1.5 rounded text-base'
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                >
-                  <option value='All'>All</option>
-                  <option value='New'>New</option>
-                  <option value='Reference# Needed'>Reference# Needed</option>
-                  <option value='BackOrder Reference# Needed'>
-                    BackOrder Reference# Needed
-                  </option>
-                  <option value='Stock OK'>Stock OK</option>
-                  <option value='Hold'>Hold</option>
-                  <option value='Back Order'>Back Order</option>
-                  <option value='Cancel'>Cancel</option>
-                  <option value='Cancel Pending'>Cancel Pending</option>
-                  <option value='Client OK'>Client OK</option>
-                  <option value='Pay Manufacturer'>Pay Manufacturer</option>
-                  <option value='CFA Cut For Approval'>
-                    CFA Cut For Approval
-                  </option>
-                  <option value='Discontinued'>Discontinued</option>
-                  <option value='Call Client'>Call Client</option>
-                  <option value='Call Manufacturer'>Call Manufacturer</option>
-                  <option value='Overnight Shipping'>Overnight Shipping</option>
-                  <option value='2nd Day Shipping'>2nd Day Shipping</option>
-                  <option value='Return'>Return</option>
-                  <option value='Processed Back Order'>
-                    Processed Back Order
-                  </option>
-                  <option value='Processed Refund'>Processed Refund</option>
-                  <option value='Processed Cancel'>Processed Cancel</option>
-                  <option value='Processed Return'>Processed Return</option>
-                  <option value='Processed'>Processed</option>
-                </select>
-
-                <XCircleIcon
-                  width={16}
-                  height={16}
-                  onClick={() => setEdit(false)}
-                />
-              </>
-            ) : (
-              <>
-                <p>
-                  <span className='font-bold'>Status:</span>{' '}
-                  <span
-                    className={classNames(
-                      status === 'New'
-                        ? 'bg-blue-600 text-white'
-                        : status === 'Processed'
-                        ? 'bg-purple-600 text-white'
-                        : status === 'Stock OK'
-                        ? 'bg-gray-200'
-                        : status.includes('Cancel')
-                        ? 'bg-yellow-800 text-white'
-                        : status.includes('Refund')
-                        ? 'bg-red-500 text-white'
-                        : status.includes('Approval')
-                        ? 'bg-lime-700 text-white'
-                        : 'bg-white',
-                      'px-2 py-0.5 rounded-sm'
-                    )}
-                  >
-                    {status}
-                  </span>
-                </p>
-
-                <PencilAltIcon
-                  width={16}
-                  height={16}
-                  onClick={() => setEdit(true)}
-                />
-              </>
-            )}
-          </div>
         </div>
 
         <p className='mb-2'>

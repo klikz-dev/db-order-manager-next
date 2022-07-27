@@ -1,30 +1,6 @@
-import Button from '@/components/atoms/Button'
-import { IdentificationIcon, UploadIcon } from '@heroicons/react/solid'
-import { useState } from 'react'
+import { IdentificationIcon } from '@heroicons/react/solid'
 
-export default function Customer({
-  customer,
-  address,
-  orderNote,
-  updateOrder,
-}) {
-  const [note, setNote] = useState(orderNote)
-
-  const [updateError, setUpdateError] = useState('')
-  const [updateSuccess, setUpdateSuccess] = useState('')
-
-  async function handleSave() {
-    const res = await updateOrder({
-      orderNote: note,
-    })
-
-    if (res.status) {
-      setUpdateSuccess('Successfully updated.')
-    } else {
-      setUpdateError('Server Error. Update Failed')
-    }
-  }
-
+export default function Customer({ customer, address, orderNote }) {
   return (
     <div className='shadow-lg border rounded px-8 py-4'>
       <h3 className='mb-4 flex items-center'>
@@ -79,29 +55,10 @@ export default function Customer({
         </div>
       </div>
 
-      <label>
-        <p className='font-semibold mb-1'>Note for the customer:</p>
-        <textarea
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-          className='w-full bg-blue-50 rounded text-base h-20'
-        />
-      </label>
-
-      <Button type='secondary' className='block mt-5' onClick={handleSave}>
-        <div className='flex items-center'>
-          <UploadIcon width={16} height={16} />
-          <span className='leading-4 ml-1'>Save</span>
-        </div>
-      </Button>
-
-      {updateSuccess && (
-        <p className='text-blue-700 text-sm mt-3'>{updateSuccess}</p>
-      )}
-
-      {updateError && (
-        <p className='text-red-700 text-sm mt-3'>{updateError}</p>
-      )}
+      <div className='mb-6'>
+        <p className='font-semibold mb-2'>Note from customer:</p>
+        <p className='bg-gray-200 p-1'>{orderNote}</p>
+      </div>
     </div>
   )
 }

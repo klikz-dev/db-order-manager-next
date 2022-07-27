@@ -3,7 +3,6 @@ import { DocumentTextIcon, UploadIcon } from '@heroicons/react/solid'
 import { useState } from 'react'
 
 export default function Note({ order, updateOrder }) {
-  const [specialShipping, setSpecialShipping] = useState(order.specialShipping)
   const [note, setNote] = useState(order.note)
 
   const [updateError, setUpdateError] = useState('')
@@ -11,7 +10,6 @@ export default function Note({ order, updateOrder }) {
 
   async function handleSave() {
     const res = await updateOrder({
-      specialShipping: specialShipping,
       note: note,
     })
 
@@ -26,33 +24,21 @@ export default function Note({ order, updateOrder }) {
     <div className='shadow-lg border rounded px-8 py-4'>
       <h3 className='mb-4 flex items-center'>
         <DocumentTextIcon width={24} height={24} />
-        <span className='ml-2 uppercase'>Note</span>
+        <span className='ml-2 uppercase'>CS Team Note</span>
       </h3>
 
       <div className='mb-2'>
-        <label className='text-base font-bold mr-2'>Special Shipping: </label>
-        <select
-          value={specialShipping}
-          onChange={(e) => setSpecialShipping(e.target.value)}
-          className='bg-blue-50 text-base py-1 mb-2 rounded'
-        >
-          <option value=''>None</option>
-          <option value='Overnight'>Overnight</option>
-          <option value='2nd Day'>2nd Day</option>
-          <option value='International'>International</option>
-        </select>
-      </div>
-
-      <div className='mb-2'>
-        <label className='block text-base font-bold mb-1'>Note</label>
+        <label className='block text-base font-bold mb-1'>
+          {'(Internal Note)'}
+        </label>
         <textarea
           value={note || ''}
           onChange={(e) => setNote(e.target.value)}
-          className='bg-blue-50 text-base py-1 mb-2 rounded w-full h-20'
+          className='bg-blue-50 text-base py-1 mb-2 rounded w-full h-24'
         />
       </div>
 
-      <Button type='secondary' className='block mt-5' onClick={handleSave}>
+      <Button type='secondary' className='block mt-2' onClick={handleSave}>
         <div className='flex items-center'>
           <UploadIcon width={16} height={16} />
           <span className='leading-4 ml-1'>Save</span>
