@@ -2,17 +2,12 @@ import Button from '@/components/atoms/Button'
 import Loading from '@/components/atoms/Loading'
 import { getData } from '@/functions/fetch'
 import { putData } from '@/functions/put'
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 export default function Reference() {
   const router = useRouter()
   const { brand, po } = router.query
-
-  const { data: session } = useSession()
-
-  console.log(po)
 
   /**
    * Get Info
@@ -21,7 +16,7 @@ export default function Reference() {
     po
       ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/?po=${po}`
       : undefined,
-    session?.accessToken
+    process.env.NEXT_PUBLIC_PARTNER_TOKEN
   )
 
   const order = orderData?.results?.length > 0 ? orderData.results[0] : null
@@ -42,7 +37,7 @@ export default function Reference() {
       order
         ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${order?.shopifyOrderId}/`
         : undefined,
-      session?.accessToken,
+      process.env.NEXT_PUBLIC_PARTNER_TOKEN,
       data
     )
 
