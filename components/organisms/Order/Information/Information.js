@@ -22,7 +22,9 @@ export default function Information({
 
   const [status, setStatus] = useState(orderStatus)
   const [manufacturers, setManufacturers] = useState(manufacturerList)
-  const [reference, setReference] = useState(referenceNumber)
+  const [reference, setReference] = useState(
+    referenceNumber.replace(/,/g, '\n')?.trim()
+  )
 
   const [updateError, setUpdateError] = useState('')
   const [updateSuccess, setUpdateSuccess] = useState('')
@@ -157,7 +159,7 @@ export default function Information({
         <label>
           <p className='font-semibold mb-1'>Reference Number:</p>
           <textarea
-            value={reference?.replace(/,/g, '\n')?.trim() || ''}
+            value={reference}
             onChange={(e) => setReference(e.target.value)}
             className='w-full bg-blue-50 rounded text-base h-20'
           />
