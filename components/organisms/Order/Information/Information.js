@@ -137,12 +137,12 @@ export default function Information({
 
         <p className='mb-2'>
           <span className='font-semibold'>Order Date: </span>
-          {dateFormat(orderDate)}
+          {dateFormat(orderDate, 'mm/dd/yyyy h:MM:ss TT')}
         </p>
 
         <p className='mb-4'>
           <span className='font-semibold'>Last Processed: </span>
-          {dateFormat(updatedAt)}
+          {dateFormat(updatedAt, 'mm/dd/yyyy h:MM:ss TT')}
         </p>
 
         <label className='block mb-4'>
