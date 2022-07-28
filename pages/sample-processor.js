@@ -1,9 +1,13 @@
 import Button from '@/components/atoms/Button'
 import Layout from '@/components/common/Layout'
 import SampleProcessor from '@/components/organisms/SampleProcessor'
+import { putData } from '@/functions/put'
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
 export default function Process() {
+  const { data: session } = useSession()
+
   const [selectedBrand, setSelectedBrand] = useState('Brewster')
 
   const ediBrands = ['Brewster', 'Schumacher', 'York', 'Kravet']
@@ -23,6 +27,19 @@ export default function Process() {
     'Stout',
     'Zoffany',
   ]
+
+  /**
+   * Update Order
+   */
+  async function updateOrder(shopifyOrderId, data) {
+    const res = await putData(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${shopifyOrderId}/`,
+      session?.accessToken,
+      data
+    )
+
+    return res
+  }
 
   return (
     <Layout title='Sample Processor'>
@@ -65,7 +82,10 @@ export default function Process() {
             </p>
           ) : (
             <>
-              <SampleProcessor brand={selectedBrand} />
+              <SampleProcessor
+                brand={selectedBrand}
+                updateOrder={updateOrder}
+              />
             </>
           )}
         </div>

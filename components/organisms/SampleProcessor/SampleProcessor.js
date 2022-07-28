@@ -9,7 +9,7 @@ import Lines from './Lines'
 import dateFormat from 'dateformat'
 import { supplier } from '@/const/supplier'
 
-export default function SampleProcessor({ brand }) {
+export default function SampleProcessor({ brand, updateOrder }) {
   const { data: session } = useSession()
 
   const { data: linesData } = getData(
@@ -138,6 +138,21 @@ export default function SampleProcessor({ brand }) {
 
     const pos = Object.keys(orders).sort((a, b) => (a > b ? 1 : -1))
 
+    // Update Order Status
+    for (let i = 0; i < pos.length; i++) {
+      const line_items = orders[pos[i]]
+      const order = line_items[0].order
+
+      console.log(order)
+
+      if (order.status === 'New') {
+        await updateOrder(order.shopifyOrderId, {
+          status: 'Reference# Needed',
+        })
+      }
+    }
+
+    // Update PO Config
     const lastPO = pos.length > 0 ? pos[pos.length - 1] : -1
 
     if (lastPO > 0) {
