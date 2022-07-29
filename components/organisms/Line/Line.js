@@ -116,9 +116,7 @@ export default function Line({
 
       <td className='border text-center'>
         <a
-          href={`https://decoratorsbest.myshopify.com/admin/products/${
-            product?.productId ?? ''
-          }`}
+          href={`https://decoratorsbest.com/products/${product?.handle ?? ''}`}
           target='_blank'
           rel='noreferrer'
           className='font-bold underline'
