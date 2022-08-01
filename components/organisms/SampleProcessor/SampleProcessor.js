@@ -30,7 +30,9 @@ export default function SampleProcessor({ brand, updateOrder }) {
             status?.includes('Call') ||
             status?.includes('Return') ||
             status?.includes('Discontinued') ||
-            status?.includes('Back')
+            status?.includes('Back') ||
+            status?.includes('B/O') ||
+            status?.includes('CFA')
           ) {
             return false
           }
