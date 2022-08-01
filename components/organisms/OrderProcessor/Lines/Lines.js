@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import dateFormat from 'dateformat'
 import Line from '../../Line'
 
@@ -7,14 +8,39 @@ export default function Lines({ line_items }) {
   return (
     <div className='shadow-lg rounded mb-6 border border-gray-600'>
       <div className='p-4 grid grid-cols-5 gap-6 bg-blue-100'>
-        <a
-          href={`/order/?id=${order?.shopifyOrderId}`}
-          target='_blank'
-          rel='noreferrer'
-          className='font-bold underline'
-        >
-          PO #{order?.orderNumber}
-        </a>
+        <div>
+          <a
+            href={`/order/?id=${order?.shopifyOrderId}`}
+            target='_blank'
+            rel='noreferrer'
+            className='font-bold underline'
+          >
+            PO #{order?.orderNumber}
+          </a>
+          <p className='my-3'>
+            <span className='font-bold'>Status:</span>{' '}
+            <span
+              className={classNames(
+                order?.status === 'New'
+                  ? 'bg-blue-600 text-white'
+                  : order?.status === 'Processed'
+                  ? 'bg-purple-600 text-white'
+                  : order?.status === 'Stock OK'
+                  ? 'bg-gray-200'
+                  : order?.status.includes('Cancel')
+                  ? 'bg-yellow-800 text-white'
+                  : order?.status.includes('Refund')
+                  ? 'bg-red-500 text-white'
+                  : order?.status.includes('Approval')
+                  ? 'bg-lime-700 text-white'
+                  : 'bg-white',
+                'px-2 py-0.5 rounded-sm'
+              )}
+            >
+              {order?.status}
+            </span>
+          </p>
+        </div>
 
         <div>
           <p className='font-bold'>

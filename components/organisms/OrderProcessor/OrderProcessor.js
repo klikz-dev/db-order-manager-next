@@ -18,7 +18,26 @@ export default function OrderProcessor({ brand, updateOrder }) {
       : undefined,
     session?.accessToken
   )
-  const lines = linesData?.results
+  const lines =
+    linesData?.results?.length > 0
+      ? linesData.results.filter((line) => {
+          const status = line.order?.status
+
+          if (
+            status?.includes('Processed') ||
+            status?.includes('Cancel') ||
+            status?.includes('Hold') ||
+            status?.includes('Call') ||
+            status?.includes('Return') ||
+            status?.includes('Discontinued') ||
+            status?.includes('Back')
+          ) {
+            return false
+          }
+
+          return true
+        })
+      : []
 
   const [orders, setOrders] = useState({})
   useEffect(() => {
