@@ -14,34 +14,12 @@ export default function OrderProcessor({ brand, updateOrder }) {
 
   const { data: linesData, loading } = getData(
     brand && session?.accessToken
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=o&limit=999`
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=o&limit=20`
       : undefined,
     session?.accessToken
   )
 
-  const lines =
-    linesData?.results?.length > 0
-      ? linesData.results.filter((line) => {
-          const status = line.order?.status
-
-          if (
-            status?.includes('Processed') ||
-            status?.includes('Cancel') ||
-            status?.includes('Hold') ||
-            status?.includes('Call') ||
-            status?.includes('Return') ||
-            status?.includes('Discontinued') ||
-            status?.includes('Back') ||
-            status?.includes('B/O') ||
-            status?.includes('Manually') ||
-            status?.includes('CFA')
-          ) {
-            return false
-          }
-
-          return true
-        })
-      : undefined
+  const lines = linesData?.results
 
   const orders =
     lines?.length > 0
