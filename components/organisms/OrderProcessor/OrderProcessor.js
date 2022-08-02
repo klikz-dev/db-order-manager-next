@@ -33,6 +33,7 @@ export default function OrderProcessor({ brand, updateOrder }) {
             status?.includes('Discontinued') ||
             status?.includes('Back') ||
             status?.includes('B/O') ||
+            status?.includes('Manually') ||
             status?.includes('CFA')
           ) {
             return false
