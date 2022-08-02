@@ -51,7 +51,9 @@ export default function Status({ order, updateOrder, trackings }) {
               <option value='BackOrder Reference# Needed'>
                 BackOrder Reference# Needed
               </option>
-              <option value='Processed'>Reference# Needed - Manually</option>
+              <option value='Reference# Needed - Manually'>
+                Reference# Needed - Manually
+              </option>
               <option value='Stock OK'>Stock OK</option>
               <option value='Hold'>Hold</option>
               <option value='Back Order'>Back Order</option>
