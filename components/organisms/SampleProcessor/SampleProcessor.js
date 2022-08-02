@@ -4,7 +4,7 @@ import sendEmail from '@/functions/email'
 import { getData } from '@/functions/fetch'
 import { putData } from '@/functions/put'
 import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Lines from './Lines'
 import dateFormat from 'dateformat'
 import { supplier } from '@/const/supplier'
@@ -18,6 +18,7 @@ export default function SampleProcessor({ brand, updateOrder }) {
       : undefined,
     session?.accessToken
   )
+
   const lines =
     linesData?.results?.length > 0
       ? linesData.results.filter((line) => {
@@ -39,23 +40,16 @@ export default function SampleProcessor({ brand, updateOrder }) {
 
           return true
         })
-      : []
+      : undefined
 
-  const [orders, setOrders] = useState({})
-  useEffect(() => {
-    setOrders(
-      lines?.length > 0
-        ? lines?.reduce((sum, ele) => {
-            sum[ele.order.orderNumber] = sum[ele.order.orderNumber] || []
-            sum[ele.order.orderNumber].push(ele)
-            return sum
-          }, {})
-        : {}
-    )
-    return () => {
-      setSuccess(false)
-    }
-  }, [lines])
+  const orders =
+    lines?.length > 0
+      ? lines?.reduce((sum, ele) => {
+          sum[ele.order.orderNumber] = sum[ele.order.orderNumber] || []
+          sum[ele.order.orderNumber].push(ele)
+          return sum
+        }, {})
+      : {}
 
   const [processing, setProcessing] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -89,9 +83,9 @@ export default function SampleProcessor({ brand, updateOrder }) {
         <div style="border: 1px solid #1e1e1e; padding: 12px; max-width: 800px;">
           <p style="margin-bottom: 8px;">
             <span style="margin-right: 12px;">PO: <strong>#${orderNumber}</strong></span>
-            <span style="margin-right: 12px;">Order Date: <strong>#${dateFormat(
-              order?.orderDate
-            )}</strong></span>
+            <span style="margin-right: 12px;">Order Date: <strong>#${
+              (dateFormat(order?.orderDate), 'mm/dd/yyyy h:MM:ss TT')
+            }</strong></span>
           </p>
 
           <p style="margin-bottom: 8px;">
@@ -164,8 +158,6 @@ export default function SampleProcessor({ brand, updateOrder }) {
       const line_items = orders[pos[i]]
       const order = line_items[0].order
 
-      console.log(order)
-
       if (order.status === 'New') {
         await updateOrder(order.shopifyOrderId, {
           status: 'Reference# Needed',
@@ -187,7 +179,6 @@ export default function SampleProcessor({ brand, updateOrder }) {
       )
     }
 
-    setOrders([])
     setProcessing(false)
     setSuccess(true)
   }
@@ -207,31 +198,33 @@ export default function SampleProcessor({ brand, updateOrder }) {
         {processing ? 'Processing...' : 'Process Samples'}
       </Button>
 
-      {lines ? (
-        <div>
-          {lines.length > 0 ? (
-            <>
-              {orders &&
-                Object.keys(orders).map((orderNumber, index) => (
-                  <Lines key={index} line_items={orders[orderNumber]} />
-                ))}
-            </>
-          ) : (
-            <>
-              {!success && (
-                <p className='mx-2 my-8 font-bold text-lg text-blue-700'>
-                  All set! No New orders here.
-                </p>
-              )}
-            </>
-          )}
-        </div>
-      ) : (
-        <Loading />
-      )}
-
-      {success && (
+      {success ? (
         <p className='mx-2 my-8 font-bold text-lg text-blue-700'>Complete!</p>
+      ) : (
+        <>
+          {lines ? (
+            <div>
+              {lines.length > 0 ? (
+                <>
+                  {orders &&
+                    Object.keys(orders).map((orderNumber, index) => (
+                      <Lines key={index} line_items={orders[orderNumber]} />
+                    ))}
+                </>
+              ) : (
+                <>
+                  {!success && (
+                    <p className='mx-2 my-8 font-bold text-lg text-blue-700'>
+                      All set! No New orders here.
+                    </p>
+                  )}
+                </>
+              )}
+            </div>
+          ) : (
+            <Loading />
+          )}
+        </>
       )}
     </>
   )
