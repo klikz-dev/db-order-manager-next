@@ -12,7 +12,7 @@ import { supplier } from '@/const/supplier'
 export default function OrderProcessor({ brand, updateOrder }) {
   const { data: session } = useSession()
 
-  const { data: linesData } = getData(
+  const { data: linesData, loading } = getData(
     brand && session?.accessToken
       ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=o&limit=999`
       : undefined,
@@ -203,7 +203,7 @@ export default function OrderProcessor({ brand, updateOrder }) {
         <p className='mx-2 my-8 font-bold text-lg text-blue-700'>Complete!</p>
       ) : (
         <>
-          {lines ? (
+          {!loading ? (
             <div>
               {lines.length > 0 ? (
                 <>
