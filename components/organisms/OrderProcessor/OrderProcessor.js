@@ -205,7 +205,7 @@ export default function OrderProcessor({ brand, updateOrder }) {
         <>
           {!loading ? (
             <div>
-              {lines.length > 0 ? (
+              {lines?.length > 0 ? (
                 <>
                   {orders &&
                     Object.keys(orders).map((orderNumber, index) => (
