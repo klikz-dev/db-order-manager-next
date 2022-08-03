@@ -51,9 +51,17 @@ export default function SampleProcessor({ brand, updateOrder }) {
       const lineItemsContent = line_items.map(
         (line_item) => `
         <tr>
-          <td style="border: 1px solid #3A3A3A; text-align: center;">${line_item.orderedProductSKU}</td>
-          <td style="border: 1px solid #3A3A3A; text-align: center;">${line_item.quantity}</td>
-          <td style="border: 1px solid #3A3A3A; text-align: center;">Sample</td>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">${
+            line_item.orderedProductSKU
+          }${
+          brand === 'Madcap Cottage'
+            ? ` (${line_item.orderedProductTitle})`
+            : ''
+        }</td>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">${
+            line_item.quantity
+          }</td>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">Order</td>
         </tr>
       `
       )
