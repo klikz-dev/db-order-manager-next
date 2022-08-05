@@ -52,9 +52,17 @@ export default function SampleProcessor({ brand, updateOrder }) {
         (line_item) => `
         <tr>
           <td style="border: 1px solid #3A3A3A; text-align: center;">
-            ${line_item.orderedProductSKU} (${line_item.orderedProductTitle})
+            ${
+              line_item.variant?.product?.manufacturerPartNumber ??
+              line_item.orderedProductSKU
+            }
           </td>
-          <td style="border: 1px solid #3A3A3A; text-align: center;">${line_item.quantity}</td>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">
+            ${line_item.orderedProductTitle}
+          </td>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">${
+            line_item.quantity
+          }</td>
           <td style="border: 1px solid #3A3A3A; text-align: center;">Order</td>
         </tr>
       `
@@ -94,10 +102,11 @@ export default function SampleProcessor({ brand, updateOrder }) {
           </p>
 
           <h3 style="margin-bottom: 8px;">Line Items</h3>
-          <table style="border-collapse: collapse; width: 360px; margin-bottom: 20px;">
+          <table style="border-collapse: collapse; width: 480px; margin-bottom: 20px;">
             <thead>
               <tr>
                 <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>SKU</strong></th>
+                <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>Product Name</strong></th>
                 <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>Quantity</strong></th>
                 <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>Type</strong></th>
               </tr>
