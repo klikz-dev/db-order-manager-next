@@ -33,6 +33,12 @@ export default function Orders() {
   const [complete, setComplete] = useState(true)
   const [incomplete, setIncomplete] = useState(true)
 
+  const [price100, setPrice100] = useState(true)
+  const [price100to200, setPrice100to200] = useState(true)
+  const [price200to500, setPrice200to500] = useState(true)
+  const [price500to1000, setPrice500to1000] = useState(true)
+  const [price1000, setPrice1000] = useState(true)
+
   const [filteredOrders, setFilteredOrders] = useState([])
 
   useEffect(() => {
@@ -63,10 +69,50 @@ export default function Orders() {
         ) {
           return false
         }
+        if (!price100 && parseFloat(o.orderTotal) < 100) {
+          return false
+        }
+        if (
+          !price100to200 &&
+          parseFloat(o.orderTotal) >= 100 &&
+          parseFloat(o.orderTotal) < 200
+        ) {
+          return false
+        }
+        if (
+          !price200to500 &&
+          parseFloat(o.orderTotal) >= 200 &&
+          parseFloat(o.orderTotal) < 500
+        ) {
+          return false
+        }
+        if (
+          !price500to1000 &&
+          parseFloat(o.orderTotal) >= 500 &&
+          parseFloat(o.orderTotal) < 1000
+        ) {
+          return false
+        }
+        if (!price1000 && parseFloat(o.orderTotal) >= 1000) {
+          return false
+        }
         return true
       })
     )
-  }, [orders, status, order, sample, ordersample, complete, incomplete])
+  }, [
+    orders,
+    status,
+    order,
+    sample,
+    ordersample,
+    complete,
+    incomplete,
+    price100,
+    price100to200,
+    price200to500,
+    price500to1000,
+    price1000,
+  ])
 
   function resetFilters() {
     setStatus('All')
@@ -159,6 +205,16 @@ export default function Orders() {
           setComplete={setComplete}
           incomplete={incomplete}
           setIncomplete={setIncomplete}
+          price100={price100}
+          setPrice100={setPrice100}
+          price100to200={price100to200}
+          setPrice100to200={setPrice100to200}
+          price200to500={price200to500}
+          setPrice200to500={setPrice200to500}
+          price500to1000={price500to1000}
+          setPrice500to1000={setPrice500to1000}
+          price1000={price1000}
+          setPrice1000={setPrice1000}
           dateRange={dateRange}
           setDateRange={setDateRange}
           orderNumber={orderNumber}

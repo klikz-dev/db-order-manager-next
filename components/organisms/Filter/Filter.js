@@ -20,6 +20,16 @@ export default function index({
   setComplete,
   incomplete,
   setIncomplete,
+  price100,
+  setPrice100,
+  price100to200,
+  setPrice100to200,
+  price200to500,
+  setPrice200to500,
+  price500to1000,
+  setPrice500to1000,
+  price1000,
+  setPrice1000,
   dateRange,
   setDateRange,
   orderNumber,
@@ -150,6 +160,53 @@ export default function index({
                 checked={incomplete}
               />
               <span className='ml-2'>Incomplete</span>
+            </label>
+
+            <hr className='my-3 w-1/2' />
+
+            <label className={styles.checkbox}>
+              <input
+                type='checkbox'
+                onChange={() => setPrice100(!price100)}
+                checked={price100}
+              />
+              <span className='ml-2'>{'< $100'}</span>
+            </label>
+
+            <label className={styles.checkbox}>
+              <input
+                type='checkbox'
+                onChange={() => setPrice100to200(!price100to200)}
+                checked={price100to200}
+              />
+              <span className='ml-2'>$100 - $200</span>
+            </label>
+
+            <label className={styles.checkbox}>
+              <input
+                type='checkbox'
+                onChange={() => setPrice200to500(!price200to500)}
+                checked={price200to500}
+              />
+              <span className='ml-2'>$200 - $500</span>
+            </label>
+
+            <label className={styles.checkbox}>
+              <input
+                type='checkbox'
+                onChange={() => setPrice500to1000(!price500to1000)}
+                checked={price500to1000}
+              />
+              <span className='ml-2'>$500 - $1,000</span>
+            </label>
+
+            <label className={styles.checkbox}>
+              <input
+                type='checkbox'
+                onChange={() => setPrice1000(!price1000)}
+                checked={price1000}
+              />
+              <span className='ml-2'>{'$1,000 <'}</span>
             </label>
           </div>
 

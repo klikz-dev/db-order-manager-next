@@ -33,8 +33,6 @@ export default function OrderProcessor({ brand, updateOrder }) {
   const [processing, setProcessing] = useState(false)
   const [success, setSuccess] = useState(false)
 
-  console.log(lines)
-
   async function handleProcess(e) {
     e.preventDefault()
 
