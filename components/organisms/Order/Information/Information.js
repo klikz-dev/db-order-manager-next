@@ -48,12 +48,12 @@ export default function Information({
 
         <p className='mb-2'>
           <span className='font-semibold'>Order Date: </span>
-          {dateFormat(orderDate, 'mm/dd/yyyy h:MM:ss TT')}
+          {dateFormat(orderDate, 'mm/dd/yyyy h:MM:ss TT Z')}
         </p>
 
         <p className='mb-4'>
           <span className='font-semibold'>Last Processed: </span>
-          {dateFormat(updatedAt, 'mm/dd/yyyy h:MM:ss TT')}
+          {dateFormat(updatedAt, 'mm/dd/yyyy h:MM:ss TT Z')}
         </p>
 
         <label className='block mb-4'>
