@@ -56,8 +56,6 @@ export default function Order() {
     return res
   }
 
-  console.log(order)
-
   return (
     <Layout title='Order Detail'>
       {order ? (

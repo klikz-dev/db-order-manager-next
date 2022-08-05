@@ -28,7 +28,6 @@ export default function Address({ order, updateOrder }) {
   const [shippingState, setShippingState] = useState(order.shippingState)
   const [shippingZip, setShippingZip] = useState(order.shippingZip)
   const [shippingCountry, setShippingCountry] = useState(order.shippingCountry)
-  const [shippingMethod, setShippingMethod] = useState(order.shippingMethod)
 
   const [updateError, setUpdateError] = useState('')
 
@@ -44,7 +43,6 @@ export default function Address({ order, updateOrder }) {
       shippingState: shippingState,
       shippingZip: shippingZip,
       shippingCountry: shippingCountry,
-      shippingMethod: shippingMethod,
     })
 
     if (res.status) {
@@ -93,7 +91,7 @@ export default function Address({ order, updateOrder }) {
             <p>{shippingCountry}</p>
             <p>{shippingCompany}</p>
             <p>{shippingPhone}</p>
-            <p className='mt-2 text-red-700'>{shippingMethod}</p>
+            <p className='mt-2 text-red-700'>{order.shippingMethod}</p>
 
             <Button
               type='secondary'
@@ -234,18 +232,6 @@ export default function Address({ order, updateOrder }) {
                   className='bg-blue-50 text-base py-1 mb-2 rounded'
                 />
               </div>
-            </div>
-
-            <div>
-              <label className='block text-sm font-bold mb-1'>
-                Shipping Method
-              </label>
-              <input
-                type='text'
-                value={shippingMethod}
-                onChange={(e) => setShippingMethod(e.target.value)}
-                className='bg-blue-100 text-base py-1 mb-2 w-full'
-              />
             </div>
 
             <Button
