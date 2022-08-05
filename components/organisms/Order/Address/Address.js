@@ -72,7 +72,7 @@ export default function Address({ order, updateOrder }) {
               {order.billingAddress1} {order.billingAddress2},
             </p>
             <p>
-              {order.billingCity}, {order.billingState} {order.billingZip},
+              {order.billingCity}, {order.billingState} {order.billingZip}
             </p>
             <p>{order.billingCountry}</p>
             <p>{order.billingCompany}</p>
@@ -88,7 +88,7 @@ export default function Address({ order, updateOrder }) {
               {shippingAddress1} {shippingAddress2},
             </p>
             <p>
-              {shippingCity}, {shippingState} {shippingZip},
+              {shippingCity}, {shippingState} {shippingZip}
             </p>
             <p>{shippingCountry}</p>
             <p>{shippingCompany}</p>
