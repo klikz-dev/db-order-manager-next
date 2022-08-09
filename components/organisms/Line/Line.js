@@ -15,6 +15,7 @@ export default function Line({
   orderedProductTitle,
   orderedProductUnitPrice,
   quantity,
+  individualProcess,
 }) {
   const { data: session } = useSession()
 
@@ -200,6 +201,20 @@ export default function Line({
             </div>
           </Button>
         </div>
+
+        {individualProcess && (
+          <div className='block mb-0.5'>
+            <Button
+              type='custom'
+              size='sm'
+              className='bg-red-700 text-white hover:bg-red-900 hover:text-white'
+              href={`https://www.phillipjeffries.com/product/${variant.product?.manufacturerPartNumber}`}
+              urlExternal={true}
+            >
+              <div className='flex items-center'>Process</div>
+            </Button>
+          </div>
+        )}
       </td>
     </tr>
   )

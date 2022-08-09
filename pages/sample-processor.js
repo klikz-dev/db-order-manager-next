@@ -1,6 +1,7 @@
 import Button from '@/components/atoms/Button'
 import Layout from '@/components/common/Layout'
 import SampleProcessor from '@/components/organisms/SampleProcessor'
+import PJSampleProcessor from '@/components/organisms/SampleProcessor/PJSampleProcessor'
 import { putData } from '@/functions/put'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
@@ -81,10 +82,17 @@ export default function Process() {
             </p>
           ) : (
             <>
-              <SampleProcessor
-                brand={selectedBrand}
-                updateOrder={updateOrder}
-              />
+              {selectedBrand === 'Phillip Jeffries' ? (
+                <PJSampleProcessor
+                  brand={selectedBrand}
+                  updateOrder={updateOrder}
+                />
+              ) : (
+                <SampleProcessor
+                  brand={selectedBrand}
+                  updateOrder={updateOrder}
+                />
+              )}
             </>
           )}
         </div>

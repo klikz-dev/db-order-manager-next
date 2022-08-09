@@ -13,7 +13,6 @@ export default function Button({
   weight,
   style,
   tag,
-
   type,
   href,
   urlExternal,
@@ -30,7 +29,14 @@ export default function Button({
 
   if (href) {
     return urlExternal ? (
-      <a href={href} className={buttonClassNames} style={style} {...attributes}>
+      <a
+        href={href}
+        className={buttonClassNames}
+        style={style}
+        {...attributes}
+        target='_blank'
+        rel='noreferrer'
+      >
         {children}
       </a>
     ) : (

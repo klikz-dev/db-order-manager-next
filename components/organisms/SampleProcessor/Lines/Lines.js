@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import dateFormat from 'dateformat'
 import Line from '../../Line'
 
-export default function Lines({ line_items }) {
+export default function Lines({ line_items, individualProcess = false }) {
   const order = line_items[0].order
 
   return (
@@ -95,6 +95,7 @@ export default function Lines({ line_items }) {
                   shippingFirstName={order.shippingFirstName}
                   shippingLastName={order.shippingLastName}
                   {...line_item}
+                  individualProcess={individualProcess}
                 />
               ))}
           </tbody>
