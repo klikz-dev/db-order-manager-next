@@ -4,7 +4,7 @@ import sendEmail from '@/functions/email'
 import { getData } from '@/functions/fetch'
 import { putData } from '@/functions/put'
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Lines from './Lines'
 import dateFormat from 'dateformat'
 import { supplier } from '@/const/supplier'
@@ -32,6 +32,11 @@ export default function OrderProcessor({ brand, updateOrder }) {
 
   const [processing, setProcessing] = useState(false)
   const [success, setSuccess] = useState(false)
+
+  useEffect(() => {
+    setProcessing(false)
+    setSuccess(false)
+  }, [brand])
 
   async function handleProcess(e) {
     e.preventDefault()

@@ -57,7 +57,9 @@ export default function Customer({ customer, address, orderNote }) {
 
       <div className='mb-6'>
         <p className='font-semibold mb-2'>Note from customer:</p>
-        <p className='bg-gray-200 p-1'>{orderNote}</p>
+        <p className='bg-gray-200 p-1 font-bold text-red-800 text-lg'>
+          {orderNote}
+        </p>
       </div>
     </div>
   )
