@@ -47,11 +47,17 @@ export default function Reference() {
   async function saveRef() {
     setUpdating(true)
 
-    const newRef = `${referenceNumber}\r\n${brand}: ${ref}`
+    const newRef = `${referenceNumber ?? ''}\r\n${brand}: ${ref}`
 
-    const res = await updateOrder({
+    const updateObj = {
       referenceNumber: newRef,
-    })
+    }
+
+    if (order?.manufacturerList?.split(',')?.length === 1) {
+      updateObj.status = 'Processed'
+    }
+
+    const res = await updateOrder(updateObj)
 
     if (res.status) {
       setUpdateSuccess('Successfully updated.')
