@@ -68,7 +68,7 @@ export default function SampleProcessor({ brand, updateOrder }) {
           <td style="border: 1px solid #3A3A3A; text-align: center;">${
             line_item.quantity
           }</td>
-          <td style="border: 1px solid #3A3A3A; text-align: center;">Order</td>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">Sample</td>
         </tr>
       `
       )
