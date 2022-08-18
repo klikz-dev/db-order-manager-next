@@ -29,6 +29,11 @@ export const supplier = {
     sample: 'memo@maxwellfabrics.com',
     account: 'decoratorsbest',
   },
+  'P/K Lifestyles': {
+    order: 'customerservice@pklifestyles.com',
+    sample: 'customerservice@pklifestyles.com',
+    account: '15024056',
+  },
   'Phillip Jeffries': {
     order: 'pjorders@phillipjeffries.com',
     sample: 'pjorders@phillipjeffries.com',
