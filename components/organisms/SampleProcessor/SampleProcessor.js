@@ -77,9 +77,10 @@ export default function SampleProcessor({ brand, updateOrder }) {
         <div style="border: 1px solid #1e1e1e; padding: 12px; max-width: 800px;">
           <p style="margin-bottom: 8px;">
             <span style="margin-right: 12px;">PO: <strong>#${orderNumber}</strong></span>
-            <span style="margin-right: 12px;">Order Date: <strong>#${
-              (dateFormat(order?.orderDate), 'mm/dd/yyyy h:MM:ss TT')
-            }</strong></span>
+            <span style="margin-right: 12px;">Order Date: <strong>${dateFormat(
+              order?.orderDate,
+              'mm/dd/yyyy h:MM:ss TT'
+            )}</strong></span>
           </p>
 
           <p style="margin-bottom: 8px;">
@@ -107,13 +108,13 @@ export default function SampleProcessor({ brand, updateOrder }) {
           </p>
 
           <h3 style="margin-bottom: 8px;">Line Items</h3>
-          <table style="border-collapse: collapse; width: 480px; margin-bottom: 20px;">
+          <table style="border-collapse: collapse; width: 540px; margin-bottom: 20px;">
             <thead>
               <tr>
-                <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>SKU</strong></th>
+                <th style="border: 1px solid #3A3A3A; text-align: center; width: 100px;"><strong>SKU</strong></th>
                 <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>Product Name</strong></th>
-                <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>Quantity</strong></th>
-                <th style="border: 1px solid #3A3A3A; text-align: center;"><strong>Type</strong></th>
+                <th style="border: 1px solid #3A3A3A; text-align: center; width: 70px;"><strong>Quantity</strong></th>
+                <th style="border: 1px solid #3A3A3A; text-align: center; width: 60px;"><strong>Type</strong></th>
               </tr>
             </thead>
             <tbody>
