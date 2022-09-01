@@ -22,7 +22,7 @@ export default function Process() {
     'Phillip Jeffries',
     'Pindler',
     'Premier Prints',
-    'Scalamandre',
+    // 'Scalamandre',
     'Seabrook',
     'Stout',
     'Zoffany',
