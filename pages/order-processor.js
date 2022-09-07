@@ -1,6 +1,7 @@
 import Button from '@/components/atoms/Button'
 import Layout from '@/components/common/Layout'
 import OrderProcessor from '@/components/organisms/OrderProcessor'
+import PJOrderProcessor from '@/components/organisms/OrderProcessor/PJOrderProcessor'
 import { putData } from '@/functions/put'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
@@ -82,7 +83,17 @@ export default function Process() {
             </p>
           ) : (
             <>
-              <OrderProcessor brand={selectedBrand} updateOrder={updateOrder} />
+              {selectedBrand === 'Phillip Jeffries' ? (
+                <PJOrderProcessor
+                  brand={selectedBrand}
+                  updateOrder={updateOrder}
+                />
+              ) : (
+                <OrderProcessor
+                  brand={selectedBrand}
+                  updateOrder={updateOrder}
+                />
+              )}
             </>
           )}
         </div>
