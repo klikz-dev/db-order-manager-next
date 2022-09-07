@@ -132,9 +132,7 @@ export default function PJOrderProcessor({ brand, updateOrder }) {
         supplier[brand].order,
         // 'murrell@decoratorsbest.com',
         emailTitle,
-        `<p style="margin-bottom: 20px;">Hello! Thanks for processing the orders! Account ID: <strong>${
-          supplier[brand].account
-        }</strong></p>${emailContent.join()}`
+        `<p style="margin-bottom: 20px;">Hello! Thanks for processing the orders! Account ID: <strong>${supplier[brand].account}</strong></p>${emailContent}`
       )
     })
 
