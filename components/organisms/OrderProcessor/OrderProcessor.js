@@ -107,6 +107,15 @@ export default function OrderProcessor({ brand, updateOrder }) {
             </span>
           </p>
 
+          <p style="margin-bottom: 16px;">
+            <span style="margin-right: 12px;">Shipping Method: <strong style="${
+              (order?.shippingMethod?.includes('2') ||
+                order?.shippingMethod?.includes('Next') ||
+                order?.shippingMethod?.includes('Over')) &&
+              'color: red;'
+            }">${order?.shippingMethod}</strong></span>
+          </p>
+
           <h3 style="margin-bottom: 8px;">Line Items</h3>
           <table style="border-collapse: collapse; width: 540px; margin-bottom: 20px;">
             <thead>
