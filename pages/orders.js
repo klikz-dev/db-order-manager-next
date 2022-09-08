@@ -219,7 +219,7 @@ export default function Orders() {
         const orderId = selectedOrders[i]
 
         await putData(
-          order
+          orderId
             ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${orderId}/`
             : undefined,
           session?.accessToken,
