@@ -8,6 +8,9 @@ import Filter from '@/components/organisms/Filter'
 import { addDays } from 'date-fns'
 import { getData } from '@/functions/fetch'
 import { useSession } from 'next-auth/react'
+import { putData } from '@/functions/put'
+import { PencilAltIcon, UploadIcon, XCircleIcon } from '@heroicons/react/solid'
+import Button from '@/components/atoms/Button'
 
 export default function Orders() {
   const { data: session } = useSession()
@@ -189,6 +192,46 @@ export default function Orders() {
     )
   }
 
+  const [bulkEdit, setBulkEdit] = useState(false)
+  const [newStatus, setNewStatus] = useState('New')
+  const [selectedOrders, setSelectedOrders] = useState([])
+  const [processing, setProcessing] = useState(false)
+  const [updateSuccess, setUpdateSuccess] = useState('')
+  const [updateError, setUpdateError] = useState('')
+
+  function selectOrder(id) {
+    if (selectedOrders.includes(id)) {
+      setSelectedOrders(selectedOrders.filter((orderId) => orderId !== id))
+    } else {
+      setSelectedOrders([...selectedOrders, id])
+    }
+  }
+
+  /**
+   * Update Order
+   */
+  async function updateOrder() {
+    if (selectedOrders.length < 1) {
+      setUpdateError('Select at least 1 order')
+    } else {
+      setProcessing(true)
+      for (let i = 0; i < selectedOrders.length; i++) {
+        const orderId = selectedOrders[i]
+
+        await putData(
+          order
+            ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${orderId}/`
+            : undefined,
+          session?.accessToken,
+          { status: newStatus }
+        )
+      }
+      setProcessing(false)
+      setUpdateSuccess('Order statuses have been updated successfully')
+      setBulkEdit(false)
+    }
+  }
+
   return (
     <Layout title='Order Manager'>
       <div className='w-full px-8 py-8'>
@@ -234,6 +277,84 @@ export default function Orders() {
       </div>
 
       <div className='min-h-full w-full px-8 py-8'>
+        <div className='shadow-lg rounded p-4 mb-8 bg-gray-200'>
+          {bulkEdit ? (
+            <div className='flex gap-4'>
+              <select
+                className='w-56 py-1.5 rounded text-base'
+                value={newStatus}
+                onChange={(e) => setNewStatus(e.target.value)}
+              >
+                <option value='New'>New</option>
+                <option value='Reference# Needed'>Reference# Needed</option>
+                <option value='BackOrder Reference# Needed'>
+                  BackOrder Reference# Needed
+                </option>
+                <option value='Reference# Needed - Manually'>
+                  Reference# Needed - Manually
+                </option>
+                <option value='Stock OK'>Stock OK</option>
+                <option value='Hold'>Hold</option>
+                <option value='Back Order'>Back Order</option>
+                <option value='Cancel'>Cancel</option>
+                <option value='Cancel Pending'>Cancel Pending</option>
+                <option value='Client OK'>Client OK</option>
+                <option value='Pay Manufacturer'>Pay Manufacturer</option>
+                <option value='CFA Cut For Approval'>
+                  CFA Cut For Approval
+                </option>
+                <option value='Discontinued'>Discontinued</option>
+                <option value='Call Client'>Call Client</option>
+                <option value='Call Manufacturer'>Call Manufacturer</option>
+                <option value='Overnight Shipping'>Overnight Shipping</option>
+                <option value='2nd Day Shipping'>2nd Day Shipping</option>
+                <option value='Return'>Return</option>
+                <option value='Processed Back Order'>
+                  Processed Back Order
+                </option>
+                <option value='Processed Refund'>Processed Refund</option>
+                <option value='Processed Cancel'>Processed Cancel</option>
+                <option value='Processed Return'>Processed Return</option>
+                <option value='Processed'>Processed</option>
+              </select>
+
+              <Button onClick={updateOrder} disabled={processing}>
+                <UploadIcon width={16} height={16} />
+                <span className='text-base ml-2'>Update</span>
+              </Button>
+
+              <Button
+                type='secondary'
+                onClick={() => setBulkEdit(false)}
+                disabled={processing}
+              >
+                <XCircleIcon width={16} height={16} />
+                <span className='text-base ml-2'>Dismiss</span>
+              </Button>
+            </div>
+          ) : (
+            <>
+              <Button
+                onClick={() => {
+                  setBulkEdit(true)
+                  setUpdateSuccess('')
+                  setUpdateError('')
+                }}
+              >
+                <PencilAltIcon width={16} height={16} />
+                <span className='text-base ml-2'>
+                  {'Update multiple order status'}
+                </span>
+              </Button>
+            </>
+          )}
+
+          {updateSuccess && (
+            <p className='text-blue-700 mt-2'>{updateSuccess}</p>
+          )}
+          {updateError && <p className='text-red-700 mt-2'>{updateError}</p>}
+        </div>
+
         <div className={styles.root}>
           {loading ? (
             <Loading></Loading>
@@ -243,6 +364,7 @@ export default function Orders() {
                 <table className='w-full table-auto border-collapse border'>
                   <thead className='sticky top-0 shadow bg-blue-100'>
                     <tr>
+                      {bulkEdit && <th></th>}
                       <th>PO #</th>
                       <th>Status</th>
                       <th>Date</th>
@@ -259,6 +381,18 @@ export default function Orders() {
                   <tbody>
                     {filteredOrders.map((order) => (
                       <tr key={order.shopifyOrderId}>
+                        {bulkEdit && (
+                          <td>
+                            <input
+                              type='checkbox'
+                              checked={selectedOrders.includes(
+                                order.shopifyOrderId
+                              )}
+                              onChange={() => selectOrder(order.shopifyOrderId)}
+                            />
+                          </td>
+                        )}
+
                         <td>
                           <a
                             href={`/order/?id=${order.shopifyOrderId}`}
