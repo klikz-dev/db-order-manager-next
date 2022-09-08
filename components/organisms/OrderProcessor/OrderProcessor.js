@@ -53,6 +53,21 @@ export default function OrderProcessor({ brand, updateOrder }) {
       const line_items = orders[orderNumber]
       const order = line_items[0].order
 
+      let shippingMethod = order?.shippingMethod
+      let isExpedited = false
+      if (shippingMethod?.includes('2')) {
+        shippingMethod = '2nd Day'
+        isExpedited = true
+      } else if (
+        shippingMethod?.includes('Next') ||
+        shippingMethod?.includes('Overnight')
+      ) {
+        shippingMethod = 'Overnight'
+        isExpedited = true
+      } else {
+        shippingMethod = 'Ground'
+      }
+
       const lineItemsContent = line_items.map(
         (line_item) => `
         <tr>
@@ -109,11 +124,8 @@ export default function OrderProcessor({ brand, updateOrder }) {
 
           <p style="margin-bottom: 16px;">
             <span style="margin-right: 12px;">Shipping Method: <strong style="${
-              (order?.shippingMethod?.includes('2') ||
-                order?.shippingMethod?.includes('Next') ||
-                order?.shippingMethod?.includes('Over')) &&
-              'color: red;'
-            }">${order?.shippingMethod}</strong></span>
+              isExpedited && 'color: red;'
+            }">${shippingMethod}</strong></span>
           </p>
 
           <h3 style="margin-bottom: 8px;">Line Items</h3>
