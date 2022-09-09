@@ -83,7 +83,7 @@ export default function Address({ order, updateOrder }) {
               {shippingFirstName} {shippingLastName}
             </p>
             <p>
-              {shippingAddress1} {shippingAddress2},
+              {shippingAddress1} {shippingAddress2}
             </p>
             <p>
               {shippingCity}, {shippingState} {shippingZip}
