@@ -46,7 +46,13 @@ export default function SampleProcessor({ brand, updateOrder }) {
     let startPO = 0
     let endPO = 0
 
+    // const manualPOs = ['534876', '534906', '534911', '534990', '535027']
+
     const emailContent = Object.keys(orders).map((orderNumber, index) => {
+      // if (!manualPOs.includes(orderNumber)) {
+      //   return
+      // }
+
       if (index === 0) startPO = orderNumber
       endPO = orderNumber
 
