@@ -4,6 +4,10 @@ export const supplier = {
     sample: 'awilson@covfab.com',
     account: '118116',
   },
+  'Elaine Smith': {
+    order: 'cs@elainesmith.com',
+    account: 'decoratorsbest',
+  },
   'JF Fabrics': {
     order: 'customerservice@jffabrics.com',
     sample: 'customerservice@jffabrics.com',
@@ -68,6 +72,11 @@ export const supplier = {
     order: 'e-csr@estout.com',
     sample: 'e-csr@estout.com',
     account: '45724',
+  },
+  'Tres Tintas': {
+    order: 'export@trestintas.com',
+    sample: 'info@trestintas.com',
+    account: 'decoratorsbest',
   },
   Zoffany: {
     order: 'bonnie.bradley@zoffany.com',

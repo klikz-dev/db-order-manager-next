@@ -14,6 +14,7 @@ export default function Process() {
   const ediBrands = ['Brewster', 'Schumacher', 'York', 'Kravet', 'Ralph Lauren']
   const nonEdiBrands = [
     'Covington',
+    'Elaine Smith',
     'JF Fabrics',
     'Kasmir',
     'Madcap Cottage',
@@ -22,7 +23,6 @@ export default function Process() {
     'Phillip Jeffries',
     'Pindler',
     'Premier Prints',
-    // 'Scalamandre',
     'Seabrook',
     'Stout',
     'Zoffany',
