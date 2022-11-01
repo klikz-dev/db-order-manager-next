@@ -25,6 +25,7 @@ export default function Process() {
     'Premier Prints',
     'Seabrook',
     'Stout',
+    'Tres Tintas',
     'Zoffany',
   ]
 
