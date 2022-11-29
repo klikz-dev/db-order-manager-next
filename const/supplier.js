@@ -33,6 +33,11 @@ export const supplier = {
     sample: 'memo@maxwellfabrics.com',
     account: 'decoratorsbest',
   },
+  MindTheGap: {
+    order: 'orders@mindtheg.com',
+    sample: 'orders@mindtheg.com',
+    account: '1128',
+  },
   'P/K Lifestyles': {
     order: 'customerservice@pklifestyles.com',
     sample: 'customerservice@pklifestyles.com',

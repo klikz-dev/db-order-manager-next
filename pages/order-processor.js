@@ -20,6 +20,7 @@ export default function Process() {
     'Madcap Cottage',
     'Materialworks',
     'Maxwell',
+    'MindTheGap',
     'P/K Lifestyles',
     'Phillip Jeffries',
     'Pindler',
