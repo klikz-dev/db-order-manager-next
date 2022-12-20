@@ -111,7 +111,7 @@ export default function Line({
 
   return (
     <tr className='text-center border'>
-      <td className='w-24 h-24 border'>
+      <td className='w-24 h-24 border relative'>
         <Image src={image?.imageURL} fill={true} />
       </td>
 
@@ -133,6 +133,8 @@ export default function Line({
       </td>
 
       <td className='border'>${orderedProductUnitPrice?.toFixed(2)}</td>
+
+      <td className='border'>${variant?.price?.toFixed(2)}</td>
 
       <td className='border'>{quantity}</td>
 

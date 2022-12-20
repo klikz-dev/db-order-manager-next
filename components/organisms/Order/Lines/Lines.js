@@ -15,7 +15,8 @@ export default function Lines({
           <th>SKU</th>
           <th>Name</th>
           <th>Cost</th>
-          <th>Price</th>
+          <th>Ordered Price</th>
+          <th>Current Price</th>
           <th>Quantity</th>
           <th>Backorder Date</th>
           <th>Email Customer</th>
