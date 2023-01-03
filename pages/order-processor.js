@@ -15,6 +15,7 @@ export default function Process() {
   const nonEdiBrands = [
     'Covington',
     'Elaine Smith',
+    'Jamie Young',
     'JF Fabrics',
     'Kasmir',
     'Madcap Cottage',

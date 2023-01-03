@@ -8,6 +8,10 @@ export const supplier = {
     order: 'cs@elainesmith.com',
     account: 'decoratorsbest',
   },
+  'Jamie Young': {
+    order: 'juan@jamieyoung.com',
+    account: 'decoratorsbest',
+  },
   'JF Fabrics': {
     order: 'customerservice@jffabrics.com',
     sample: 'customerservice@jffabrics.com',
