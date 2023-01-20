@@ -68,6 +68,14 @@ export default function Line({
   const discontinuedEmail = (e) => {
     e.preventDefault()
 
+    putData(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${product?.productId}/`,
+      process.env.NEXT_PUBLIC_PARTNER_TOKEN,
+      {
+        published: false,
+      }
+    )
+
     sendKlaviyoEmail(
       process.env.NEXT_PUBLIC_KLAVIYO_DISCO_TMP,
       `Important Information About Your Order PO #${orderNumber} ${product?.title}`,
