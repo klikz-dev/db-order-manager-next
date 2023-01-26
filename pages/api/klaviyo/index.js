@@ -1,6 +1,4 @@
-import FormData from 'form-data'
-
-export default async function handler(req, res) {
+export default function handler(req, res) {
   const { templateId, subject, data, customer } = JSON.parse(req.body)
 
   var myHeaders = new Headers()
