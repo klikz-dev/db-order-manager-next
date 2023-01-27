@@ -1,27 +1,31 @@
-export default function handler(req, res) {
+const request = require('request')
+
+export default async function handler(req, res) {
   const { templateId, subject, data, customer } = JSON.parse(req.body)
 
-  var myHeaders = new Headers()
-
-  var formdata = new FormData()
-  formdata.append('api_key', process.env.NEXT_PUBLIC_KLAVIYO_TOKEN)
-  formdata.append('from_email', 'orders@decoratorsbest.com')
-  formdata.append('from_name', 'DecoratorsBest')
-  formdata.append('subject', subject)
-  formdata.append('to', customer)
-  formdata.append('context', JSON.stringify(data))
-
-  var requestOptions = {
+  const options = {
     method: 'POST',
-    headers: myHeaders,
-    body: formdata,
-    redirect: 'follow',
+    url: `https://a.klaviyo.com/api/v1/email-template/${templateId}/send`,
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+    formData: {
+      api_key: process.env.NEXT_PUBLIC_KLAVIYO_TOKEN,
+      from_email: 'orders@decoratorsbest.com',
+      from_name: 'DecoratorsBest',
+      subject: subject,
+      to: customer,
+      context: JSON.stringify(data),
+    },
   }
 
-  fetch(
-    `https://a.klaviyo.com/api/v1/email-template/${templateId}/send`,
-    requestOptions
-  )
-    .then(() => res.status(200).send())
-    .catch((error) => console.log('error', error))
+  try {
+    const response = await request(options)
+    const data = response.json()
+
+    res.json(data)
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({ error: error })
+  }
 }
