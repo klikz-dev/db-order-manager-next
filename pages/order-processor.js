@@ -18,6 +18,7 @@ export default function Process() {
     'Jamie Young',
     'JF Fabrics',
     'Kasmir',
+    'Kravet Decor',
     'Madcap Cottage',
     'Materialworks',
     'Maxwell',

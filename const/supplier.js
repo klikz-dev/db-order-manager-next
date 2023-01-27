@@ -22,6 +22,10 @@ export const supplier = {
     sample: 'service@kasmirfabrics.com',
     account: '226022',
   },
+  'Kravet Decor': {
+    order: 'alldecorcsv@kravet.com',
+    account: 'decoratorsbest',
+  },
   'Madcap Cottage': {
     order: 'trade@madcapcottage.com',
     sample: 'pansy@madcapcottage.com',
