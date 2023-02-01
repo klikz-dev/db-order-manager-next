@@ -1,4 +1,4 @@
-export default function sendEmail(type, from, to, subject, html) {
+export default function sendEmail(type, from, to, subject, html, csv = null) {
   fetch('/api/email', {
     method: 'POST',
     body: JSON.stringify({
@@ -7,6 +7,7 @@ export default function sendEmail(type, from, to, subject, html) {
       to: to,
       subject: subject,
       html: html,
+      csv: csv,
     }),
   })
     .then((res) => {
