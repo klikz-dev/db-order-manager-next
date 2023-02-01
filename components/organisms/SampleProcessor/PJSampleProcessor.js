@@ -8,7 +8,7 @@ export default function PJSampleProcessor({ brand }) {
 
   const { data: linesData, loading } = getData(
     brand && session?.accessToken
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=s&limit=20`
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=s&limit=1000`
       : undefined,
     session?.accessToken
   )
