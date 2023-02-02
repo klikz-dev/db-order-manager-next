@@ -4,6 +4,14 @@ export const supplier = {
     sample: 'awilson@covfab.com',
     account: '118116',
   },
+  Couture: {
+    order: 'customerservice@couturelamps.com',
+    account: 'decoratorsbest',
+  },
+  'Dana Gibson': {
+    order: 'info@danagibson.com',
+    account: 'decoratorsbest',
+  },
   'Elaine Smith': {
     order: 'cs@elainesmith.com',
     account: 'decoratorsbest',

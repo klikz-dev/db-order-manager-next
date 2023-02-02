@@ -15,6 +15,8 @@ export default function Process() {
   const ediBrands = ['Brewster', 'Schumacher', 'York', 'Kravet', 'Ralph Lauren']
   const nonEdiBrands = [
     'Covington',
+    'Couture',
+    'Dana Gibson',
     'Elaine Smith',
     'Jamie Young',
     'JF Fabrics',
