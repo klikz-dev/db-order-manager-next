@@ -89,6 +89,11 @@ export const supplier = {
     sample: 'orders@wallquest.com',
     account: '591267',
   },
+  'Stark Studio': {
+    order: 'srose@starkcarpet.com',
+    sample: 'srose@starkcarpet.com',
+    account: 'decoratorsbest',
+  },
   Stout: {
     order: 'e-csr@estout.com',
     sample: 'e-csr@estout.com',

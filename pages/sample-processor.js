@@ -25,6 +25,7 @@ export default function Process() {
     'Pindler',
     'Premier Prints',
     'Seabrook',
+    'Stark Studio',
     'Stout',
     'Tres Tintas',
     'Zoffany',
