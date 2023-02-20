@@ -1,7 +1,6 @@
 import Button from '@/components/atoms/Button'
 import Layout from '@/components/common/Layout'
 import SampleProcessor from '@/components/organisms/SampleProcessor'
-import PJSampleProcessor from '@/components/organisms/SampleProcessor/PJSampleProcessor'
 import { putData } from '@/functions/put'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
@@ -21,7 +20,6 @@ export default function Process() {
     'Materialworks',
     'Maxwell',
     'MindTheGap',
-    'Phillip Jeffries',
     'Pindler',
     'Premier Prints',
     'Seabrook',
@@ -84,19 +82,7 @@ export default function Process() {
               <strong>{selectedBrand} EDI.</strong>
             </p>
           ) : (
-            <>
-              {selectedBrand === 'Phillip Jeffries' ? (
-                <PJSampleProcessor
-                  brand={selectedBrand}
-                  updateOrder={updateOrder}
-                />
-              ) : (
-                <SampleProcessor
-                  brand={selectedBrand}
-                  updateOrder={updateOrder}
-                />
-              )}
-            </>
+            <SampleProcessor brand={selectedBrand} updateOrder={updateOrder} />
           )}
         </div>
       </div>
