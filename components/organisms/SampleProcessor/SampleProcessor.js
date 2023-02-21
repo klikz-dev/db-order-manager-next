@@ -70,6 +70,9 @@ export default function SampleProcessor({ brand, updateOrder }) {
       ) {
         shippingMethod = 'Overnight'
         isExpedited = true
+      } else if (shippingMethod?.includes('White')) {
+        shippingMethod = 'White Glove'
+        isExpedited = true
       } else {
         shippingMethod = 'Ground'
       }
