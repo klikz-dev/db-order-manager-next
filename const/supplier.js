@@ -90,8 +90,8 @@ export const supplier = {
     account: '591267',
   },
   'Stark Studio': {
-    order: 'srose@starkcarpet.com',
-    sample: 'srose@starkcarpet.com',
+    order: 'specialaccounts@starkcarpet.com',
+    sample: 'specialaccounts@starkcarpet.com',
     account: 'decoratorsbest',
   },
   Stout: {
