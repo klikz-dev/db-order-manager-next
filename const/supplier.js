@@ -16,6 +16,10 @@ export const supplier = {
     order: 'cs@elainesmith.com',
     account: 'decoratorsbest',
   },
+  'Jaipur Living': {
+    order: 'david.ferebee@jaipurliving.com',
+    account: 'decoratorsbest',
+  },
   'Jamie Young': {
     order: 'DanL@bassmanblaine.com',
     account: 'decoratorsbest',

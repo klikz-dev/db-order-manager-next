@@ -18,6 +18,7 @@ export default function Process() {
     'Couture',
     'Dana Gibson',
     'Elaine Smith',
+    'Jaipur Living',
     'Jamie Young',
     'JF Fabrics',
     'Kasmir',
