@@ -17,7 +17,7 @@ export const supplier = {
     account: 'decoratorsbest',
   },
   'Jaipur Living': {
-    order: 'david.ferebee@jaipurliving.com',
+    order: ['david.ferebee@jaipurliving.com', 'onlineorders@jaipurliving.com'],
     account: 'decoratorsbest',
   },
   'Jamie Young': {
