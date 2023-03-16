@@ -13,7 +13,7 @@ export default function Process() {
   const ediBrands = ['Brewster', 'Schumacher', 'York', 'Kravet', 'Ralph Lauren']
   const nonEdiBrands = [
     'Covington',
-    'Elaine Smith',
+    // 'Elaine Smith',
     'JF Fabrics',
     'Kasmir',
     'Madcap Cottage',
