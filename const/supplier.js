@@ -5,7 +5,7 @@ export const supplier = {
     account: '118116',
   },
   Couture: {
-    order: 'customerservice@couturelamps.com',
+    order: ['customerservice@couturelamps.com', 'jmcdaniel@couturelamps.com'],
     account: 'decoratorsbest',
   },
   'Dana Gibson': {
