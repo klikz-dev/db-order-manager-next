@@ -73,6 +73,10 @@ export const supplier = {
     sample: 'mainfaxes@pindlercorp.com',
     account: '657869',
   },
+  'Port 68': {
+    order: 'customerservice@port68.com',
+    account: 'decoratorsbest',
+  },
   'Premier Prints': {
     order: 'sheryl@premierprintsinc.com',
     sample: 'sheryl@premierprintsinc.com',
