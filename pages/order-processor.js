@@ -34,6 +34,7 @@ export default function Process() {
     'Seabrook',
     'Stark Studio',
     'Stout',
+    'Surya',
     'Tres Tintas',
     'Zoffany',
   ]

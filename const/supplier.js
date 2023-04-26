@@ -107,6 +107,11 @@ export const supplier = {
     sample: 'e-csr@estout.com',
     account: '45724',
   },
+  Surya: {
+    order: 'matthew.hopper@surya.com',
+    sample: 'matthew.hopper@surya.com',
+    account: 'decoratorsbest',
+  },
   'Tres Tintas': {
     order: 'export@trestintas.com',
     sample: 'info@trestintas.com',
