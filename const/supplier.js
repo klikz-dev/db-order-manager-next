@@ -108,8 +108,16 @@ export const supplier = {
     account: '45724',
   },
   Surya: {
-    order: 'matthew.hopper@surya.com',
-    sample: 'matthew.hopper@surya.com',
+    order: [
+      'orders@surya.com',
+      'Benjamin.Hellriegel@surya.com',
+      'matthew.hopper@surya.com',
+    ],
+    sample: [
+      'orders@surya.com',
+      'Benjamin.Hellriegel@surya.com',
+      'matthew.hopper@surya.com',
+    ],
     account: 'decoratorsbest',
   },
   'Tres Tintas': {
