@@ -40,7 +40,7 @@ export const supplier = {
   },
   'Madcap Cottage': {
     order: 'trade@madcapcottage.com',
-    sample: 'pansy@madcapcottage.com',
+    sample: 'samantha@madcapcottage.com',
     account: 'decoratorsbest',
   },
   Materialworks: {
