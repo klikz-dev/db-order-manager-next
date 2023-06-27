@@ -16,6 +16,11 @@ export const supplier = {
     order: 'cs@elainesmith.com',
     account: 'decoratorsbest',
   },
+  'Hubbardton Forge': {
+    order: 'customerservice@vtforge.com',
+    sample: 'customerservice@vtforge.com',
+    account: '43550',
+  },
   'Jaipur Living': {
     order: ['david.ferebee@jaipurliving.com', 'onlineorders@jaipurliving.com'],
     account: 'decoratorsbest',
