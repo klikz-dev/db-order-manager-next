@@ -23,8 +23,6 @@ export default async function handler(req, res) {
     },
   })
 
-  console.log(csv)
-
   try {
     await transporter.sendMail({
       from: from,

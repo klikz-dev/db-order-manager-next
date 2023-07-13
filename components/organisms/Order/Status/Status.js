@@ -7,8 +7,11 @@ import {
 } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import { useState } from 'react'
+import Oversized from './Oversized'
 
 export default function Status({ order, updateOrder, trackings }) {
+  const { line_items } = order ?? {}
+
   const [specialShipping, setSpecialShipping] = useState(order.specialShipping)
 
   const [edit, setEdit] = useState(false)
@@ -140,6 +143,16 @@ export default function Status({ order, updateOrder, trackings }) {
               {tracking.brand}: {tracking.trackingNumber}
             </p>
           ))}
+      </div>
+
+      <div className='mb-4'>
+        <label className='block text-base font-bold mb-1'>
+          {'Over-sized items:'}
+        </label>
+
+        {line_items?.map((line_item, index) => (
+          <Oversized key={index} line_item={line_item} />
+        ))}
       </div>
 
       <Button type='secondary' className='block mt-5' onClick={handleSave}>

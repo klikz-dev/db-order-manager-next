@@ -95,8 +95,6 @@ export default function OrderProcessor({ brand, updateOrder }) {
       })
     })
 
-    console.log(csvData)
-
     const emailTitle =
       startPO === endPO
         ? `[${supplier[brand].account}] (DecoratorsBest) New Order PO #${startPO}`
