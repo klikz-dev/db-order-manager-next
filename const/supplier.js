@@ -87,11 +87,11 @@ export const supplier = {
     sample: 'sheryl@premierprintsinc.com',
     account: 'decoratorsbest',
   },
-  'Ralph Lauren': {
-    order: 'SIrby@pkaufmann.com',
-    sample: 'SIrby@pkaufmann.com',
-    account: 'decoratorsbest',
-  },
+  // 'Ralph Lauren': {
+  //   order: 'SIrby@pkaufmann.com',
+  //   sample: 'SIrby@pkaufmann.com',
+  //   account: 'decoratorsbest',
+  // },
   Scalamandre: {
     order: 'mbowling@scalamandre.com',
     sample: 'customerservice@scalamandre.com',
@@ -102,11 +102,11 @@ export const supplier = {
     sample: 'orders@wallquest.com',
     account: '591267',
   },
-  'Stark Studio': {
-    order: 'specialaccounts@starkcarpet.com',
-    sample: 'specialaccounts@starkcarpet.com',
-    account: 'decoratorsbest',
-  },
+  // 'Stark Studio': {
+  //   order: 'specialaccounts@starkcarpet.com',
+  //   sample: 'specialaccounts@starkcarpet.com',
+  //   account: 'decoratorsbest',
+  // },
   Stout: {
     order: 'e-csr@estout.com',
     sample: 'e-csr@estout.com',
@@ -125,11 +125,11 @@ export const supplier = {
     ],
     account: 'decoratorsbest',
   },
-  'Tres Tintas': {
-    order: 'export@trestintas.com',
-    sample: 'info@trestintas.com',
-    account: 'decoratorsbest',
-  },
+  // 'Tres Tintas': {
+  //   order: 'export@trestintas.com',
+  //   sample: 'info@trestintas.com',
+  //   account: 'decoratorsbest',
+  // },
   Zoffany: {
     order: 'bonnie.bradley@zoffany.com',
     sample: 'usasampling@zoffany.com',

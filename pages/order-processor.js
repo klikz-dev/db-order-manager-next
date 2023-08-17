@@ -12,7 +12,7 @@ export default function Process() {
 
   const [selectedBrand, setSelectedBrand] = useState('Brewster')
 
-  const ediBrands = ['Brewster', 'Schumacher', 'York', 'Kravet', 'Ralph Lauren']
+  const ediBrands = ['Brewster', 'Schumacher', 'York', 'Kravet']
   const nonEdiBrands = [
     'Covington',
     'Couture',
@@ -33,10 +33,8 @@ export default function Process() {
     'Port 68',
     'Premier Prints',
     'Seabrook',
-    'Stark Studio',
     'Stout',
     'Surya',
-    'Tres Tintas',
     'Zoffany',
   ]
 
