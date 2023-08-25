@@ -16,6 +16,10 @@ export const supplier = {
     order: 'cs@elainesmith.com',
     account: 'decoratorsbest',
   },
+  'Exquisite Rugs': {
+    order: 'ecom@exquisiterugs.com',
+    account: 'decoratorsbest',
+  },
   'Hubbardton Forge': {
     order: 'customerservice@vtforge.com',
     sample: 'customerservice@vtforge.com',

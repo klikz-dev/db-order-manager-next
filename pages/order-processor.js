@@ -18,6 +18,7 @@ export default function Process() {
     'Couture',
     'Dana Gibson',
     'Elaine Smith',
+    'Exquisite Rugs',
     'Hubbardton Forge',
     'Jaipur Living',
     'Jamie Young',
