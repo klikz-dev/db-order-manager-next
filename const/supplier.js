@@ -67,6 +67,10 @@ export const supplier = {
     sample: 'orders@mindtheg.com',
     account: '1128',
   },
+  NOIR: {
+    order: 'ciennese@noirfurniturela.com',
+    account: 'decoratorsbest',
+  },
   'P/K Lifestyles': {
     order: 'customerservice@pklifestyles.com',
     sample: 'customerservice@pklifestyles.com',

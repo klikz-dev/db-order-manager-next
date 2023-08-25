@@ -29,6 +29,7 @@ export default function Process() {
     'Materialworks',
     'Maxwell',
     'MindTheGap',
+    'NOIR',
     'Phillip Jeffries',
     'Pindler',
     'Port 68',
