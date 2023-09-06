@@ -23,6 +23,7 @@ export default function Process() {
     'Premier Prints',
     'Seabrook',
     'Stout',
+    'Tempaper',
     'Zoffany',
   ]
 

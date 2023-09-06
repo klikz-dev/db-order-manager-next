@@ -37,6 +37,7 @@ export default function Process() {
     'Seabrook',
     'Stout',
     'Surya',
+    'Tempaper',
     'Zoffany',
   ]
 

@@ -133,6 +133,11 @@ export const supplier = {
     ],
     account: 'decoratorsbest',
   },
+  Tempaper: {
+    order: ['orders@tempaper.com', 'paul@tempaper.com'],
+    sample: ['orders@tempaper.com', 'paul@tempaper.com'],
+    account: 'decoratorsbest',
+  },
   // 'Tres Tintas': {
   //   order: 'export@trestintas.com',
   //   sample: 'info@trestintas.com',
