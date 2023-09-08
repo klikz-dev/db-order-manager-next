@@ -1,1 +1,1 @@
-export { default } from './OrderProcessor'
+export { default } from './CombinedOrderProcessor'

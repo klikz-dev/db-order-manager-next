@@ -1,8 +1,8 @@
 import Button from '@/components/atoms/Button'
 import Layout from '@/components/common/Layout'
-import OrderProcessor from '@/components/organisms/OrderProcessor'
-import PJOrderProcessor from '@/components/organisms/OrderProcessor/PJOrderProcessor'
-import JYOrderProcessor from '@/components/organisms/OrderProcessor/JYOrderProcessor'
+import CombinedOrderProcessor from '@/components/organisms/OrderProcessor/CombinedOrderProcessor'
+import SeparateOrderProcessor from '@/components/organisms/OrderProcessor/SeparateOrderProcessor'
+import CSVOrderProcessor from '@/components/organisms/OrderProcessor/CSVOrderProcessor'
 import { putData } from '@/functions/put'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
@@ -95,18 +95,19 @@ export default function Process() {
             </p>
           ) : (
             <>
-              {selectedBrand === 'Phillip Jeffries' ? (
-                <PJOrderProcessor
+              {selectedBrand === 'Phillip Jeffries' ||
+              selectedBrand === 'NOIR' ? (
+                <SeparateOrderProcessor
                   brand={selectedBrand}
                   updateOrder={updateOrder}
                 />
               ) : selectedBrand === 'Jamie Young' ? (
-                <JYOrderProcessor
+                <CSVOrderProcessor
                   brand={selectedBrand}
                   updateOrder={updateOrder}
                 />
               ) : (
-                <OrderProcessor
+                <CombinedOrderProcessor
                   brand={selectedBrand}
                   updateOrder={updateOrder}
                 />
