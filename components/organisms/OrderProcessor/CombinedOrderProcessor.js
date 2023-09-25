@@ -105,6 +105,12 @@ export default function OrderProcessor({ brand, updateOrder }) {
             <span style="margin-right: 12px;">Name: <strong>${
               order?.shippingFirstName
             } ${order?.shippingLastName}</strong></span>
+            <span style="margin-right: 12px;">${
+              brand === 'MindTheGap' ? 'Phone: ' : ''
+            }
+            <strong>${
+              brand === 'MindTheGap' ? order?.shippingPhone : ''
+            }</strong></span>
           </p>
 
           <p style="margin-bottom: 8px;">
