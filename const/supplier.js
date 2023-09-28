@@ -68,7 +68,7 @@ export const supplier = {
     account: '1128',
   },
   NOIR: {
-    order: 'ciennese@noirfurniturela.com',
+    order: 'ecom@noirfurniturela.com',
     account: 'decoratorsbest',
   },
   'P/K Lifestyles': {
