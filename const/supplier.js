@@ -86,6 +86,11 @@ export const supplier = {
     sample: 'mainfaxes@pindlercorp.com',
     account: '657869',
   },
+  Poppy: {
+    order: 'ben@poppyprintstudio.com',
+    sample: 'ben@poppyprintstudio.com',
+    account: 'decoratorsbest',
+  },
   'Port 68': {
     order: 'customerservice@port68.com',
     account: 'decoratorsbest',

@@ -20,6 +20,7 @@ export default function Process() {
     'Maxwell',
     'MindTheGap',
     'Pindler',
+    'Poppy',
     'Premier Prints',
     'Seabrook',
     'Stout',
