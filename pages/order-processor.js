@@ -97,7 +97,8 @@ export default function Process() {
           ) : (
             <>
               {selectedBrand === 'Phillip Jeffries' ||
-              selectedBrand === 'NOIR' ? (
+              selectedBrand === 'NOIR' ||
+              selectedBrand === 'Port 68' ? (
                 <SeparateOrderProcessor
                   brand={selectedBrand}
                   updateOrder={updateOrder}
