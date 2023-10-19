@@ -138,6 +138,11 @@ export const supplier = {
     ],
     account: 'decoratorsbest',
   },
+  'Walls Republic': {
+    order: 'sales1@wallsrepublic.com',
+    sample: 'sales1@wallsrepublic.com',
+    account: 'decoratorsbest',
+  },
   Tempaper: {
     order: ['orders@tempaper.com', 'paul@tempaper.com'],
     sample: ['orders@tempaper.com', 'paul@tempaper.com'],
