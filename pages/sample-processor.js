@@ -25,6 +25,7 @@ export default function Process() {
     'Seabrook',
     'Stout',
     'Tempaper',
+    'Walls Republic',
     'Zoffany',
   ]
 

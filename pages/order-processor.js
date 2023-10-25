@@ -30,6 +30,7 @@ export default function Process() {
     'Maxwell',
     'MindTheGap',
     'NOIR',
+    'Peninsula Home',
     'Phillip Jeffries',
     'Pindler',
     'Poppy',
@@ -39,6 +40,7 @@ export default function Process() {
     'Stout',
     'Surya',
     'Tempaper',
+    'Walls Republic',
     'Zoffany',
   ]
 
