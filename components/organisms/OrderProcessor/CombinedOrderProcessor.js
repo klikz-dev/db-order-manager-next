@@ -33,9 +33,16 @@ export default function OrderProcessor({ brand, updateOrder }) {
   const [processing, setProcessing] = useState(false)
   const [success, setSuccess] = useState(false)
 
+  const [showPhone, setShowPhone] = useState(false)
+
   useEffect(() => {
     setProcessing(false)
     setSuccess(false)
+    if (brand === 'MindTheGap' || brand === 'Walls Republic') {
+      setShowPhone(true)
+    } else {
+      setShowPhone(false)
+    }
   }, [brand])
 
   async function handleProcess(e) {
@@ -105,12 +112,8 @@ export default function OrderProcessor({ brand, updateOrder }) {
             <span style="margin-right: 12px;">Name: <strong>${
               order?.shippingFirstName
             } ${order?.shippingLastName}</strong></span>
-            <span style="margin-right: 12px;">${
-              brand === 'MindTheGap' ? 'Phone: ' : ''
-            }
-            <strong>${
-              brand === 'MindTheGap' ? order?.shippingPhone : ''
-            }</strong></span>
+            <span style="margin-right: 12px;">${showPhone ? 'Phone: ' : ''}
+            <strong>${showPhone ? order?.shippingPhone : ''}</strong></span>
           </p>
 
           <p style="margin-bottom: 8px;">
