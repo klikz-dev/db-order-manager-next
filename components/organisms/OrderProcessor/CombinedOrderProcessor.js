@@ -119,7 +119,7 @@ export default function OrderProcessor({ brand, updateOrder }) {
           <p style="margin-bottom: 8px;">
             <span style="margin-right: 12px;">
               Address: 
-              <strong>${order?.shippingAddress1} ${order?.shippingAddress2}, ${
+              <strong>${order?.shippingAddress1} ${order?.shippingAddress2 ?? ''}, ${
         order?.shippingCity
       }, ${order?.shippingState} ${order?.shippingZip}, ${
         order?.shippingCountry

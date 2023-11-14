@@ -87,7 +87,7 @@ export default function OrderProcessor({ brand, updateOrder }) {
           'Customer Name': `${order?.shippingFirstName} ${order?.shippingLastName}`,
           'Customer Email': order?.email,
           'Customer Phone': order?.shippingPhone,
-          'Shipping Address': `${order?.shippingAddress1} ${order?.shippingAddress2}, ${order?.shippingCity}, ${order?.shippingState} ${order?.shippingZip}, ${order?.shippingCountry}`,
+          'Shipping Address': `${order?.shippingAddress1} ${order?.shippingAddress2 ?? ''}, ${order?.shippingCity}, ${order?.shippingState} ${order?.shippingZip}, ${order?.shippingCountry}`,
           'Shipping Method': `${shippingMethod}${
             isExpedited ? ' (Expedited)' : ''
           }`,
