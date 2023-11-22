@@ -71,6 +71,10 @@ export const supplier = {
     sample: 'customerservice@pklifestyles.com',
     account: '15024056',
   },
+  'Peninsula Home': {
+    order: 'federico@peninsulaHome.com',
+    account: 'decoratorsbest',
+  },
   'Phillip Jeffries': {
     order: 'pjorders@phillipjeffries.com',
     sample: 'pjorders@phillipjeffries.com',
