@@ -15,7 +15,6 @@ export default function Process() {
     'Covington',
     'JF Fabrics',
     'Kasmir',
-    'Madcap Cottage',
     'Materialworks',
     'Maxwell',
     'MindTheGap',

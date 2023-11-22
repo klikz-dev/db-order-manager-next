@@ -47,11 +47,6 @@ export const supplier = {
     order: 'alldecorcsv@kravet.com',
     account: 'decoratorsbest',
   },
-  'Madcap Cottage': {
-    order: 'trade@madcapcottage.com',
-    sample: 'meridith@madcapcottage.com',
-    account: 'decoratorsbest',
-  },
   Materialworks: {
     order: 'customerservice@materialworks.com',
     sample: 'customerservice@materialworks.com',

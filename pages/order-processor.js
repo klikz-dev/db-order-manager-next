@@ -25,7 +25,6 @@ export default function Process() {
     'JF Fabrics',
     'Kasmir',
     'Kravet Decor',
-    'Madcap Cottage',
     'Materialworks',
     'Maxwell',
     'MindTheGap',
