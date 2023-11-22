@@ -72,7 +72,7 @@ export const supplier = {
     account: '15024056',
   },
   'Peninsula Home': {
-    order: 'federico@peninsulaHome.com',
+    order: 'Sales@peninsulahome.com',
     account: 'decoratorsbest',
   },
   'Phillip Jeffries': {
