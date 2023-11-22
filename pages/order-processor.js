@@ -1,6 +1,7 @@
 import Button from '@/components/atoms/Button'
 import Layout from '@/components/common/Layout'
 import CombinedOrderProcessor from '@/components/organisms/OrderProcessor/CombinedOrderProcessor'
+import CombinedOrderProcessorIncludingCost from '@/components/organisms/OrderProcessor/CombinedOrderProcessorIncludingCost'
 import SeparateOrderProcessor from '@/components/organisms/OrderProcessor/SeparateOrderProcessor'
 import CSVOrderProcessor from '@/components/organisms/OrderProcessor/CSVOrderProcessor'
 import { putData } from '@/functions/put'
@@ -106,6 +107,11 @@ export default function Process() {
                 />
               ) : selectedBrand === 'Jamie Young' ? (
                 <CSVOrderProcessor
+                  brand={selectedBrand}
+                  updateOrder={updateOrder}
+                />
+              ) : selectedBrand === 'Exquisite Rugs' ? (
+                <CombinedOrderProcessorIncludingCost
                   brand={selectedBrand}
                   updateOrder={updateOrder}
                 />
