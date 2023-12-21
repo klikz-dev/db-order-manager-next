@@ -99,6 +99,11 @@ export const supplier = {
     sample: 'sheryl@premierprintsinc.com',
     account: 'decoratorsbest',
   },
+  'P/Kaufmann': {
+    order: 'SBazemore@PKaufmann.com',
+    sample: 'SBazemore@PKaufmann.com',
+    account: 'decoratorsbest',
+  },
   // 'Ralph Lauren': {
   //   order: 'SIrby@pkaufmann.com',
   //   sample: 'SIrby@pkaufmann.com',

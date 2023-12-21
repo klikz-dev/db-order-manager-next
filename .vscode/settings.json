@@ -2,7 +2,7 @@
   "editor.formatOnSave": true,
   // Run Stylelint fix when you save the file
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": true
+    "source.fixAll.stylelint": "explicit"
   },
   // Recommended config for the extension
   "css.validate": false,
