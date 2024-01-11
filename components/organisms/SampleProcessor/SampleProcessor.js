@@ -202,7 +202,7 @@ export default function SampleProcessor({ brand, updateOrder }) {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pos/1/`,
         session?.accessToken,
         {
-          field: `${brand.replace(/ /g, '')}Sample`,
+          field: `${brand.replace(/ /g, '').replace(/\//g, '')}Sample`,
           lastPO: lastPO,
         }
       )

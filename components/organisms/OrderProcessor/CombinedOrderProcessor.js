@@ -196,7 +196,7 @@ export default function OrderProcessor({ brand, updateOrder }) {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pos/1/`,
         session?.accessToken,
         {
-          field: `${brand.replace(/ /g, '')}Order`,
+          field: `${brand.replace(/ /g, '').replace(/\//g, '')}Order`,
           lastPO: lastPO,
         }
       )
