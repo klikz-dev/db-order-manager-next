@@ -109,6 +109,12 @@ export default function OrderProcessor({ brand, updateOrder }) {
           </p>
 
           <p style="margin-bottom: 8px;">
+            <span style="margin-right: 12px;">SIDEMARK: <strong>DecoratorsBest/${
+              order?.billingLastName
+            }</strong></span>
+          </p>
+
+          <p style="margin-bottom: 8px;">
             <span style="margin-right: 12px;">Name: <strong>${
               order?.shippingFirstName
             } ${order?.shippingLastName}</strong></span>
