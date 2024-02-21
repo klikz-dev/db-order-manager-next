@@ -20,6 +20,10 @@ export const supplier = {
     order: 'ecom@exquisiterugs.com',
     account: 'decoratorsbest',
   },
+  Galerie: {
+    order: 'shirley@galeriewallcoverings.com',
+    account: 'decoratorsbest',
+  },
   'Hubbardton Forge': {
     order: 'customerservice@vtforge.com',
     sample: 'customerservice@vtforge.com',
@@ -66,6 +70,10 @@ export const supplier = {
     order: 'ecom@noirfurniturela.com',
     account: 'decoratorsbest',
   },
+  'Olivia & Quinn': {
+    order: 'murrell@decoratorsbest.com',
+    account: 'decoratorsbest',
+  },
   'P/K Lifestyles': {
     order: 'customerservice@pklifestyles.com',
     sample: 'customerservice@pklifestyles.com',
@@ -104,11 +112,6 @@ export const supplier = {
     sample: 'SBazemore@PKaufmann.com',
     account: 'decoratorsbest',
   },
-  // 'Ralph Lauren': {
-  //   order: 'SIrby@pkaufmann.com',
-  //   sample: 'SIrby@pkaufmann.com',
-  //   account: 'decoratorsbest',
-  // },
   Scalamandre: {
     order: 'mbowling@scalamandre.com',
     sample: 'customerservice@scalamandre.com',
@@ -119,11 +122,6 @@ export const supplier = {
     sample: 'orders@wallquest.com',
     account: '591267',
   },
-  // 'Stark Studio': {
-  //   order: 'specialaccounts@starkcarpet.com',
-  //   sample: 'specialaccounts@starkcarpet.com',
-  //   account: 'decoratorsbest',
-  // },
   Stout: {
     order: 'e-csr@estout.com',
     sample: 'e-csr@estout.com',
@@ -152,11 +150,6 @@ export const supplier = {
     sample: ['orders@tempaper.com', 'paul@tempaper.com'],
     account: 'decoratorsbest',
   },
-  // 'Tres Tintas': {
-  //   order: 'export@trestintas.com',
-  //   sample: 'info@trestintas.com',
-  //   account: 'decoratorsbest',
-  // },
   Zoffany: {
     order: 'bonnie.bradley@zoffany.com',
     sample: 'usasampling@zoffany.com',
