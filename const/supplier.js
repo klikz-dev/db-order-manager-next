@@ -22,6 +22,7 @@ export const supplier = {
   },
   Galerie: {
     order: 'shirley@galeriewallcoverings.com',
+    sample: 'shirley@galeriewallcoverings.com',
     account: 'decoratorsbest',
   },
   'Hubbardton Forge': {
