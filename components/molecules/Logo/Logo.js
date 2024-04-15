@@ -1,5 +1,9 @@
 import Image from '@/components/atoms/Image'
 
 export default function Logo() {
-  return <Image src='/logo.png' width={200} height={59} />
+  return (
+    <div style={{ width: '200px', height: '60px' }}>
+      <Image src='/logo.png' />
+    </div>
+  )
 }

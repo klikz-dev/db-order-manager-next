@@ -12,7 +12,15 @@ import Oversized from './Oversized'
 export default function Status({ order, updateOrder, trackings }) {
   const { line_items } = order ?? {}
 
-  const [specialShipping, setSpecialShipping] = useState(order.specialShipping)
+  const [specialShipping, setSpecialShipping] = useState(
+    order.shippingMethod?.toLowerCase().includes('2')
+      ? '2nd Day'
+      : order.shippingMethod?.toLowerCase().includes('over')
+      ? 'Overnight'
+      : order.shippingMethod?.toLowerCase().includes('international')
+      ? 'International'
+      : ''
+  )
 
   const [edit, setEdit] = useState(false)
   const [status, setStatus] = useState(order.status)
@@ -22,7 +30,7 @@ export default function Status({ order, updateOrder, trackings }) {
 
   async function handleSave() {
     const res = await updateOrder({
-      specialShipping: specialShipping,
+      shippingMethod: specialShipping,
       status: status,
     })
 

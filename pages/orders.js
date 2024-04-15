@@ -18,7 +18,7 @@ export default function Orders() {
   const [ordersURL, setOrdersURL] = useState(
     `${
       process.env.NEXT_PUBLIC_BACKEND_URL
-    }/api/orders?limit=9999&from=${dateFormat(
+    }/api/orders?limit=999&from=${dateFormat(
       addDays(new Date(), -13),
       'yy-m-d'
     )}&to=${dateFormat(new Date(), 'yy-m-d')}`
@@ -72,31 +72,31 @@ export default function Orders() {
         ) {
           return false
         }
-        if (!price100 && parseFloat(o.orderTotal) < 100) {
+        if (!price100 && parseFloat(o.total) < 100) {
           return false
         }
         if (
           !price100to200 &&
-          parseFloat(o.orderTotal) >= 100 &&
-          parseFloat(o.orderTotal) < 200
+          parseFloat(o.total) >= 100 &&
+          parseFloat(o.total) < 200
         ) {
           return false
         }
         if (
           !price200to500 &&
-          parseFloat(o.orderTotal) >= 200 &&
-          parseFloat(o.orderTotal) < 500
+          parseFloat(o.total) >= 200 &&
+          parseFloat(o.total) < 500
         ) {
           return false
         }
         if (
           !price500to1000 &&
-          parseFloat(o.orderTotal) >= 500 &&
-          parseFloat(o.orderTotal) < 1000
+          parseFloat(o.total) >= 500 &&
+          parseFloat(o.total) < 1000
         ) {
           return false
         }
-        if (!price1000 && parseFloat(o.orderTotal) >= 1000) {
+        if (!price1000 && parseFloat(o.total) >= 1000) {
           return false
         }
         return true
@@ -380,27 +380,25 @@ export default function Orders() {
 
                   <tbody>
                     {filteredOrders.map((order) => (
-                      <tr key={order.shopifyOrderId}>
+                      <tr key={order.shopifyId}>
                         {bulkEdit && (
                           <td>
                             <input
                               type='checkbox'
-                              checked={selectedOrders.includes(
-                                order.shopifyOrderId
-                              )}
-                              onChange={() => selectOrder(order.shopifyOrderId)}
+                              checked={selectedOrders.includes(order.shopifyId)}
+                              onChange={() => selectOrder(order.shopifyId)}
                             />
                           </td>
                         )}
 
                         <td>
                           <a
-                            href={`/order/?id=${order.shopifyOrderId}`}
+                            href={`/order/?id=${order.shopifyId}`}
                             target='_blank'
                             rel='noreferrer'
                             className='font-bold underline'
                           >
-                            {order.orderNumber}
+                            {order.po}
                           </a>
                         </td>
 
@@ -439,15 +437,23 @@ export default function Orders() {
                             {order.email}
                           </a>
                         </td>
-                        <td>${order.orderTotal?.toFixed(2)}</td>
-                        <td>{order.manufacturerList}</td>
-                        <td>{order.specialShipping}</td>
+                        <td>${order.total}</td>
+                        <td style={{ width: '200px' }}>
+                          {order.manufacturers?.map((item) => (
+                            <p key={item.name}>
+                              {item.brand === item.name
+                                ? item.name
+                                : `${item.name} (${item.brand})`}
+                            </p>
+                          ))}
+                        </td>
+                        <td>{order.shippingMethod}</td>
                         <td>
                           <p className='whitespace-pre-line'>
-                            {order.referenceNumber?.replace(/,/g, '\n')?.trim()}
+                            {order.reference?.replace(/,/g, '\n')?.trim()}
                           </p>
                         </td>
-                        <td>{order.note}</td>
+                        <td>{order.internalNote}</td>
                       </tr>
                     ))}
                   </tbody>

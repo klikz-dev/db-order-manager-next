@@ -1,46 +1,35 @@
 import Button from '@/components/atoms/Button'
 import Image from '@/components/atoms/Image'
-import { getData } from '@/functions/fetch'
 import { putData } from '@/functions/put'
 import { MailIcon, UploadIcon } from '@heroicons/react/solid'
 import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import sendKlaviyoEmail from '@/functions/klaviyo'
 
 export default function Line({
-  orderNumber,
+  po,
   email,
+  id,
+  product,
   variant,
-  orderedProductSKU,
-  orderedProductTitle,
-  orderedProductUnitPrice,
+  orderPrice,
   quantity,
+  backorder,
   individualProcess,
 }) {
   const { data: session } = useSession()
 
-  const { product } = variant ?? {}
+  const image = product.images?.sort((a, b) => a.position - b.position)?.[0]
 
-  const { data: imageData } = getData(
-    product?.productId
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/images/?product=${product?.productId}`
-      : undefined,
-    session?.accessToken
-  )
-  const image = imageData?.results?.[0]
-
-  const [backOrderDate, setBackOrderDate] = useState('')
-  useEffect(() => {
-    setBackOrderDate(variant?.backOrderDate)
-  }, [variant])
+  const [backOrderDate, setBackOrderDate] = useState(backorder)
 
   const [updateError, setUpdateError] = useState('')
   const [updateSuccess, setUpdateSuccess] = useState('')
 
-  async function updateVariant(data) {
+  async function updateLine(data) {
     const res = await putData(
-      variant
-        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/variants/${variant?.variantId}/`
+      id
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/${id}/`
         : undefined,
       session?.accessToken,
       data
@@ -50,9 +39,8 @@ export default function Line({
   }
 
   async function handleSave() {
-    const res = await updateVariant({
-      backOrderDate: backOrderDate,
-      BODateStatus: 1,
+    const res = await updateLine({
+      backorder: backOrderDate,
     })
 
     if (res.status) {
@@ -69,7 +57,7 @@ export default function Line({
     e.preventDefault()
 
     putData(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${product?.productId}/`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${product?.shopifyId}/`,
       process.env.NEXT_PUBLIC_PARTNER_TOKEN,
       {
         published: false,
@@ -78,13 +66,13 @@ export default function Line({
 
     sendKlaviyoEmail(
       process.env.NEXT_PUBLIC_KLAVIYO_DISCO_TMP,
-      `Important Information About Your Order PO #${orderNumber} ${product?.title}`,
+      `Important Information About Your Order PO #${po} ${product?.title}`,
       {
         dp: {
-          actual_oid: orderNumber,
+          actual_oid: po,
           t: product?.title,
-          img: image?.imageURL,
-          u: `https://decoratorsbest.com/products/${product?.handle}/?utm_source=discontinued&amp;utm_medium=email&amp;utm_campaign=Discontinued Email`,
+          img: image?.url,
+          u: `https://decoratorsbest.com/products/${product?.shopifyHandle}/?utm_source=discontinued&amp;utm_medium=email&amp;utm_campaign=Discontinued Email`,
         },
       },
       email
@@ -100,14 +88,14 @@ export default function Line({
       variant?.name?.includes('Sample - ')
         ? process.env.NEXT_PUBLIC_KLAVIYO_BO_SAMPLE_TMP
         : process.env.NEXT_PUBLIC_KLAVIYO_BO_ORDER_TMP,
-      `Important Information About Your Order PO #${orderNumber} ${product?.title}`,
+      `Important Information About Your Order PO #${po} ${product?.title}`,
       {
         dp: {
-          actual_oid: orderNumber,
+          actual_oid: po,
           t: product?.title,
-          orderedtitle: variant?.name,
-          img: image?.imageURL,
-          u: `https://decoratorsbest.com/products/${product?.handle}/?utm_source=backordered&amp;utm_medium=email&amp;utm_campaign=Backordered Email`,
+          orderedtitle: `${variant} ${product.title}`,
+          img: image?.url,
+          u: `https://decoratorsbest.com/products/${product?.shopifyHandle}/?utm_source=backordered&amp;utm_medium=email&amp;utm_campaign=Backordered Email`,
           backdate: backOrderDate,
         },
       },
@@ -120,29 +108,40 @@ export default function Line({
   return (
     <tr className='text-center border'>
       <td className='w-24 h-24 border relative'>
-        <Image src={image?.imageURL} fill={true} />
+        <Image src={image?.url} styles={{ objectOver: 'contain' }} />
       </td>
 
       <td className='border text-center'>
         <a
-          href={`https://decoratorsbest.com/products/${product?.handle ?? ''}`}
+          href={`https://decoratorsbest.com/products/${
+            product?.shopifyHandle ?? ''
+          }`}
           target='_blank'
           rel='noreferrer'
           className='font-bold underline'
         >
-          {orderedProductSKU}
+          {product.sku}
         </a>
       </td>
 
-      <td className='border'>{orderedProductTitle}</td>
+      <td className='border'>{product.title}</td>
 
       <td className='border'>
-        ${variant?.cost?.toFixed(2)} {variant?.pricing}
+        ${product?.cost} / {product?.uom}
       </td>
 
-      <td className='border'>${orderedProductUnitPrice?.toFixed(2)}</td>
+      <td className='border'>${orderPrice}</td>
 
-      <td className='border'>${variant?.price?.toFixed(2)}</td>
+      <td className='border'>
+        $
+        {variant === 'Consumer'
+          ? product?.consumer
+          : variant === 'Trade'
+          ? product?.trade
+          : variant === 'Sample'
+          ? product?.sample
+          : 0}
+      </td>
 
       <td className='border'>{quantity}</td>
 
@@ -218,7 +217,7 @@ export default function Line({
               type='custom'
               size='sm'
               className='bg-red-700 text-white hover:bg-red-900 hover:text-white'
-              href={`https://www.phillipjeffries.com/product/${variant.product?.manufacturerPartNumber}`}
+              href={`https://www.phillipjeffries.com/product/${variant.product?.mpn}`}
               urlExternal={true}
             >
               <div className='flex items-center'>Process</div>

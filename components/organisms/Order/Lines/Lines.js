@@ -1,11 +1,11 @@
 import Line from '../../Line'
 
 export default function Lines({
-  orderNumber,
+  po,
   email,
   shippingFirstName,
   shippingLastName,
-  line_items,
+  lineItems,
 }) {
   return (
     <table className='table-auto w-full border-collapse'>
@@ -24,15 +24,15 @@ export default function Lines({
       </thead>
 
       <tbody>
-        {line_items?.length > 0 &&
-          line_items.map((line_item, index) => (
+        {lineItems?.length > 0 &&
+          lineItems.map((lineItem, index) => (
             <Line
               key={index}
-              orderNumber={orderNumber}
+              orderNumber={po}
               email={email}
               shippingFirstName={shippingFirstName}
               shippingLastName={shippingLastName}
-              {...line_item}
+              {...lineItem}
             />
           ))}
       </tbody>

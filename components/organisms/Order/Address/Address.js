@@ -66,9 +66,7 @@ export default function Address({ order, updateOrder }) {
             <p>
               {order.billingFirstName} {order.billingLastName}
             </p>
-            <p>
-              {order.billingAddress1} {order.billingAddress2},
-            </p>
+            <p>{order.billingAddress1}</p>
             <p>
               {order.billingCity}, {order.billingState} {order.billingZip}
             </p>

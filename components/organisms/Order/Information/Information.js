@@ -4,16 +4,15 @@ import dateFormat from 'dateformat'
 import { useState } from 'react'
 
 export default function Information({
-  orderNumber,
+  po,
   orderDate,
   updatedAt,
-  manufacturerList,
-  referenceNumber,
+  manufacturers,
+  reference: currentReference,
   updateOrder,
 }) {
-  const [manufacturers, setManufacturers] = useState(manufacturerList)
   const [reference, setReference] = useState(
-    referenceNumber?.replace(/,/g, '\n')?.trim()
+    currentReference?.replace(/,/g, '\n')?.trim()
   )
 
   const [updateError, setUpdateError] = useState('')
@@ -21,8 +20,7 @@ export default function Information({
 
   async function handleSave() {
     const res = await updateOrder({
-      manufacturerList: manufacturers,
-      referenceNumber: reference,
+      reference: reference,
     })
 
     if (res.status) {
@@ -42,7 +40,7 @@ export default function Information({
 
         <div className='flex gap-4 justify-between pb-2 mb-2 h-8'>
           <p>
-            <span className='font-bold'>PO #:</span> {orderNumber}
+            <span className='font-bold'>PO #:</span> {po}
           </p>
         </div>
 
@@ -58,11 +56,15 @@ export default function Information({
 
         <label className='block mb-4'>
           <p className='font-semibold mb-1'>Manufacturers:</p>
-          <textarea
-            value={manufacturers || ''}
-            onChange={(e) => setManufacturers(e.target.value)}
-            className='w-full bg-blue-50 rounded text-base h-20'
-          />
+          <div>
+            {manufacturers?.map((item) => (
+              <p key={item.name}>
+                {item.brand === item.name
+                  ? item.name
+                  : `${item.name} (${item.brand})`}
+              </p>
+            ))}
+          </div>
         </label>
 
         <label>
