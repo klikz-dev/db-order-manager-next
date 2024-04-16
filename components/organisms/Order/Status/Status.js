@@ -148,7 +148,7 @@ export default function Status({ order, updateOrder, trackings }) {
         {trackings?.length > 0 &&
           trackings.map((tracking, index) => (
             <p key={index}>
-              {tracking.brand}: {tracking.trackingNumber}
+              {tracking.brand}: {tracking.number}
             </p>
           ))}
       </div>

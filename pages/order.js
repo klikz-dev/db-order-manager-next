@@ -26,19 +26,7 @@ export default function Order() {
     session?.accessToken
   )
 
-  const { customer } = order ?? {}
-
-  /**
-   * Get Tracking
-   */
-  // const { data: trackingsData } = getData(
-  //   order?.po
-  //     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/trackings/?po=${order.po}`
-  //     : undefined,
-  //   session?.accessToken
-  // )
-  // const trackings =
-  //   trackingsData?.results?.length > 0 ? trackingsData.results : []
+  const { customer, trackings } = order ?? {}
 
   /**
    * Update Order
@@ -65,7 +53,7 @@ export default function Order() {
             <Status
               order={order}
               updateOrder={updateOrder}
-              // trackings={trackings}
+              trackings={trackings}
             />
 
             <Note order={order} updateOrder={updateOrder} />
