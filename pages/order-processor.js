@@ -50,9 +50,9 @@ export default function Process() {
   /**
    * Update Order
    */
-  async function updateOrder(shopifyOrderId, data) {
+  async function updateOrder(shopifyId, data) {
     const res = await putData(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${shopifyOrderId}/`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${shopifyId}/`,
       session?.accessToken,
       data
     )

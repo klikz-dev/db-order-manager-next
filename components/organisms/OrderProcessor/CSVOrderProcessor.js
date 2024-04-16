@@ -15,7 +15,7 @@ export default function OrderProcessor({ brand, updateOrder }) {
 
   const { data: linesData, loading } = getData(
     brand && session?.accessToken
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=o&limit=1000`
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=o`
       : undefined,
     session?.accessToken
   )
@@ -25,8 +25,8 @@ export default function OrderProcessor({ brand, updateOrder }) {
   const orders =
     lines?.length > 0
       ? lines?.reduce((sum, ele) => {
-          sum[ele.order.orderNumber] = sum[ele.order.orderNumber] || []
-          sum[ele.order.orderNumber].push(ele)
+          sum[ele.order.po] = sum[ele.order.po] || []
+          sum[ele.order.po].push(ele)
           return sum
         }, {})
       : {}
@@ -49,11 +49,11 @@ export default function OrderProcessor({ brand, updateOrder }) {
 
     const csvData = []
 
-    Object.keys(orders).map((orderNumber, index) => {
-      if (index === 0) startPO = orderNumber
-      endPO = orderNumber
+    Object.keys(orders).map((po, index) => {
+      if (index === 0) startPO = po
+      endPO = po
 
-      const line_items = orders[orderNumber]
+      const line_items = orders[po]
       const order = line_items[0].order
 
       let shippingMethod = order?.shippingMethod
@@ -76,11 +76,9 @@ export default function OrderProcessor({ brand, updateOrder }) {
 
       line_items.map((line_item) => {
         csvData.push({
-          'PO #': orderNumber,
-          SKU:
-            line_item.variant?.product?.manufacturerPartNumber ??
-            line_item.orderedProductSKU,
-          'Product Name': line_item.orderedProductTitle,
+          'PO #': po,
+          SKU: line_item.product?.mpn,
+          'Product Name': line_item.product?.title,
           Quantity: line_item.quantity,
           Type: 'Order',
           'Order Date': dateFormat(order?.orderDate, 'mm/dd/yyyy h:MM:ss TT'),
@@ -122,7 +120,7 @@ export default function OrderProcessor({ brand, updateOrder }) {
       const order = line_items[0].order
 
       if (order.status === 'New') {
-        await updateOrder(order.shopifyOrderId, {
+        await updateOrder(order.shopifyId, {
           status: 'Reference# Needed',
         })
       }
@@ -170,8 +168,8 @@ export default function OrderProcessor({ brand, updateOrder }) {
               {lines?.length > 0 ? (
                 <>
                   {orders &&
-                    Object.keys(orders).map((orderNumber, index) => (
-                      <Lines key={index} line_items={orders[orderNumber]} />
+                    Object.keys(orders).map((po, index) => (
+                      <Lines key={index} line_items={orders[po]} />
                     ))}
                 </>
               ) : (

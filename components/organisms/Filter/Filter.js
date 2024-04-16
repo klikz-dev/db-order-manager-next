@@ -32,7 +32,7 @@ export default function index({
   setPrice1000,
   dateRange,
   setDateRange,
-  orderNumber,
+  po,
   setOrderNumber,
   customer,
   setCustomer,
@@ -215,7 +215,7 @@ export default function index({
             <div className='relative flex items-center'>
               <input
                 type='text'
-                value={orderNumber}
+                value={po}
                 onChange={(e) => setOrderNumber(e.target.value)}
                 className='py-1 text-base rounded mr-2'
               />

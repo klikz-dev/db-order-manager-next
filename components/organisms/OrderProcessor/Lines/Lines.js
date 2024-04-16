@@ -10,12 +10,12 @@ export default function Lines({ line_items }) {
       <div className='p-4 grid grid-cols-5 gap-6 bg-blue-100'>
         <div>
           <a
-            href={`/order/?id=${order?.shopifyOrderId}`}
+            href={`/order/?id=${order?.shopifyId}`}
             target='_blank'
             rel='noreferrer'
             className='font-bold underline'
           >
-            PO #{order?.orderNumber}
+            PO #{order?.po}
           </a>
           <p className='my-3'>
             <span className='font-bold'>Status:</span>{' '}
@@ -90,7 +90,7 @@ export default function Lines({ line_items }) {
               line_items.map((line_item, index) => (
                 <Line
                   key={index}
-                  orderNumber={order.orderNumber}
+                  po={order.po}
                   email={order.email}
                   shippingFirstName={order.shippingFirstName}
                   shippingLastName={order.shippingLastName}

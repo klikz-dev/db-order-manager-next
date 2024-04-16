@@ -14,7 +14,7 @@ export default function SampleProcessor({ brand, updateOrder }) {
 
   const { data: linesData, loading } = getData(
     brand && session?.accessToken
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=s&limit=1000`
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/line-items/?brand=${brand}&type=s`
       : undefined,
     session?.accessToken
   )
@@ -24,8 +24,8 @@ export default function SampleProcessor({ brand, updateOrder }) {
   const orders =
     lines?.length > 0
       ? lines?.reduce((sum, ele) => {
-          sum[ele.order.orderNumber] = sum[ele.order.orderNumber] || []
-          sum[ele.order.orderNumber].push(ele)
+          sum[ele.order.po] = sum[ele.order.po] || []
+          sum[ele.order.po].push(ele)
           return sum
         }, {})
       : {}
@@ -55,15 +55,15 @@ export default function SampleProcessor({ brand, updateOrder }) {
 
     // const manualPOs = ['534876', '534906', '534911', '534990', '535027']
 
-    const emailContent = Object.keys(orders).map((orderNumber, index) => {
-      // if (!manualPOs.includes(orderNumber)) {
+    const emailContent = Object.keys(orders).map((po, index) => {
+      // if (!manualPOs.includes(po)) {
       //   return
       // }
 
-      if (index === 0) startPO = orderNumber
-      endPO = orderNumber
+      if (index === 0) startPO = po
+      endPO = po
 
-      const line_items = orders[orderNumber]
+      const line_items = orders[po]
       const order = line_items[0].order
 
       let shippingMethod = order?.shippingMethod
@@ -88,17 +88,12 @@ export default function SampleProcessor({ brand, updateOrder }) {
         (line_item) => `
         <tr>
           <td style="border: 1px solid #3A3A3A; text-align: center;">
-            ${
-              line_item.variant?.product?.manufacturerPartNumber ??
-              line_item.orderedProductSKU
-            }
+            ${line_item.product?.mpn}
           </td>
           <td style="border: 1px solid #3A3A3A; text-align: center;">
-            ${line_item.orderedProductTitle}
+            ${line_item.product?.title}
           </td>
-          <td style="border: 1px solid #3A3A3A; text-align: center;">${
-            line_item.quantity
-          }</td>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">${line_item.quantity}</td>
           <td style="border: 1px solid #3A3A3A; text-align: center;">Sample</td>
         </tr>
       `
@@ -107,7 +102,7 @@ export default function SampleProcessor({ brand, updateOrder }) {
       return `
         <div style="border: 1px solid #1e1e1e; padding: 12px; max-width: 800px;">
           <p style="margin-bottom: 8px;">
-            <span style="margin-right: 12px;">PO: <strong>#${orderNumber}</strong></span>
+            <span style="margin-right: 12px;">PO: <strong>#${po}</strong></span>
             <span style="margin-right: 12px;">Order Date: <strong>${dateFormat(
               order?.orderDate,
               'mm/dd/yyyy h:MM:ss TT'
@@ -158,7 +153,7 @@ export default function SampleProcessor({ brand, updateOrder }) {
           <div style="margin-bottom: 20px;">
             <a href="${
               process.env.NEXT_PUBLIC_FRONTEND_URL
-            }/reference/?brand=${brand}&po=${orderNumber}">Input Reference Number</a>
+            }/reference/?brand=${brand}&po=${po}">Input Reference Number</a>
           </div>
         </div>
       `
@@ -188,7 +183,7 @@ export default function SampleProcessor({ brand, updateOrder }) {
       const order = line_items[0].order
 
       if (order.status === 'New') {
-        await updateOrder(order.shopifyOrderId, {
+        await updateOrder(order.shopifyId, {
           status: 'Reference# Needed',
         })
       }
@@ -236,8 +231,8 @@ export default function SampleProcessor({ brand, updateOrder }) {
               {lines?.length > 0 ? (
                 <>
                   {orders &&
-                    Object.keys(orders).map((orderNumber, index) => (
-                      <Lines key={index} line_items={orders[orderNumber]} />
+                    Object.keys(orders).map((po, index) => (
+                      <Lines key={index} line_items={orders[po]} />
                     ))}
                 </>
               ) : (

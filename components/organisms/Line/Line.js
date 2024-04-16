@@ -85,7 +85,7 @@ export default function Line({
     e.preventDefault()
 
     sendKlaviyoEmail(
-      variant?.name?.includes('Sample - ')
+      variant?.includes('Sample')
         ? process.env.NEXT_PUBLIC_KLAVIYO_BO_SAMPLE_TMP
         : process.env.NEXT_PUBLIC_KLAVIYO_BO_ORDER_TMP,
       `Important Information About Your Order PO #${po} ${product?.title}`,
@@ -217,7 +217,7 @@ export default function Line({
               type='custom'
               size='sm'
               className='bg-red-700 text-white hover:bg-red-900 hover:text-white'
-              href={`https://www.phillipjeffries.com/product/${variant.product?.mpn}`}
+              href={`https://www.phillipjeffries.com/product/${product?.mpn}`}
               urlExternal={true}
             >
               <div className='flex items-center'>Process</div>

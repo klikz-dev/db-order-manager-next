@@ -35,7 +35,7 @@ export default function Reference() {
   async function updateOrder(data) {
     const res = await putData(
       order
-        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${order?.shopifyOrderId}/`
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${order?.shopifyId}/`
         : undefined,
       process.env.NEXT_PUBLIC_PARTNER_TOKEN,
       data

@@ -143,7 +143,7 @@ export default function Orders() {
       key: 'selection',
     },
   })
-  const [orderNumber, setOrderNumber] = useState('')
+  const [po, setOrderNumber] = useState('')
   const [customer, setCustomer] = useState('')
   const [manufacturer, setManufacturer] = useState('')
   const [reference, setReference] = useState('')
@@ -164,7 +164,7 @@ export default function Orders() {
     resetFilters()
 
     setOrdersURL(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&po=${orderNumber}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&po=${po}`
     )
   }
 
@@ -260,7 +260,7 @@ export default function Orders() {
           setPrice1000={setPrice1000}
           dateRange={dateRange}
           setDateRange={setDateRange}
-          orderNumber={orderNumber}
+          po={po}
           setOrderNumber={setOrderNumber}
           customer={customer}
           setCustomer={setCustomer}

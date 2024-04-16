@@ -32,8 +32,8 @@ export default function Order() {
    * Get Tracking
    */
   // const { data: trackingsData } = getData(
-  //   order?.orderNumber
-  //     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/trackings/?po=${order.orderNumber}`
+  //   order?.po
+  //     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/trackings/?po=${order.po}`
   //     : undefined,
   //   session?.accessToken
   // )

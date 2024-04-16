@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 export default function Oversized({ line_item }) {
   const { data: session } = useSession()
-  const { orderedProductSKU } = line_item ?? {}
+  const { sku } = line_item.product ?? {}
 
   const [isOversized, setIsOversized] = useState(false)
 
@@ -12,8 +12,8 @@ export default function Oversized({ line_item }) {
    * Get Tags
    */
   const { data: tags } = getData(
-    orderedProductSKU
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/tags/?sku=${orderedProductSKU}`
+    sku
+      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/tags/?sku=${sku}`
       : undefined,
     session?.accessToken
   )
@@ -30,7 +30,7 @@ export default function Oversized({ line_item }) {
 
   return (
     <p>
-      {orderedProductSKU}
+      {sku}
       {': '}
       <strong>{isOversized ? 'Yes' : 'No'}</strong>
     </p>

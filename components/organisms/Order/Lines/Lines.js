@@ -28,7 +28,7 @@ export default function Lines({
           lineItems.map((lineItem, index) => (
             <Line
               key={index}
-              orderNumber={po}
+              po={po}
               email={email}
               shippingFirstName={shippingFirstName}
               shippingLastName={shippingLastName}
