@@ -33,7 +33,7 @@ export default function index({
   dateRange,
   setDateRange,
   po,
-  setOrderNumber,
+  setPO,
   customer,
   setCustomer,
   manufacturer,
@@ -79,37 +79,22 @@ export default function index({
                 onChange={(e) => setStatus(e.target.value)}
               >
                 <option value='All'>All</option>
+
                 <option value='New'>New</option>
+
                 <option value='Reference# Needed'>Reference# Needed</option>
-                <option value='BackOrder Reference# Needed'>
-                  BackOrder Reference# Needed
-                </option>
-                <option value='Reference# Needed - Manually'>
-                  Reference# Needed - Manually
-                </option>
-                <option value='Stock OK'>Stock OK</option>
-                <option value='Hold'>Hold</option>
-                <option value='Back Order'>Back Order</option>
-                <option value='Cancel'>Cancel</option>
-                <option value='Cancel Pending'>Cancel Pending</option>
-                <option value='Client OK'>Client OK</option>
-                <option value='Pay Manufacturer'>Pay Manufacturer</option>
-                <option value='CFA Cut For Approval'>
-                  CFA Cut For Approval
-                </option>
-                <option value='Discontinued'>Discontinued</option>
-                <option value='Call Client'>Call Client</option>
-                <option value='Call Manufacturer'>Call Manufacturer</option>
-                <option value='Overnight Shipping'>Overnight Shipping</option>
-                <option value='2nd Day Shipping'>2nd Day Shipping</option>
-                <option value='Return'>Return</option>
-                <option value='Processed Back Order'>
-                  Processed Back Order
-                </option>
-                <option value='Processed Refund'>Processed Refund</option>
-                <option value='Processed Cancel'>Processed Cancel</option>
-                <option value='Processed Return'>Processed Return</option>
+
                 <option value='Processed'>Processed</option>
+
+                <option value='BackOrder'>BackOrder</option>
+
+                <option value='Refund'>Refund</option>
+
+                <option value='Return'>Return</option>
+
+                <option value='Cancel'>Cancel</option>
+
+                <option value='Hold'>Hold</option>
               </select>
             </div>
           </div>
@@ -216,7 +201,7 @@ export default function index({
               <input
                 type='text'
                 value={po}
-                onChange={(e) => setOrderNumber(e.target.value)}
+                onChange={(e) => setPO(e.target.value)}
                 className='py-1 text-base rounded mr-2'
               />
 

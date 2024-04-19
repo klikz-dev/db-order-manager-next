@@ -47,7 +47,7 @@ export default function Orders() {
   useEffect(() => {
     setFilteredOrders(
       orders?.results?.filter((o) => {
-        if (status !== 'All' && status !== o.status) {
+        if (status !== 'All' && !o.status?.includes(status)) {
           return false
         }
         if (!order && o.orderType === 'Order') {
@@ -127,7 +127,7 @@ export default function Orders() {
   }
 
   function resetSearch() {
-    setOrderNumber('')
+    setPO('')
     setCustomer('')
     setManufacturer('')
     setReference('')
@@ -143,7 +143,7 @@ export default function Orders() {
       key: 'selection',
     },
   })
-  const [po, setOrderNumber] = useState('')
+  const [po, setPO] = useState('')
   const [customer, setCustomer] = useState('')
   const [manufacturer, setManufacturer] = useState('')
   const [reference, setReference] = useState('')
@@ -261,7 +261,7 @@ export default function Orders() {
           dateRange={dateRange}
           setDateRange={setDateRange}
           po={po}
-          setOrderNumber={setOrderNumber}
+          setPO={setPO}
           customer={customer}
           setCustomer={setCustomer}
           manufacturer={manufacturer}
@@ -286,36 +286,27 @@ export default function Orders() {
                 onChange={(e) => setNewStatus(e.target.value)}
               >
                 <option value='New'>New</option>
-                <option value='Reference# Needed'>Reference# Needed</option>
-                <option value='BackOrder Reference# Needed'>
-                  BackOrder Reference# Needed
-                </option>
+
                 <option value='Reference# Needed - Manually'>
                   Reference# Needed - Manually
                 </option>
-                <option value='Stock OK'>Stock OK</option>
-                <option value='Hold'>Hold</option>
-                <option value='Back Order'>Back Order</option>
-                <option value='Cancel'>Cancel</option>
-                <option value='Cancel Pending'>Cancel Pending</option>
-                <option value='Client OK'>Client OK</option>
-                <option value='Pay Manufacturer'>Pay Manufacturer</option>
-                <option value='CFA Cut For Approval'>
-                  CFA Cut For Approval
-                </option>
-                <option value='Discontinued'>Discontinued</option>
-                <option value='Call Client'>Call Client</option>
-                <option value='Call Manufacturer'>Call Manufacturer</option>
-                <option value='Overnight Shipping'>Overnight Shipping</option>
-                <option value='2nd Day Shipping'>2nd Day Shipping</option>
-                <option value='Return'>Return</option>
-                <option value='Processed Back Order'>
-                  Processed Back Order
-                </option>
-                <option value='Processed Refund'>Processed Refund</option>
-                <option value='Processed Cancel'>Processed Cancel</option>
-                <option value='Processed Return'>Processed Return</option>
+
                 <option value='Processed'>Processed</option>
+
+                <option value='BackOrder'>BackOrder</option>
+                <option value='Processed BackOrder'>Processed BackOrder</option>
+
+                <option value='Refund'>Refund</option>
+                <option value='Processed Refund'>Processed Refund</option>
+
+                <option value='Return'>Return</option>
+                <option value='Processed Return'>Processed Return</option>
+
+                <option value='Cancel'>Cancel</option>
+                <option value='Processed Cancel'>Processed Cancel</option>
+
+                <option value='Hold'>Hold</option>
+                <option value='Discontinued'>Discontinued</option>
               </select>
 
               <Button onClick={updateOrder} disabled={processing}>
@@ -405,21 +396,18 @@ export default function Orders() {
                         <td
                           className={classNames(
                             order.status === 'New'
-                              ? 'bg-blue-600 text-white'
+                              ? 'bg-teal-500 text-white'
                               : order.status.includes('Processed')
                               ? 'bg-purple-600 text-white'
-                              : order.status === 'Stock OK'
-                              ? 'bg-gray-200'
-                              : order.status.includes('Cancel') ||
-                                order.status.includes('Hold')
+                              : order.status.includes('BackOrder')
+                              ? 'bg-gray-300'
+                              : order.status.includes('Hold') ||
+                                order.status.includes('Discontinued')
                               ? 'bg-yellow-800 text-white'
-                              : order.status.includes('Refund') ||
+                              : order.status.includes('Cancel') ||
+                                order.status.includes('Refund') ||
                                 order.status.includes('Return')
                               ? 'bg-red-500 text-white'
-                              : order.status.includes('Approval')
-                              ? 'bg-lime-700 text-white'
-                              : order.status.includes('Discontinued')
-                              ? 'bg-gray-500 text-white'
                               : order.status.includes('EDI')
                               ? 'bg-sky-600 text-white font-medium'
                               : 'bg-white'
@@ -447,7 +435,19 @@ export default function Orders() {
                             </p>
                           ))}
                         </td>
-                        <td>{order.shippingMethod}</td>
+                        <td style={{ width: '120px', color: 'red' }}>
+                          {order.shippingMethod?.toLowerCase().includes('2')
+                            ? '2nd Day'
+                            : order.shippingMethod
+                                ?.toLowerCase()
+                                .includes('over')
+                            ? 'Overnight'
+                            : order.shippingMethod
+                                ?.toLowerCase()
+                                .includes('white')
+                            ? 'White Glove'
+                            : ''}
+                        </td>
                         <td>
                           <p className='whitespace-pre-line'>
                             {order.reference?.replace(/,/g, '\n')?.trim()}

@@ -2,7 +2,6 @@ import Button from '@/components/atoms/Button'
 import Loading from '@/components/atoms/Loading'
 import sendEmail from '@/functions/email'
 import { getData } from '@/functions/fetch'
-import { putData } from '@/functions/put'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import Lines from './Lines'
@@ -121,23 +120,13 @@ export default function OrderProcessor({ brand, updateOrder }) {
 
       if (order.status === 'New') {
         await updateOrder(order.shopifyId, {
-          status: 'Reference# Needed',
+          status: `${brand} Reference# Needed`,
+        })
+      } else if (!order.status?.includes(`${brand} Reference# Needed`)) {
+        await updateOrder(order.shopifyId, {
+          status: `${order.status}, ${brand} Reference# Needed`,
         })
       }
-    }
-
-    // Update PO Config
-    const lastPO = pos.length > 0 ? pos[pos.length - 1] : -1
-
-    if (lastPO > 0) {
-      await putData(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pos/1/`,
-        session?.accessToken,
-        {
-          field: `${brand.replace(/ /g, '')}Order`,
-          lastPO: lastPO,
-        }
-      )
     }
 
     setProcessing(false)

@@ -21,7 +21,7 @@ export default function Reference() {
 
   const order = orderData?.results?.length > 0 ? orderData.results[0] : null
 
-  const { referenceNumber } = order ?? {}
+  const { reference } = order ?? {}
 
   const [ref, setRef] = useState('')
 
@@ -47,13 +47,13 @@ export default function Reference() {
   async function saveRef() {
     setUpdating(true)
 
-    const newRef = `${referenceNumber ?? ''}\r\n${brand}: ${ref}`
+    const newRef = `${reference ?? ''}\r\n${brand}: ${ref}`
 
     const updateObj = {
-      referenceNumber: newRef,
+      reference: newRef,
     }
 
-    if (order?.manufacturerList?.split(',')?.length === 1) {
+    if (order?.manufacturers?.length === 1) {
       updateObj.status = 'Processed'
     }
 

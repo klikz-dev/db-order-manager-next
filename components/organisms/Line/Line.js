@@ -15,7 +15,6 @@ export default function Line({
   orderPrice,
   quantity,
   backorder,
-  individualProcess,
 }) {
   const { data: session } = useSession()
 
@@ -55,14 +54,6 @@ export default function Line({
 
   const discontinuedEmail = (e) => {
     e.preventDefault()
-
-    putData(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${product?.shopifyId}/`,
-      process.env.NEXT_PUBLIC_PARTNER_TOKEN,
-      {
-        published: false,
-      }
-    )
 
     sendKlaviyoEmail(
       process.env.NEXT_PUBLIC_KLAVIYO_DISCO_TMP,
@@ -210,20 +201,6 @@ export default function Line({
             </div>
           </Button>
         </div>
-
-        {individualProcess && (
-          <div className='block mb-0.5'>
-            <Button
-              type='custom'
-              size='sm'
-              className='bg-red-700 text-white hover:bg-red-900 hover:text-white'
-              href={`https://www.phillipjeffries.com/product/${product?.mpn}`}
-              urlExternal={true}
-            >
-              <div className='flex items-center'>Process</div>
-            </Button>
-          </div>
-        )}
       </td>
     </tr>
   )

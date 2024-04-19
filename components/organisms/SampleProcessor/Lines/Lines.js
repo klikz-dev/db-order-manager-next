@@ -2,8 +2,16 @@ import classNames from 'classnames'
 import dateFormat from 'dateformat'
 import Line from '../../Line'
 
-export default function Lines({ line_items, individualProcess = false }) {
+export default function Lines({ line_items }) {
   const order = line_items[0].order
+
+  const specialShipping = order.shippingMethod?.toLowerCase().includes('2')
+    ? order.shippingMethod
+    : order.shippingMethod?.toLowerCase().includes('over')
+    ? order.shippingMethod
+    : order.shippingMethod?.toLowerCase().includes('international')
+    ? 'International'
+    : ''
 
   return (
     <div className='shadow-lg rounded mb-6 border border-gray-600'>
@@ -64,7 +72,7 @@ export default function Lines({ line_items, individualProcess = false }) {
         </div>
 
         <div>
-          <p className='text-red-700'>{order?.specialShipping}</p>
+          <p className='text-red-700'>{specialShipping}</p>
         </div>
       </div>
 
@@ -96,7 +104,6 @@ export default function Lines({ line_items, individualProcess = false }) {
                   shippingFirstName={order.shippingFirstName}
                   shippingLastName={order.shippingLastName}
                   {...line_item}
-                  individualProcess={individualProcess}
                 />
               ))}
           </tbody>

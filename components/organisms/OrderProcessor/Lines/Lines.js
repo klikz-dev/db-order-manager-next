@@ -5,6 +5,14 @@ import Line from '../../Line'
 export default function Lines({ line_items }) {
   const order = line_items[0].order
 
+  const specialShipping = order.shippingMethod?.toLowerCase().includes('2')
+    ? order.shippingMethod
+    : order.shippingMethod?.toLowerCase().includes('over')
+    ? order.shippingMethod
+    : order.shippingMethod?.toLowerCase().includes('international')
+    ? 'International'
+    : ''
+
   return (
     <div className='shadow-lg rounded mb-6 border border-gray-600'>
       <div className='p-4 grid grid-cols-5 gap-6 bg-blue-100'>
@@ -64,7 +72,7 @@ export default function Lines({ line_items }) {
         </div>
 
         <div>
-          <p className='text-red-700'>{order?.specialShipping}</p>
+          <p className='text-red-700'>{specialShipping}</p>
         </div>
       </div>
 
