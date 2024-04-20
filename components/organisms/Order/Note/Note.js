@@ -3,14 +3,14 @@ import { DocumentTextIcon, UploadIcon } from '@heroicons/react/solid'
 import { useState } from 'react'
 
 export default function Note({ order, updateOrder }) {
-  const [note, setNote] = useState(order.note)
+  const [note, setNote] = useState(order.internalNote)
 
   const [updateError, setUpdateError] = useState('')
   const [updateSuccess, setUpdateSuccess] = useState('')
 
   async function handleSave() {
     const res = await updateOrder({
-      note: note,
+      internalNote: note,
     })
 
     if (res.status) {
@@ -34,7 +34,7 @@ export default function Note({ order, updateOrder }) {
         <textarea
           value={note || ''}
           onChange={(e) => setNote(e.target.value)}
-          className='bg-blue-50 text-base py-1 mb-2 rounded w-full h-24'
+          className='bg-blue-50 text-base py-1 mb-2 rounded w-full h-48'
         />
       </div>
 

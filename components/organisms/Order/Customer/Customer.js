@@ -1,6 +1,6 @@
 import { IdentificationIcon } from '@heroicons/react/solid'
 
-export default function Customer({ customer, address, orderNote }) {
+export default function Customer({ customer, customerNote }) {
   return (
     <div className='shadow-lg border rounded px-8 py-4'>
       <h3 className='mb-4 flex items-center'>
@@ -29,20 +29,20 @@ export default function Customer({ customer, address, orderNote }) {
         <a href={`mailto:${customer?.email}`}>{customer?.email}</a>
       </p>
 
-      <div className='grid grid-cols-2 gap-4'>
+      <div className='grid grid-cols-1 gap-4'>
         <div className='mb-4'>
           <p className='font-semibold'>Default Address: </p>
           <p>
-            {address?.address1} {address?.address2},
+            {customer?.address1} {customer?.address2}
           </p>
           <p>
-            {address?.city}, {address?.state} {address?.zip},
+            {customer?.city}, {customer?.state} {customer?.zip},
           </p>
-          <p>{address?.country}</p>
-          <p>{address?.phone}</p>
+          <p>{customer?.country}</p>
+          <p>{customer?.phone}</p>
         </div>
 
-        <div>
+        {/* <div>
           <p className='mb-2'>
             <span className='font-bold'>Total orders: </span>
             {customer?.orderCount}
@@ -52,13 +52,13 @@ export default function Customer({ customer, address, orderNote }) {
             <span className='font-bold'>Total spent: </span>$
             {customer?.totalSpent.toFixed(2)}
           </p>
-        </div>
+        </div> */}
       </div>
 
       <div className='mb-6'>
         <p className='font-semibold mb-2'>Note from customer:</p>
         <p className='bg-gray-200 p-1 font-bold text-red-800 text-lg'>
-          {orderNote}
+          {customerNote}
         </p>
       </div>
     </div>

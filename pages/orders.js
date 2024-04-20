@@ -18,7 +18,7 @@ export default function Orders() {
   const [ordersURL, setOrdersURL] = useState(
     `${
       process.env.NEXT_PUBLIC_BACKEND_URL
-    }/api/orders?limit=9999&from=${dateFormat(
+    }/api/orders?limit=999&from=${dateFormat(
       addDays(new Date(), -13),
       'yy-m-d'
     )}&to=${dateFormat(new Date(), 'yy-m-d')}`
@@ -47,7 +47,7 @@ export default function Orders() {
   useEffect(() => {
     setFilteredOrders(
       orders?.results?.filter((o) => {
-        if (status !== 'All' && status !== o.status) {
+        if (status !== 'All' && !o.status?.includes(status)) {
           return false
         }
         if (!order && o.orderType === 'Order') {
@@ -72,31 +72,31 @@ export default function Orders() {
         ) {
           return false
         }
-        if (!price100 && parseFloat(o.orderTotal) < 100) {
+        if (!price100 && parseFloat(o.total) < 100) {
           return false
         }
         if (
           !price100to200 &&
-          parseFloat(o.orderTotal) >= 100 &&
-          parseFloat(o.orderTotal) < 200
+          parseFloat(o.total) >= 100 &&
+          parseFloat(o.total) < 200
         ) {
           return false
         }
         if (
           !price200to500 &&
-          parseFloat(o.orderTotal) >= 200 &&
-          parseFloat(o.orderTotal) < 500
+          parseFloat(o.total) >= 200 &&
+          parseFloat(o.total) < 500
         ) {
           return false
         }
         if (
           !price500to1000 &&
-          parseFloat(o.orderTotal) >= 500 &&
-          parseFloat(o.orderTotal) < 1000
+          parseFloat(o.total) >= 500 &&
+          parseFloat(o.total) < 1000
         ) {
           return false
         }
-        if (!price1000 && parseFloat(o.orderTotal) >= 1000) {
+        if (!price1000 && parseFloat(o.total) >= 1000) {
           return false
         }
         return true
@@ -127,7 +127,7 @@ export default function Orders() {
   }
 
   function resetSearch() {
-    setOrderNumber('')
+    setPO('')
     setCustomer('')
     setManufacturer('')
     setReference('')
@@ -143,7 +143,7 @@ export default function Orders() {
       key: 'selection',
     },
   })
-  const [orderNumber, setOrderNumber] = useState('')
+  const [po, setPO] = useState('')
   const [customer, setCustomer] = useState('')
   const [manufacturer, setManufacturer] = useState('')
   const [reference, setReference] = useState('')
@@ -164,7 +164,7 @@ export default function Orders() {
     resetFilters()
 
     setOrdersURL(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&po=${orderNumber}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?limit=999&po=${po}`
     )
   }
 
@@ -260,8 +260,8 @@ export default function Orders() {
           setPrice1000={setPrice1000}
           dateRange={dateRange}
           setDateRange={setDateRange}
-          orderNumber={orderNumber}
-          setOrderNumber={setOrderNumber}
+          po={po}
+          setPO={setPO}
           customer={customer}
           setCustomer={setCustomer}
           manufacturer={manufacturer}
@@ -286,36 +286,27 @@ export default function Orders() {
                 onChange={(e) => setNewStatus(e.target.value)}
               >
                 <option value='New'>New</option>
-                <option value='Reference# Needed'>Reference# Needed</option>
-                <option value='BackOrder Reference# Needed'>
-                  BackOrder Reference# Needed
-                </option>
+
                 <option value='Reference# Needed - Manually'>
                   Reference# Needed - Manually
                 </option>
-                <option value='Stock OK'>Stock OK</option>
-                <option value='Hold'>Hold</option>
-                <option value='Back Order'>Back Order</option>
-                <option value='Cancel'>Cancel</option>
-                <option value='Cancel Pending'>Cancel Pending</option>
-                <option value='Client OK'>Client OK</option>
-                <option value='Pay Manufacturer'>Pay Manufacturer</option>
-                <option value='CFA Cut For Approval'>
-                  CFA Cut For Approval
-                </option>
-                <option value='Discontinued'>Discontinued</option>
-                <option value='Call Client'>Call Client</option>
-                <option value='Call Manufacturer'>Call Manufacturer</option>
-                <option value='Overnight Shipping'>Overnight Shipping</option>
-                <option value='2nd Day Shipping'>2nd Day Shipping</option>
-                <option value='Return'>Return</option>
-                <option value='Processed Back Order'>
-                  Processed Back Order
-                </option>
-                <option value='Processed Refund'>Processed Refund</option>
-                <option value='Processed Cancel'>Processed Cancel</option>
-                <option value='Processed Return'>Processed Return</option>
+
                 <option value='Processed'>Processed</option>
+
+                <option value='BackOrder'>BackOrder</option>
+                <option value='Processed BackOrder'>Processed BackOrder</option>
+
+                <option value='Refund'>Refund</option>
+                <option value='Processed Refund'>Processed Refund</option>
+
+                <option value='Return'>Return</option>
+                <option value='Processed Return'>Processed Return</option>
+
+                <option value='Cancel'>Cancel</option>
+                <option value='Processed Cancel'>Processed Cancel</option>
+
+                <option value='Hold'>Hold</option>
+                <option value='Discontinued'>Discontinued</option>
               </select>
 
               <Button onClick={updateOrder} disabled={processing}>
@@ -380,48 +371,43 @@ export default function Orders() {
 
                   <tbody>
                     {filteredOrders.map((order) => (
-                      <tr key={order.shopifyOrderId}>
+                      <tr key={order.shopifyId}>
                         {bulkEdit && (
                           <td>
                             <input
                               type='checkbox'
-                              checked={selectedOrders.includes(
-                                order.shopifyOrderId
-                              )}
-                              onChange={() => selectOrder(order.shopifyOrderId)}
+                              checked={selectedOrders.includes(order.shopifyId)}
+                              onChange={() => selectOrder(order.shopifyId)}
                             />
                           </td>
                         )}
 
                         <td>
                           <a
-                            href={`/order/?id=${order.shopifyOrderId}`}
+                            href={`/order/?id=${order.shopifyId}`}
                             target='_blank'
                             rel='noreferrer'
                             className='font-bold underline'
                           >
-                            {order.orderNumber}
+                            {order.po}
                           </a>
                         </td>
 
                         <td
                           className={classNames(
                             order.status === 'New'
-                              ? 'bg-blue-600 text-white'
+                              ? 'bg-teal-500 text-white'
                               : order.status.includes('Processed')
                               ? 'bg-purple-600 text-white'
-                              : order.status === 'Stock OK'
-                              ? 'bg-gray-200'
-                              : order.status.includes('Cancel') ||
-                                order.status.includes('Hold')
+                              : order.status.includes('BackOrder')
+                              ? 'bg-gray-300'
+                              : order.status.includes('Hold') ||
+                                order.status.includes('Discontinued')
                               ? 'bg-yellow-800 text-white'
-                              : order.status.includes('Refund') ||
+                              : order.status.includes('Cancel') ||
+                                order.status.includes('Refund') ||
                                 order.status.includes('Return')
                               ? 'bg-red-500 text-white'
-                              : order.status.includes('Approval')
-                              ? 'bg-lime-700 text-white'
-                              : order.status.includes('Discontinued')
-                              ? 'bg-gray-500 text-white'
                               : order.status.includes('EDI')
                               ? 'bg-sky-600 text-white font-medium'
                               : 'bg-white'
@@ -439,15 +425,35 @@ export default function Orders() {
                             {order.email}
                           </a>
                         </td>
-                        <td>${order.orderTotal?.toFixed(2)}</td>
-                        <td>{order.manufacturerList}</td>
-                        <td>{order.specialShipping}</td>
+                        <td>${order.total}</td>
+                        <td style={{ width: '200px' }}>
+                          {order.manufacturers?.map((item) => (
+                            <p key={item.name}>
+                              {item.brand === item.name
+                                ? item.name
+                                : `${item.name} (${item.brand})`}
+                            </p>
+                          ))}
+                        </td>
+                        <td style={{ width: '120px', color: 'red' }}>
+                          {order.shippingMethod?.toLowerCase().includes('2')
+                            ? '2nd Day'
+                            : order.shippingMethod
+                                ?.toLowerCase()
+                                .includes('over')
+                            ? 'Overnight'
+                            : order.shippingMethod
+                                ?.toLowerCase()
+                                .includes('white')
+                            ? 'White Glove'
+                            : ''}
+                        </td>
                         <td>
                           <p className='whitespace-pre-line'>
-                            {order.referenceNumber?.replace(/,/g, '\n')?.trim()}
+                            {order.reference?.replace(/,/g, '\n')?.trim()}
                           </p>
                         </td>
-                        <td>{order.note}</td>
+                        <td>{order.internalNote}</td>
                       </tr>
                     ))}
                   </tbody>

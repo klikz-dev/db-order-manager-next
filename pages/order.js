@@ -26,20 +26,7 @@ export default function Order() {
     session?.accessToken
   )
 
-  const { customer } = order ?? {}
-  const { addresses } = customer ?? {}
-
-  /**
-   * Get Tracking
-   */
-  const { data: trackingsData } = getData(
-    order?.orderNumber
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/trackings/?po=${order.orderNumber}`
-      : undefined,
-    session?.accessToken
-  )
-  const trackings =
-    trackingsData?.results?.length > 0 ? trackingsData.results : []
+  const { customer, trackings } = order ?? {}
 
   /**
    * Update Order
@@ -47,7 +34,7 @@ export default function Order() {
   async function updateOrder(data) {
     const res = await putData(
       order
-        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${order?.shopifyOrderId}/`
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders/${id}/`
         : undefined,
       session?.accessToken,
       data
@@ -77,8 +64,7 @@ export default function Order() {
 
             <Customer
               customer={customer}
-              address={addresses?.[addresses?.length - 1]}
-              orderNote={order.orderNote}
+              orderNote={order.customerNote}
               updateOrder={updateOrder}
             />
           </div>

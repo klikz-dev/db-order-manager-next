@@ -1,37 +1,36 @@
-import Button from '@/components/atoms/Button'
+// import Button from '@/components/atoms/Button'
 import {
   CurrencyDollarIcon,
-  PencilAltIcon,
-  UploadIcon,
-  XIcon,
+  // PencilAltIcon,
+  // UploadIcon,
+  // XIcon,
 } from '@heroicons/react/solid'
-import { useState } from 'react'
+// import { useState } from 'react'
 
 export default function Transaction({
-  totalItems,
-  totalDiscounts,
-  orderSubtotal,
-  orderShippingCost,
-  orderTax,
-  orderTotal,
-  updateOrder,
+  discount,
+  subTotal,
+  shippingCost,
+  tax,
+  total,
+  // updateOrder,
 }) {
-  const [edit, setEdit] = useState(false)
-  const [total, setTotal] = useState(orderTotal)
+  // const [edit, setEdit] = useState(false)
+  // const [total, setTotal] = useState(orderTotal)
 
-  const [updateError, setUpdateError] = useState('')
+  // const [updateError, setUpdateError] = useState('')
 
-  async function handleSave() {
-    const res = await updateOrder({
-      orderTotal: total,
-    })
+  // async function handleSave() {
+  //   const res = await updateOrder({
+  //     orderTotal: total,
+  //   })
 
-    if (res.status) {
-      setEdit(false)
-    } else {
-      setUpdateError('Server Error. Update Failed')
-    }
-  }
+  //   if (res.status) {
+  //     setEdit(false)
+  //   } else {
+  //     setUpdateError('Server Error. Update Failed')
+  //   }
+  // }
 
   return (
     <>
@@ -42,27 +41,20 @@ export default function Transaction({
         </h3>
 
         <p className='mb-2'>
-          <span className='font-bold'>Item Total: </span>$
-          {totalItems.toFixed(2)}
+          <span className='font-bold'>Subtotal: </span>${subTotal.toFixed(2)}
         </p>
 
         <p className='mb-2'>
-          <span className='font-bold'>Discount: </span>$
-          {totalDiscounts.toFixed(2)}
-        </p>
-
-        <p className='mb-2'>
-          <span className='font-bold'>Subtotal: </span>$
-          {orderSubtotal.toFixed(2)}
-        </p>
-
-        <p className='mb-2'>
-          <span className='font-bold'>Tax: </span>${orderTax.toFixed(2)}
+          <span className='font-bold'>Discount: </span>${discount.toFixed(2)}
         </p>
 
         <p className='mb-4'>
           <span className='font-bold'>Shipping: </span>$
-          {orderShippingCost.toFixed(2)}
+          {shippingCost.toFixed(2)}
+        </p>
+
+        <p className='mb-2'>
+          <span className='font-bold'>Tax: </span>${tax.toFixed(2)}
         </p>
 
         <div className='flex gap-4 justify-between items-center pb-2 mb-2'>
@@ -73,16 +65,16 @@ export default function Transaction({
             </span>
           </p>
 
-          <Button type='tertiary' onClick={() => setEdit(true)}>
+          {/* <Button type='tertiary' onClick={() => setEdit(true)}>
             <div className='flex items-center'>
               <PencilAltIcon width={16} height={16} />
               <span className='leading-4 ml-1'>Adjust</span>
             </div>
-          </Button>
+          </Button> */}
         </div>
       </div>
 
-      {edit && (
+      {/* {edit && (
         <div className='fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-zinc-700 bg-opacity-40'>
           <div className='bg-white shadow-lg p-6 rounded'>
             <h4 className='font-semibold mb-6 text-blue-900'>Adjust billed:</h4>
@@ -94,7 +86,7 @@ export default function Transaction({
               <input
                 type='number'
                 value={total}
-                onChange={(e) => setTotal(e.target.value)}
+                // onChange={(e) => setTotal(e.target.value)}
                 className='bg-blue-50 text-base py-1 mb-2 rounded'
               />
             </div>
@@ -102,7 +94,7 @@ export default function Transaction({
             <Button
               type='secondary'
               className='block mt-5'
-              onClick={handleSave}
+              // onClick={handleSave}
             >
               <div className='flex items-center'>
                 <UploadIcon width={16} height={16} />
@@ -126,7 +118,7 @@ export default function Transaction({
             )}
           </div>
         </div>
-      )}
+      )} */}
     </>
   )
 }
