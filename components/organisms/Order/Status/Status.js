@@ -29,10 +29,12 @@ export default function Status({ order, updateOrder, trackings }) {
   const [updateSuccess, setUpdateSuccess] = useState('')
 
   async function handleSave() {
-    const res = await updateOrder({
-      shippingMethod: specialShipping,
-      status: status,
-    })
+    const data = { status: status }
+    if (specialShipping) {
+      data.shippingMethod = specialShipping
+    }
+
+    const res = await updateOrder(data)
 
     if (res.status) {
       setUpdateSuccess('Successfully updated.')
