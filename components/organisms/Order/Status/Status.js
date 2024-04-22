@@ -56,6 +56,8 @@ export default function Status({ order, updateOrder, trackings }) {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
+              <option value='New'>New</option>
+
               <option value='Reference# Needed - Manually'>
                 Reference# Needed - Manually
               </option>
