@@ -115,7 +115,11 @@ export default function Line({
         </a>
       </td>
 
-      <td className='border'>{`(${variant}) ${product.title}`}</td>
+      <td className='border'>
+        {variant === 'Consumer'
+          ? product.title
+          : `(${variant}) ${product.title}`}
+      </td>
 
       <td className='border'>
         {variant?.includes('Sample')
