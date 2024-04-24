@@ -115,10 +115,12 @@ export default function Line({
         </a>
       </td>
 
-      <td className='border'>{product.title}</td>
+      <td className='border'>{`(${variant}) ${product.title}`}</td>
 
       <td className='border'>
-        ${product?.cost} / {product?.uom}
+        {variant?.includes('Sample')
+          ? `$0`
+          : `$${product?.cost} / ${product?.uom}`}
       </td>
 
       <td className='border'>${orderPrice}</td>
