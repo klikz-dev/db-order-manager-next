@@ -64,7 +64,7 @@ export default function Order() {
 
             <Customer
               customer={customer}
-              orderNote={order.customerNote}
+              customerNote={order.customerNote}
               updateOrder={updateOrder}
             />
           </div>
