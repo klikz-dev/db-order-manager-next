@@ -73,12 +73,12 @@ export default function OrderProcessor({ brand, updateOrder }) {
         shippingMethod = 'Ground'
       }
 
-      lineItems.map((line_item) => {
+      lineItems.map((lineItem) => {
         csvData.push({
           'PO #': po,
-          SKU: line_item.product?.mpn,
-          'Product Name': line_item.product?.title,
-          Quantity: line_item.quantity,
+          SKU: lineItem.product?.mpn,
+          'Product Name': lineItem.product?.title,
+          Quantity: lineItem.quantity,
           Type: 'Order',
           'Order Date': dateFormat(order?.orderDate, 'mm/dd/yyyy h:MM:ss TT'),
           'Customer Name': `${order?.shippingFirstName} ${order?.shippingLastName}`,

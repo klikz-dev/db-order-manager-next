@@ -154,8 +154,8 @@ export default function Status({ order, updateOrder, trackings }) {
           {'Over-sized items:'}
         </label>
 
-        {lineItems?.map((line_item, index) => (
-          <Oversized key={index} line_item={line_item} />
+        {lineItems?.map((lineItem, index) => (
+          <Oversized key={index} lineItem={lineItem} />
         ))}
       </div>
 

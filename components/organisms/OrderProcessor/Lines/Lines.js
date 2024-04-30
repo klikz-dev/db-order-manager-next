@@ -95,14 +95,14 @@ export default function Lines({ lineItems }) {
 
           <tbody>
             {lineItems?.length > 0 &&
-              lineItems.map((line_item, index) => (
+              lineItems.map((lineItem, index) => (
                 <Line
                   key={index}
                   po={order.po}
                   email={order.email}
                   shippingFirstName={order.shippingFirstName}
                   shippingLastName={order.shippingLastName}
-                  {...line_item}
+                  {...lineItem}
                 />
               ))}
           </tbody>

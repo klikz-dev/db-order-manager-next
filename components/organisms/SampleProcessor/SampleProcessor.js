@@ -84,15 +84,15 @@ export default function SampleProcessor({ brand, updateOrder }) {
       }
 
       const lineItemsContent = lineItems.map(
-        (line_item) => `
+        (lineItem) => `
         <tr>
           <td style="border: 1px solid #3A3A3A; text-align: center;">
-            ${line_item.product?.mpn}
+            ${lineItem.product?.mpn}
           </td>
           <td style="border: 1px solid #3A3A3A; text-align: center;">
-            ${line_item.product?.title}
+            ${lineItem.product?.title}
           </td>
-          <td style="border: 1px solid #3A3A3A; text-align: center;">${line_item.quantity}</td>
+          <td style="border: 1px solid #3A3A3A; text-align: center;">${lineItem.quantity}</td>
           <td style="border: 1px solid #3A3A3A; text-align: center;">Sample</td>
         </tr>
       `

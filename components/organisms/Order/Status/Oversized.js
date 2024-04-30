@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
-export default function Oversized({ line_item }) {
-  const { sku, tags } = line_item.product
+export default function Oversized({ lineItem }) {
+  const { sku, tags } = lineItem.product
 
   // Use useMemo to calculate the isOversized value once, based on the tags.
   const isOversized = useMemo(() => {
