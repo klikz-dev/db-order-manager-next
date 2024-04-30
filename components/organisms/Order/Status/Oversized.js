@@ -1,31 +1,11 @@
-import { getData } from '@/functions/fetch'
-import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 
 export default function Oversized({ line_item }) {
-  const { data: session } = useSession()
-  const { sku } = line_item.product ?? {}
+  const { sku, tags } = line_item.product
 
-  const [isOversized, setIsOversized] = useState(false)
-
-  /**
-   * Get Tags
-   */
-  const { data: tags } = getData(
-    sku
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/tags/?sku=${sku}`
-      : undefined,
-    session?.accessToken
-  )
-
-  useEffect(() => {
-    if (Array.isArray(tags?.results)) {
-      tags.results.forEach((tag) => {
-        if (parseInt(tag?.tagId) === 280) {
-          setIsOversized(true)
-        }
-      })
-    }
+  // Use useMemo to calculate the isOversized value once, based on the tags.
+  const isOversized = useMemo(() => {
+    return tags.some((tag) => tag.name === 'White Glove')
   }, [tags])
 
   return (
