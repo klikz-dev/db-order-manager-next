@@ -2,8 +2,8 @@ import classNames from 'classnames'
 import dateFormat from 'dateformat'
 import Line from '../../Line'
 
-export default function Lines({ line_items }) {
-  const order = line_items[0].order
+export default function Lines({ lineItems }) {
+  const order = lineItems[0].order
 
   const specialShipping = order.shippingMethod?.toLowerCase().includes('2')
     ? order.shippingMethod
@@ -95,8 +95,8 @@ export default function Lines({ line_items }) {
           </thead>
 
           <tbody>
-            {line_items?.length > 0 &&
-              line_items.map((line_item, index) => (
+            {lineItems?.length > 0 &&
+              lineItems.map((line_item, index) => (
                 <Line
                   key={index}
                   po={order.po}

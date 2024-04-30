@@ -56,8 +56,8 @@ export default function OrderProcessor({ brand, updateOrder }) {
       if (index === 0) startPO = po
       endPO = po
 
-      const line_items = orders[po]
-      const order = line_items[0].order
+      const lineItems = orders[po]
+      const order = lineItems[0].order
 
       let shippingMethod = order?.shippingMethod
       let isExpedited = false
@@ -77,7 +77,7 @@ export default function OrderProcessor({ brand, updateOrder }) {
         shippingMethod = 'Ground'
       }
 
-      const lineItemsContent = line_items.map(
+      const lineItemsContent = lineItems.map(
         (line_item) => `
         <tr>
           <td style="border: 1px solid #3A3A3A; text-align: center;">
@@ -182,8 +182,8 @@ export default function OrderProcessor({ brand, updateOrder }) {
 
     // Update Order Status
     for (let i = 0; i < pos.length; i++) {
-      const line_items = orders[pos[i]]
-      const order = line_items[0].order
+      const lineItems = orders[pos[i]]
+      const order = lineItems[0].order
 
       if (order.status === 'New') {
         await updateOrder(order.shopifyId, {
@@ -225,7 +225,7 @@ export default function OrderProcessor({ brand, updateOrder }) {
                 <>
                   {orders &&
                     Object.keys(orders).map((po, index) => (
-                      <Lines key={index} line_items={orders[po]} />
+                      <Lines key={index} lineItems={orders[po]} />
                     ))}
                 </>
               ) : (

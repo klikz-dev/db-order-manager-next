@@ -10,7 +10,7 @@ import { useState } from 'react'
 import Oversized from './Oversized'
 
 export default function Status({ order, updateOrder, trackings }) {
-  const { line_items } = order ?? {}
+  const { lineItems } = order ?? {}
 
   const [specialShipping, setSpecialShipping] = useState(
     order.shippingMethod?.toLowerCase().includes('2')
@@ -154,7 +154,7 @@ export default function Status({ order, updateOrder, trackings }) {
           {'Over-sized items:'}
         </label>
 
-        {line_items?.map((line_item, index) => (
+        {lineItems?.map((line_item, index) => (
           <Oversized key={index} line_item={line_item} />
         ))}
       </div>
